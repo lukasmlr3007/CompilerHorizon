@@ -2,11 +2,11 @@ package main;
 
 import parser.ParserAPI;
 
-import javax.swing.text.html.parser.Parser;
-
 public class Main {
 
     public static void main(String[] args) {
-        ParserAPI parserAPI = new ParserAPI("class FirstTest { }");
+        System.out.println("### CompilerHorizon - MiniJava Compiler ###");
+        System.out.println("### Generating Parser-Output:");
+        ParserAPI parserAPI = new ParserAPI("class FirstTest { } class SecondTest { }");
     }
 }

@@ -18,6 +18,7 @@ public class ParserAPI {
         parser.JavaGrammerParser.ProgramContext tree = parser.program();
         ProgrammAdapter programAdapter = new ProgrammAdapter();
         Programm ergebnis = programAdapter.adapt(tree);
+        System.out.println(ergebnis);
     }
 
 }

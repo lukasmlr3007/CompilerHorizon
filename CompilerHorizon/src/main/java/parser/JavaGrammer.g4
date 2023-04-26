@@ -1,10 +1,10 @@
 grammar JavaGrammer;
 
+//Grammatik:
 program: classdecl+;
+classdecl: Class Identifier OpenCurlyBracket ClosedCurlyBracket;
 
-//class identifier{}
-classdecl: 'class' Identifier OpenCurlyBracket ClosedCurlyBracket;
-
+//Tokens:
 Class: 'class';
 OpenCurlyBracket: '{';
 ClosedCurlyBracket: '}';
