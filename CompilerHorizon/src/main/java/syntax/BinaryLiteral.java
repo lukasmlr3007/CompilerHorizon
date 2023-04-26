@@ -1,8 +1,14 @@
-package main.java.syntax;
+package syntax;
 
-public class BinaryLiteral {
-    //lExpression lExpression;
-    //lExpression rExpression;
-    //Operator operator;
-    //Type type;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@RequiredArgsConstructor
+public class BinaryLiteral extends Expression {
+    String operator;
+    Expression expressionLeft;
+    Expression expressionRight;
 }
