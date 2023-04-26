@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class BaseType extends Type{
     enum types {
         INT,

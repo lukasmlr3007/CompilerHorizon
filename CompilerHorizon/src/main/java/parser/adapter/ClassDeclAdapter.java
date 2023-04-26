@@ -8,11 +8,10 @@ import java.util.List;
 
 public class ClassDeclAdapter {
 
-    public static ClassDecl adapt(JavaGrammerParser.ProgramContext programContext) {
+    public static ClassDecl adapt(JavaGrammerParser.ClassdeclContext classdeclContext) {
         ClassDecl cl = new ClassDecl();
-        programContext.classdecl(ClassAdapter.adapt(cl));
 
-        return new ClassDecl();
+        return new ClassDecl(null, null,null, classdeclContext.Identifier().getText());
     }
 
 }
