@@ -1,4 +1,6 @@
-package main.java.syntax;
+package syntax;
+
+import syntax.ClassDecl;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package main.java.syntax;
 
-public class Binary {
+public class BinaryLiteral {
     //lExpression lExpression;
     //lExpression rExpression;
     //Operator operator;
