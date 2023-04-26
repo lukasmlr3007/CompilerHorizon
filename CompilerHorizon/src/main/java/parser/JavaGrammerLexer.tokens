@@ -1,0 +1,8 @@
+Class=1
+OpenCurlyBracket=2
+ClosedCurlyBracket=3
+Identifier=4
+WS=5
+'class'=1
+'{'=2
+'}'=3
