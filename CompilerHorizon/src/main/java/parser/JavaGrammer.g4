@@ -9,3 +9,4 @@ Class: 'class';
 OpenCurlyBracket: '{';
 ClosedCurlyBracket: '}';
 Identifier: [a-zA-Z]+;
+WS: [ \t\n\r]+ -> skip;
