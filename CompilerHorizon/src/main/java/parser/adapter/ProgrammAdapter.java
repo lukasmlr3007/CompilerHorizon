@@ -1,8 +1,8 @@
 package parser.adapter;
 
 import parser.JavaGrammerParser;
-import syntax.ClassDecl;
-import syntax.Programm;
+import syntax.structure.ClassDecl;
+import syntax.structure.Programm;
 
 import java.util.ArrayList;
 import java.util.List;

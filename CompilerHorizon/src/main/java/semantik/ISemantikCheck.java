@@ -1,8 +1,15 @@
 package semantik;
 
-import syntax.*;
+import syntax.expression.*;
+import syntax.statement.*;
+import syntax.statementexpression.Assign;
+import syntax.statementexpression.MethodCall;
+import syntax.statementexpression.New;
+import syntax.structure.*;
 
 public interface ISemantikCheck {
+
+    // TODO blockinit, blockvoid, blocklocalvardecl ?
 
     TypeCheckResult check(Programm toCheck);
 

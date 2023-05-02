@@ -1,16 +1,14 @@
-package semantik;
+package syntax.expression;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import syntax.common.Type;
+import syntax.common.Operator;
 
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class TypeCheckResult {
-
-    private boolean valid;
-
-    private Type type;
+public class Unary extends Expression {
+    Operator operator;
+    Expression expression;
 }

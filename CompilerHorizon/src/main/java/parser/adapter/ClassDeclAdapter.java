@@ -1,7 +1,7 @@
 package parser.adapter;
 
 import parser.JavaGrammerParser;
-import syntax.ClassDecl;
+import syntax.structure.ClassDecl;
 
 public class ClassDeclAdapter {
 

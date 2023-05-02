@@ -1,4 +1,4 @@
-package semantik;
+package syntax.structure;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,9 +8,7 @@ import syntax.common.Type;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class TypeCheckResult {
-
-    private boolean valid;
-
+public class ParameterDecl {
+    private String identifier;
     private Type type;
 }

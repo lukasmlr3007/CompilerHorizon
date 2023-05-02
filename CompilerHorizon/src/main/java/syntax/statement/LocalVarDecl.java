@@ -1,16 +1,13 @@
-package semantik;
+package syntax.statement;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import syntax.common.Type;
+import syntax.statement.Statement;
 
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class TypeCheckResult {
-
-    private boolean valid;
-
-    private Type type;
+public class LocalVarDecl extends Statement {
+    private String identifier;
 }

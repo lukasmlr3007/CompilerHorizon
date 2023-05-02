@@ -4,7 +4,7 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import parser.adapter.ProgrammAdapter;
-import syntax.Programm;
+import syntax.structure.Programm;
 
 public class ParserAPI {
 
