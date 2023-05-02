@@ -52,7 +52,7 @@ public interface ISemantikCheck {
 
     TypeCheckResult check(Unary toCheck);
 
-    //TypeCheckResult check(StringLiteral toCheck);
+    TypeCheckResult check(StringLiteral toCheck);
 
     TypeCheckResult check(IntegerLiteral toCheck);
 

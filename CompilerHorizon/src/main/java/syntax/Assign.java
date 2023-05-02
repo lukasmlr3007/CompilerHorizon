@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class Assign extends StatementExpression{
+public class Assign extends StatementExpression {
     Expression assignLeft;
     Expression assignRight;
 }

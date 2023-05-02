@@ -5,8 +5,12 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @RequiredArgsConstructor
-public class StringLiteral extends Expression{
+public class StringLiteral extends Expression {
     String value;
+
+    public StringLiteral(String value) {
+        this.value = value;
+        setType(new ReferenceType("java/lang/String"));
+    }
 }

@@ -8,10 +8,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum BaseType implements Type {
 
-    VOID("void"),
-    INT("int"),
-    CHAR("char"),
-    BOOL("boolean");
-
-    private String type;
+    VOID,
+    INT,
+    CHAR,
+    BOOL;
 }

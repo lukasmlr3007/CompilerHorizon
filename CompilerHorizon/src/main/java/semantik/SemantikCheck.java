@@ -117,26 +117,24 @@ public class SemantikCheck implements ISemantikCheck {
         return null;
     }
 
-    /** TODO
     @Override
-    public TypeCheckResult check(StringLiteral toCheck) {
-        return null;
-    }
-     */
-
-    @Override
-    public TypeCheckResult check(IntegerLiteral toCheck) {
-        return null;
+    public TypeCheckResult check(StringLiteral stringLiteral) {
+        return new TypeCheckResult(true, stringLiteral.getType());
     }
 
     @Override
-    public TypeCheckResult check(CharLiteral toCheck) {
-        return null;
+    public TypeCheckResult check(IntegerLiteral integerLiteral) {
+        return new TypeCheckResult(true, integerLiteral.getType());
     }
 
     @Override
-    public TypeCheckResult check(BoolLiteral toCheck) {
-        return null;
+    public TypeCheckResult check(CharLiteral charLiteral) {
+        return new TypeCheckResult(true, charLiteral.getType());
+    }
+
+    @Override
+    public TypeCheckResult check(BoolLiteral boolLiteral) {
+        return new TypeCheckResult(true, boolLiteral.getType());
     }
 
     @Override
