@@ -2,9 +2,6 @@ package parser.adapter;
 
 import parser.JavaGrammerParser;
 import syntax.ClassDecl;
-import syntax.Programm;
-
-import java.util.List;
 
 public class ClassDeclAdapter {
 

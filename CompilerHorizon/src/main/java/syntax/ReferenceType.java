@@ -7,6 +7,6 @@ import lombok.RequiredArgsConstructor;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class ReferenceType extends Type{
+public class ReferenceType implements Type {
     String identifier;
 }

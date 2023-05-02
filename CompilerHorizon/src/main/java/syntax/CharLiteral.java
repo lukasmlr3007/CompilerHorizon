@@ -8,5 +8,12 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class CharLiteral extends Expression{
-    char value;
+    private char value;
+
+    private Type type;
+
+    public CharLiteral(char value) {
+        this.value = value;
+        this.type = BaseType.CHAR;
+    }
 }

@@ -4,14 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-@Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class BaseType extends Type{
-    enum types {
-        INT,
-        CHAR,
-        BOOL,
-        VOID
-    }
+public enum BaseType implements Type {
+
+    VOID("void"),
+    INT("int"),
+    CHAR("char"),
+    BOOL("boolean");
+
+    private String type;
 }

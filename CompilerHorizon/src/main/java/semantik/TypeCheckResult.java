@@ -1,15 +1,13 @@
-package syntax;
+package semantik;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class Programm {
+public class TypeCheckResult {
 
-    private List<ClassDecl> classDeclarations;
+    private boolean valid;
 }
