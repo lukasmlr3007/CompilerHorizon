@@ -3,8 +3,8 @@ package parser;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
-import parser.adapter.ProgrammAdapter;
-import syntax.structure.Programm;
+import parser.adapter.ProgramAdapter;
+import syntax.structure.Program;
 
 public class ParserAPI {
 
@@ -16,8 +16,8 @@ public class ParserAPI {
 
         //Beginn des Parsens:
         parser.JavaGrammerParser.ProgramContext tree = parser.program();
-        ProgrammAdapter programAdapter = new ProgrammAdapter();
-        Programm ergebnis = programAdapter.adapt(tree);
+        ProgramAdapter programAdapter = new ProgramAdapter();
+        Program ergebnis = programAdapter.adapt(tree);
         System.out.println(ergebnis);
     }
 

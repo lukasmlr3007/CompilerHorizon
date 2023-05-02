@@ -18,7 +18,7 @@ public class SemantikCheck implements ISemantikCheck {
     private List<String> currentFields;
 
     @Override
-    public TypeCheckResult check(Programm toCheck) {
+    public TypeCheckResult check(Program toCheck) {
         return null;
     }
 

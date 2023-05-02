@@ -11,7 +11,7 @@ public interface ISemantikCheck {
 
     // TODO blockinit, blockvoid, blocklocalvardecl ?
 
-    TypeCheckResult check(Programm toCheck);
+    TypeCheckResult check(Program toCheck);
 
     // declarations
     TypeCheckResult check(ClassDecl toCheck);
