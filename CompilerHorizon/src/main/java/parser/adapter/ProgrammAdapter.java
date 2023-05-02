@@ -4,15 +4,16 @@ import parser.JavaGrammerParser;
 import syntax.ClassDecl;
 import syntax.Programm;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProgrammAdapter {
 
     public static Programm adapt(JavaGrammerParser.ProgramContext programContext) {
-        ClassDecl cl = new ClassDecl();
-        programContext.classdecl(ClassDeclAdapter.adapt(cl));
+        List<ClassDecl> classes = new ArrayList<>();
+        programContext.classdecl().forEach(classContext -> classes.add(ClassDeclAdapter.adapt(classContext)));
 
-        return new Programm(List.of(cl));
+        return new Programm(classes);
     }
 
 }

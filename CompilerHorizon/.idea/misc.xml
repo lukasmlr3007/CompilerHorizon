@@ -6,7 +6,7 @@
         <PerGrammarGenerationSettings>
           <option name="fileName" value="$PROJECT_DIR$/src/main/java/parser/JavaGrammer.g4" />
           <option name="autoGen" value="true" />
-          <option name="outputDir" value="C:\Users\max20\Documents\Materialien_DHBW\4_Semester\Compilerbau\CompilerHorizon\CompilerHorizon\src\main\java\parser\gen" />
+          <option name="outputDir" value="C:\Users\max20\Documents\Materialien_DHBW\4_Semester\Compilerbau\CompilerHorizon\CompilerHorizon\src\main\java" />
           <option name="libDir" value="" />
           <option name="encoding" value="" />
           <option name="pkg" value="" />
@@ -24,7 +24,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="16" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" default="true" project-jdk-name="16" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

@@ -6,6 +6,5 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class NullLiteral extends Expression{
 }
