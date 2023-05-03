@@ -8,5 +8,7 @@ public class Main {
         System.out.println("### CompilerHorizon - MiniJava Compiler ###");
         System.out.println("### Generating Parser-Output:");
         ParserAPI parserAPI = new ParserAPI("class FirstTest { } class SecondTest { }");
+        System.out.println(parserAPI.getResult());
+
     }
 }
