@@ -11,6 +11,6 @@ public class BoolLiteral extends Expression {
 
     public BoolLiteral(boolean value) {
         this.value = value;
-        setType(BaseType.BOOL);
+        setType(BaseType.BOOLEAN);
     }
 }
