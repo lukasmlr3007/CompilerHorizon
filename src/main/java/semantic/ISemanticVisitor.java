@@ -1,4 +1,4 @@
-package semantik;
+package semantic;
 
 import syntax.expression.*;
 import syntax.statement.*;

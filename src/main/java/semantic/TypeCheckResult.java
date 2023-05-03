@@ -1,4 +1,4 @@
-package semantik;
+package semantic;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

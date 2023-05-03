@@ -3,8 +3,8 @@ package syntax.structure;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import semantik.ISemanticVisitor;
-import semantik.TypeCheckResult;
+import semantic.ISemanticVisitor;
+import semantic.TypeCheckResult;
 import syntax.common.AccessModifier;
 import syntax.common.Type;
 

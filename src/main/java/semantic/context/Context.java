@@ -1,4 +1,4 @@
-package semantik.context;
+package semantic.context;
 
 public class Context {
 }

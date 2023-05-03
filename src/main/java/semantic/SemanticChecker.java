@@ -1,6 +1,6 @@
-package semantik;
+package semantic;
 
-import semantik.context.Context;
+import semantic.context.Context;
 import syntax.common.ReferenceType;
 import syntax.expression.*;
 import syntax.statement.*;
@@ -20,6 +20,10 @@ public class SemanticChecker implements ISemanticVisitor {
     private ClassDecl currentClass;
 
     private List<String> currentFields = new ArrayList<>();
+
+    private List<String> currentMethods = new ArrayList<>();
+
+    private List<String> currentConstructors = new ArrayList<>();
 
     @Override
     public TypeCheckResult check(Program program) {
@@ -44,7 +48,8 @@ public class SemanticChecker implements ISemanticVisitor {
         currentClass = classDecl;
 
         // check field declarations
-        if (classDecl.getFieldDeclList() != null) {
+        currentFields.clear();
+        if (classDecl.getFieldDeclList() != null) { // TODO rm nullcheck
             for (FieldDecl fieldDecl : classDecl.getFieldDeclList()) {
                 boolean isFieldValid = fieldDecl.accept(this).isValid();
                 if (isFieldValid) currentFields.add(fieldDecl.getIdentifier());
@@ -53,9 +58,22 @@ public class SemanticChecker implements ISemanticVisitor {
         }
 
         // check method declarations
+        if (classDecl.getMethodDeclList() != null) { // TODO rm nullcheck
+            for (MethodDecl methodDecl : classDecl.getMethodDeclList()) {
+                boolean isMethodValid = methodDecl.accept(this).isValid();
+                if (isMethodValid) currentMethods.add(methodDecl.getIdentifier());
+                isValid = isValid && isMethodValid;
+            }
+        }
 
-        // check constructor declarations
-
+        // check method declarations
+        if (classDecl.getConstructorDeclList() != null) { // TODO rm nullcheck
+            for (ConstructorDecl constructorDecl : classDecl.getConstructorDeclList()) {
+                boolean isConstructorValid = constructorDecl.accept(this).isValid();
+                //if (isConstructorValid) currentMethods.add(constructorDecl.getIdentifier());
+                isValid = isValid && isConstructorValid;
+            }
+        }
         return new TypeCheckResult(isValid, new ReferenceType(classDecl.getIdentifier()));
     }
 

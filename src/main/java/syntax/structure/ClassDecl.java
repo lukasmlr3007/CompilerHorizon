@@ -3,10 +3,9 @@ package syntax.structure;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import semantik.ISemanticVisitor;
-import semantik.TypeCheckResult;
+import semantic.ISemanticVisitor;
+import semantic.TypeCheckResult;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
