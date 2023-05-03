@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import semantik.ISemantikCheck;
 import semantik.TypeCheckResult;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
