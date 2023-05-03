@@ -9,11 +9,10 @@ import syntax.statementexpression.MethodCall;
 import syntax.statementexpression.New;
 import syntax.structure.*;
 
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Stack;
 
-public class SemantikCheck implements ISemantikCheck {
+public class SemanticChecker implements ISemanticVisitor {
 
     private Stack<Context> context;
 
@@ -44,7 +43,7 @@ public class SemantikCheck implements ISemantikCheck {
         currentClass = classDecl;
 
         // check field declarations
-        for (FieldDecl fieldDecl : classDecl.getFieldDeclList()) {
+        for (FieldDecl fieldDecl : classDecl.getFieldDeclList()) { // TODO remove null check
             boolean isFieldValid = fieldDecl.accept(this).isValid();
             if (isFieldValid) currentFields.add(fieldDecl.getIdentifier());
             isValid = isValid && isFieldValid;

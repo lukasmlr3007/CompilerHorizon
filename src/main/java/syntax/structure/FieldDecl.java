@@ -3,7 +3,7 @@ package syntax.structure;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import semantik.ISemantikCheck;
+import semantik.ISemanticVisitor;
 import semantik.TypeCheckResult;
 import syntax.common.AccessModifier;
 import syntax.common.Type;
@@ -16,7 +16,7 @@ public class FieldDecl {
     private AccessModifier accessModifier;
     private Type type;
 
-    public TypeCheckResult accept(ISemantikCheck visitor) {
+    public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
     }
 }
