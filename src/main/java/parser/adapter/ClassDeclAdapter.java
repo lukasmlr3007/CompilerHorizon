@@ -13,7 +13,7 @@ public class ClassDeclAdapter {
 
     public static ClassDecl adapt(JavaGrammerParser.ClassdeclContext classdeclContext) {
         List<FieldDecl> fields = new ArrayList<>();
-        classdeclContext.fielddecl.forEach(fielddeclcontext -> fields.add(FieldDeclAdapter.adapt(fielddeclcontext)));
+        classdeclContext.fielddecl().forEach(fielddeclcontext -> fields.add(FieldDeclAdapter.adapt(fielddeclcontext)));
         ClassDecl cl = new ClassDecl();
 
         return new ClassDecl(null, null,null, classdeclContext.Identifier().getText());
