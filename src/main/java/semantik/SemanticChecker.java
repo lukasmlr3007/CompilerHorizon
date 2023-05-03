@@ -9,16 +9,17 @@ import syntax.statementexpression.MethodCall;
 import syntax.statementexpression.New;
 import syntax.structure.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
 public class SemanticChecker implements ISemanticVisitor {
 
-    private Stack<Context> context;
+    private Stack<Context> context = new Stack<>();
 
     private ClassDecl currentClass;
 
-    private List<String> currentFields;
+    private List<String> currentFields = new ArrayList<>();
 
     @Override
     public TypeCheckResult check(Program program) {
@@ -26,8 +27,8 @@ public class SemanticChecker implements ISemanticVisitor {
         boolean isValid = true;
 
         // TODO initialize context
-
         context.push(new Context());
+
         for (ClassDecl classDecl : program.getClassDeclarations()) {
             isValid = isValid && classDecl.accept(this).isValid();
         }
@@ -43,10 +44,12 @@ public class SemanticChecker implements ISemanticVisitor {
         currentClass = classDecl;
 
         // check field declarations
-        for (FieldDecl fieldDecl : classDecl.getFieldDeclList()) { // TODO remove null check
-            boolean isFieldValid = fieldDecl.accept(this).isValid();
-            if (isFieldValid) currentFields.add(fieldDecl.getIdentifier());
-            isValid = isValid && isFieldValid;
+        if (classDecl.getFieldDeclList() != null) {
+            for (FieldDecl fieldDecl : classDecl.getFieldDeclList()) {
+                boolean isFieldValid = fieldDecl.accept(this).isValid();
+                if (isFieldValid) currentFields.add(fieldDecl.getIdentifier());
+                isValid = isValid && isFieldValid;
+            }
         }
 
         // check method declarations
