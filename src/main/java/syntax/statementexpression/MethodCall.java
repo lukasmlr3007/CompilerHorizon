@@ -8,11 +8,19 @@ import syntax.statementexpression.StatementExpression;
 
 import java.util.List;
 
+/**
+ * Methodenaufruf <br>
+ * Ruft eine Methode mit dem Namen identifier und den Parametern der parameterList auf und gibt das
+ * Ergebnis der Methode an den receiver zurück.
+ * <pre>
+ *     identifier(parameterList)
+ * </pre>
+ */
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class MethodCall extends StatementExpression {
-    Expression expression;
-    String name;
-    List<Expression> expressionList;
+    String identifier;
+    Expression receiver;
+    List<Expression> parameterList;
 }
