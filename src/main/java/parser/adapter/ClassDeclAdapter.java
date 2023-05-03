@@ -16,7 +16,7 @@ public class ClassDeclAdapter {
         classdeclContext.fielddecl().forEach(fielddeclcontext -> fields.add(FieldDeclAdapter.adapt(fielddeclcontext)));
         ClassDecl cl = new ClassDecl();
 
-        return new ClassDecl(null, null,null, classdeclContext.Identifier().getText());
+        return new ClassDecl(fields, null,null, classdeclContext.Identifier().getText());
     }
 
 }
