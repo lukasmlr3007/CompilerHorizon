@@ -5,10 +5,5 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@RequiredArgsConstructor
-public class BinaryExpression extends Expression {
-    String operator;
-    Expression expressionLeft;
-    Expression expressionRight;
+public abstract class BinaryExpression {
 }

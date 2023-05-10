@@ -59,8 +59,6 @@ public interface ISemanticVisitor {
 
     TypeCheckResult check(Unary toCheck);
 
-    TypeCheckResult check(StringLiteral toCheck);
-
     TypeCheckResult check(IntegerLiteral toCheck);
 
     TypeCheckResult check(CharLiteral toCheck);
