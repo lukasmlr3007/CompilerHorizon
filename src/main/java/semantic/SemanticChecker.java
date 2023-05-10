@@ -1,6 +1,7 @@
 package semantic;
 
 import semantic.context.Context;
+import semantic.exception.AlreadyDefinedException;
 import syntax.common.ReferenceType;
 import syntax.expression.*;
 import syntax.statement.*;
@@ -15,7 +16,7 @@ import java.util.Stack;
 
 public class SemanticChecker implements ISemanticVisitor {
 
-    private Stack<Context> context = new Stack<>();
+    private Context context;
 
     private ClassDecl currentClass;
 
@@ -23,15 +24,16 @@ public class SemanticChecker implements ISemanticVisitor {
 
     private List<String> currentMethods = new ArrayList<>();
 
-    private List<String> currentConstructors = new ArrayList<>();
+    private List<Exception> errors = new ArrayList<>();
 
     @Override
     public TypeCheckResult check(Program program) {
 
         boolean isValid = true;
 
-        // TODO initialize context
-        context.push(new Context());
+        // set program context
+        context = new Context(program);
+        program.setContext(context);
 
         for (ClassDecl classDecl : program.getClassDeclarations()) {
             isValid = isValid && classDecl.accept(this).isValid();
@@ -49,7 +51,7 @@ public class SemanticChecker implements ISemanticVisitor {
 
         // check field declarations
         currentFields.clear();
-        if (classDecl.getFieldDeclList() != null) { // TODO rm nullcheck
+        if (classDecl.getFieldDeclList() != null) { // nullcheck
             for (FieldDecl fieldDecl : classDecl.getFieldDeclList()) {
                 boolean isFieldValid = fieldDecl.accept(this).isValid();
                 if (isFieldValid) currentFields.add(fieldDecl.getIdentifier());
@@ -58,7 +60,7 @@ public class SemanticChecker implements ISemanticVisitor {
         }
 
         // check method declarations
-        if (classDecl.getMethodDeclList() != null) { // TODO rm nullcheck
+        if (classDecl.getMethodDeclList() != null) { // nullcheck
             for (MethodDecl methodDecl : classDecl.getMethodDeclList()) {
                 boolean isMethodValid = methodDecl.accept(this).isValid();
                 if (isMethodValid) currentMethods.add(methodDecl.getIdentifier());
@@ -66,11 +68,16 @@ public class SemanticChecker implements ISemanticVisitor {
             }
         }
 
-        // check method declarations
-        if (classDecl.getConstructorDeclList() != null) { // TODO rm nullcheck
-            for (ConstructorDecl constructorDecl : classDecl.getConstructorDeclList()) {
+        // check constructor declarations
+        if (classDecl.getConstructorDeclList() != null) { // nullcheck
+            if (classDecl.getConstructorDeclList().isEmpty()) {
+                // add new constructor if not set
+                ConstructorDecl newConstructorDecl = new ConstructorDecl();
+                isValid = isValid && newConstructorDecl.accept(this).isValid();
+                classDecl.getConstructorDeclList().add(newConstructorDecl);
+            }
+            else for (ConstructorDecl constructorDecl : classDecl.getConstructorDeclList()) {
                 boolean isConstructorValid = constructorDecl.accept(this).isValid();
-                //if (isConstructorValid) currentMethods.add(constructorDecl.getIdentifier());
                 isValid = isValid && isConstructorValid;
             }
         }
@@ -94,7 +101,20 @@ public class SemanticChecker implements ISemanticVisitor {
 
     @Override
     public TypeCheckResult check(FieldDecl fieldDecl) {
-        return null;
+
+        boolean isValid = true;
+        if (currentFields.contains(fieldDecl.getIdentifier())) {
+            errors.add(new AlreadyDefinedException(
+                "Variable " + fieldDecl.getIdentifier() + " is already defined!"
+            ));
+            isValid = false;
+        }
+        else {
+            currentFields.add(fieldDecl.getIdentifier());
+        }
+        isValid = isValid && TypeUtil.doesTypeExist(fieldDecl.getType(), context);
+
+        return new TypeCheckResult(isValid, fieldDecl.getType());
     }
 
     @Override
