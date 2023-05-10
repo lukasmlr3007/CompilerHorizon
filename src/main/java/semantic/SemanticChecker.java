@@ -1,8 +1,12 @@
 package semantic;
 
 import semantic.context.Context;
+import semantic.context.ScopeContext;
 import semantic.exception.AlreadyDefinedException;
+import semantic.exception.TypeUnknownException;
+import syntax.common.BaseType;
 import syntax.common.ReferenceType;
+import syntax.common.Type;
 import syntax.expression.*;
 import syntax.statement.*;
 import syntax.statementexpression.Assign;
@@ -12,20 +16,22 @@ import syntax.structure.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 public class SemanticChecker implements ISemanticVisitor {
 
     private Context context;
-
     private ClassDecl currentClass;
-
     private List<String> currentFields = new ArrayList<>();
-
     private List<String> currentMethods = new ArrayList<>();
-
+    private Type currentReturnType;
+    private ScopeContext currentLocalScope;
     private List<Exception> errors = new ArrayList<>();
 
+    /**
+     *
+     * @param program
+     * @return
+     */
     @Override
     public TypeCheckResult check(Program program) {
 
@@ -41,6 +47,11 @@ public class SemanticChecker implements ISemanticVisitor {
         return new TypeCheckResult(isValid, null);
     }
 
+    /**
+     *
+     * @param classDecl
+     * @return
+     */
     @Override
     public TypeCheckResult check(ClassDecl classDecl) {
 
@@ -89,16 +100,52 @@ public class SemanticChecker implements ISemanticVisitor {
         return null;
     }
 
-    @Override
-    public TypeCheckResult check(ParameterDecl paramterDecl) {
-        return null;
-    }
-
+    /**
+     *
+     * @param constructorDecl
+     * @return
+     */
     @Override
     public TypeCheckResult check(ConstructorDecl constructorDecl) {
-        return null;
+
+        boolean isValid = true;
+        // create constructor scope
+        currentLocalScope.push();
+        // check constructor parameters
+        for (ParameterDecl parameter : constructorDecl.getParameters()) {
+            isValid = isValid && parameter.accept(this).isValid();
+            currentLocalScope.addVariable(parameter);
+        }
+        // check block
+        currentReturnType = BaseType.VOID;
+        TypeCheckResult result = constructorDecl.getBlock().accept(this);
+        currentLocalScope.pop();
+
+        isValid = isValid && result.isValid();
+        return new TypeCheckResult(isValid, constructorDecl.getType());
     }
 
+    /**
+     *
+     * @param paramterDecl
+     * @return
+     */
+    @Override
+    public TypeCheckResult check(ParameterDecl paramterDecl) {
+        if (TypeHelper.doesTypeExist(paramterDecl.getType(), context)) {
+            return new TypeCheckResult(true, paramterDecl.getType());
+        }
+        else {
+            errors.add(new TypeUnknownException("Type " + paramterDecl.getType() + " is unknown!"));
+            return new TypeCheckResult(false, paramterDecl.getType());
+        }
+    }
+
+    /**
+     *
+     * @param fieldDecl
+     * @return
+     */
     @Override
     public TypeCheckResult check(FieldDecl fieldDecl) {
 
@@ -112,7 +159,7 @@ public class SemanticChecker implements ISemanticVisitor {
         else {
             currentFields.add(fieldDecl.getIdentifier());
         }
-        isValid = isValid && TypeUtil.doesTypeExist(fieldDecl.getType(), context);
+        isValid = isValid && TypeHelper.doesTypeExist(fieldDecl.getType(), context);
 
         return new TypeCheckResult(isValid, fieldDecl.getType());
     }
