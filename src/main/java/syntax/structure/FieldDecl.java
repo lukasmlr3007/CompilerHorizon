@@ -5,8 +5,6 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.FieldVisitor;
-import semantik.ISemantikCheck;
-import semantik.TypeCheckResult;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
 import syntax.common.AccessModifier;

@@ -244,10 +244,6 @@ public class SemanticChecker implements ISemanticVisitor {
         return null;
     }
 
-    @Override
-    public TypeCheckResult check(StringLiteral stringLiteral) {
-        return new TypeCheckResult(true, stringLiteral.getType());
-    }
 
     @Override
     public TypeCheckResult check(IntegerLiteral integerLiteral) {
