@@ -7,6 +7,6 @@ import syntax.statementexpression.StatementExpression;
 
 public class StatementExpressionAdapter {
     public static StatementExpression adapt(JavaGrammerParser.StatementExpressionContext statementExpressionContext) {
-        return new StatementExpression();
+        return null;//new StatementExpression();
     }
 }

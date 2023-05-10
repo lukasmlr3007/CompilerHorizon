@@ -22,7 +22,8 @@ public class StatementAdapter {
         } else if (statementContext.ifElseStatement() != null) {
             return IfElseStatementAdapter.adapt(statementContext.ifElseStatement());
         } else{ // StatementExpression
-            return StatementExpressionAdapter.adapt(statementContext.statementExpression());
+            return null;//StatementExpressionAdapter.adapt(statementContext.statementExpression());
         }
+        return null;
     }
 }

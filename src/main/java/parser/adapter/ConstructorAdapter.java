@@ -12,7 +12,9 @@ public class ConstructorAdapter {
 
     public static ConstructorDecl adapt(JavaGrammerParser.ConstructorContext constructorContext) {
         List<ParameterDecl> parameters = new ArrayList<>();
-        constructorContext.parameters().parameterdecl().forEach(parameterdeclContext -> parameters.add(ParameterDeclAdapter.adapt(parameterdeclContext)));
+        if (constructorContext.parameters() != null){
+            constructorContext.parameters().parameterdecl().forEach(parameterdeclContext -> parameters.add(ParameterDeclAdapter.adapt(parameterdeclContext)));
+        }
 
         Block block = BlockAdapter.adapt(constructorContext.block());
         return new ConstructorDecl(parameters, block);

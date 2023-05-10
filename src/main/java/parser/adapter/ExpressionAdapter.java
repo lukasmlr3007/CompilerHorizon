@@ -10,7 +10,7 @@ public class ExpressionAdapter {
         if(expressionContext.binaryExpression() != null){
             return BinaryExpressionAdapter.adapt(expressionContext.binaryExpression());
         }else{
-
+            return null;
         }
     }
 }
