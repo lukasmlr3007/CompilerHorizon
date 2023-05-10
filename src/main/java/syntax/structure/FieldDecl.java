@@ -3,6 +3,10 @@ package syntax.structure;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.FieldVisitor;
+import semantik.ISemantikCheck;
+import semantik.TypeCheckResult;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
 import syntax.common.AccessModifier;
@@ -18,5 +22,10 @@ public class FieldDecl {
 
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
+    }
+
+    public byte[] generateBytecode(ClassWriter classWriter, FieldDecl fieldDecl) {
+        FieldVisitor fieldVisitor = classWriter.visitField(0, fieldDecl.getType().getIdentifier(), fieldDecl.getIdentifier(), null, null);
+        fieldVisitor.visitEnd();
     }
 }
