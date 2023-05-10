@@ -63,11 +63,11 @@ public class SemanticChecker implements ISemanticVisitor {
         // currentClass = classDecl;
 
         // check field declarations
-        currentFields.clear();
+        // currentFields.clear();
         if (classDecl.getFieldDeclList() != null) { // nullcheck
             for (FieldDecl fieldDecl : classDecl.getFieldDeclList()) {
                 boolean isFieldValid = fieldDecl.accept(this).isValid();
-                if (isFieldValid) currentFields.add(fieldDecl.getIdentifier());
+                // if (isFieldValid) currentFields.add(fieldDecl.getIdentifier());
                 isValid = isValid && isFieldValid;
             }
         }
@@ -76,7 +76,7 @@ public class SemanticChecker implements ISemanticVisitor {
         if (classDecl.getMethodDeclList() != null) { // nullcheck
             for (MethodDecl methodDecl : classDecl.getMethodDeclList()) {
                 boolean isMethodValid = methodDecl.accept(this).isValid();
-                if (isMethodValid) currentMethods.add(methodDecl.getIdentifier());
+                // if (isMethodValid) currentMethods.add(methodDecl.getIdentifier());
                 isValid = isValid && isMethodValid;
             }
         }
@@ -119,7 +119,7 @@ public class SemanticChecker implements ISemanticVisitor {
             currentLocalScope.addVariable(parameter);
         }
         // check block
-        currentReturnType = BaseType.VOID;
+        // currentReturnType = BaseType.VOID;
         TypeCheckResult result = constructorDecl.getBlock().accept(this);
         currentLocalScope.pop();
 
@@ -153,6 +153,7 @@ public class SemanticChecker implements ISemanticVisitor {
     public TypeCheckResult check(FieldDecl fieldDecl) {
 
         boolean isValid = true;
+        /*
         if (currentFields.contains(fieldDecl.getIdentifier())) {
             errors.add(new AlreadyDefinedException(
                 "Variable " + fieldDecl.getIdentifier() + " is already defined!"
@@ -163,6 +164,7 @@ public class SemanticChecker implements ISemanticVisitor {
             currentFields.add(fieldDecl.getIdentifier());
         }
         isValid = isValid && TypeHelper.doesTypeExist(fieldDecl.getType(), context);
+        */
 
         return new TypeCheckResult(isValid, fieldDecl.getType());
     }
