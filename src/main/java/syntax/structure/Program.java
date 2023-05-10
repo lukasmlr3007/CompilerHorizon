@@ -20,10 +20,6 @@ public class Program {
 
     private List<ClassDecl> classDeclarations;
 
-    public Program(List<ClassDecl> classes) {
-        this.classDeclarations = classes;
-    }
-
     //genratebytecode für jede klasse in classDeclarations aufrufen und in datei schreiben (fileoutput)
 
     public void generateBytecode() {
