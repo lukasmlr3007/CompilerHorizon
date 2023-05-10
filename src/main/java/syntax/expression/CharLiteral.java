@@ -6,7 +6,7 @@ import syntax.common.BaseType;
 
 @Data
 @RequiredArgsConstructor
-public class CharLiteral extends Expression {
+public class CharLiteral extends PartExpression {
     private char value;
 
     public CharLiteral(char value) {

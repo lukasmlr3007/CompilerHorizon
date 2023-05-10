@@ -2,9 +2,10 @@ package parser.adapter;
 
 import parser.JavaGrammerParser;
 import syntax.expression.BinaryExpression;
+import syntax.expression.Expression;
 
 public class BinaryExpressionAdapter {
-    public static BinaryExpression adapt(JavaGrammerParser.BinaryExpressionContext binaryExpressionContext) {
+    public static Expression adapt(JavaGrammerParser.BinaryExpressionContext binaryExpressionContext) {
         if(binaryExpressionContext.additiveExpression() != null) {
             return AdditiveExpressionAdapter.adapt(binaryExpressionContext.additiveExpression());
         } else if(binaryExpressionContext.logicalExpression() != null){

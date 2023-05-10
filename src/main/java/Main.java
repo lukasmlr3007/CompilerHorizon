@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        String input = "class FirstTest { } class SecondTest { }";
+        String input = "class FirstTest { int number; } class SecondTest { }";
 
         ParserAPI parserAPI = new ParserAPI(input);
         Program syntaxTree = parserAPI.getResult();

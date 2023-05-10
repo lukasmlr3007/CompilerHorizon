@@ -8,7 +8,7 @@ import syntax.expression.Expression;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class InstVar extends Expression {
+public class InstVar extends PartExpression {
     Expression expression;
     String identifier;
 }

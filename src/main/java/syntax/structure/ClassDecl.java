@@ -50,12 +50,12 @@ public class ClassDecl {
             methodVisitor.visitMaxs(1, 1);
             methodVisitor.visitEnd();
         } else {
-            //generate ConstructorDecl
+            for (ConstructorDecl constructorDecl : constructorDeclList){
+                constructorDecl.generateBytecode(classWriter, this.getIdentifier());
+            }
         }
         for (FieldDecl fieldDecl : fieldDeclList){
-
-            fieldDecl.generateBytecode(classWriter, fieldDecl);
-
+            fieldDecl.generateBytecode(classWriter);
         }
         classWriter.visitEnd();
 

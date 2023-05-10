@@ -5,5 +5,5 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @Data
-public abstract class BinaryExpression {
+public abstract class BinaryExpression extends Expression{
 }

@@ -6,7 +6,7 @@ import syntax.common.BaseType;
 
 @Data
 @RequiredArgsConstructor
-public class IntegerLiteral extends Expression {
+public class IntegerLiteral extends PartExpression {
     int value;
 
     public IntegerLiteral(int value) {
