@@ -6,6 +6,7 @@ import syntax.statement.Statement;
 
 public class StatementAdapter {
 
-    public static Statement adapt(){
+    public static Statement() {
+        return null;
     }
 }
