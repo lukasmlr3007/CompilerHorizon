@@ -3,7 +3,6 @@ package parser.adapter;
 import parser.JavaGrammerParser;
 import syntax.common.AccessModifier;
 import syntax.common.BaseType;
-import syntax.common.Type;
 import syntax.structure.FieldDecl;
 
 public class FieldDeclAdapter {
