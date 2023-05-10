@@ -11,8 +11,7 @@ public class BinaryExpressionAdapter {
             return LogicalExpressionAdapter.adapt(binaryExpressionContext.logicalExpression());
         } else if(binaryExpressionContext.relationalExpression() != null){
             return RelationalExpressionAdapter.adapt(binaryExpressionContext.relationalExpression());
-        } else {
-            return null;
         }
+        return null;
     }
 }

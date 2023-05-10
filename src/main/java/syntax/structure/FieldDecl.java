@@ -22,7 +22,7 @@ public class FieldDecl {
         return visitor.check(this);
     }
 
-    public byte[] generateBytecode(ClassWriter classWriter, FieldDecl fieldDecl) {
+    public void generateBytecode(ClassWriter classWriter, FieldDecl fieldDecl) {
         FieldVisitor fieldVisitor = classWriter.visitField(0, fieldDecl.getType().getIdentifier(), fieldDecl.getIdentifier(), null, null);
         fieldVisitor.visitEnd();
     }
