@@ -150,7 +150,7 @@ public class SemantikCheck implements ISemantikCheck {
     }
 
     @Override
-    public TypeCheckResult check(BinaryLiteral binaryExpr) {
+    public TypeCheckResult check(BinaryExpression binaryExpr) {
         return null;
     }
 

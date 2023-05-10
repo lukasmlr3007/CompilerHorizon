@@ -67,5 +67,5 @@ public interface ISemantikCheck {
 
     TypeCheckResult check(BoolLiteral toCheck);
 
-    TypeCheckResult check(BinaryLiteral toCheck);
+    TypeCheckResult check(BinaryExpression toCheck);
 }

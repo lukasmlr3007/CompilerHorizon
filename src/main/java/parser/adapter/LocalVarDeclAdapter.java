@@ -5,6 +5,6 @@ import syntax.statement.LocalVarDecl;
 
 public class LocalVarDeclAdapter {
     public static LocalVarDecl adapt(JavaGrammerParser.LocalVarDeclContext localVarDeclContext){
-            return new LocalVarDecl(null);
+            return new LocalVarDecl(localVarDeclContext.Identifier().getText());
     }
 }

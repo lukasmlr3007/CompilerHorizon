@@ -6,5 +6,11 @@ import syntax.expression.Expression;
 public class ExpressionAdapter {
 
     public static Expression adapt(JavaGrammerParser.ExpressionContext expressionContext) {
-        return new Expression();
+
+        if(expressionContext.binaryExpression() != null){
+            return BinaryExpressionAdapter.adapt(expressionContext.binaryExpression());
+        }else{
+
+        }
+    }
 }
