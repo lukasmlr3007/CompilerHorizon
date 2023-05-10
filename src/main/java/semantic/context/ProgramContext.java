@@ -7,11 +7,11 @@ import syntax.structure.Program;
 import java.util.HashMap;
 
 @Data
-public class Context {
+public class ProgramContext {
 
     private HashMap<String, ClassContext> classes;
 
-    public Context() {
+    public ProgramContext() {
         classes = new HashMap<>();
     }
 

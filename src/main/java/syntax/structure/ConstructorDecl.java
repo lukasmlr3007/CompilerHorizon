@@ -25,7 +25,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ConstructorDecl {
 
-    // private AccessModifier accessModifier;
+    // private AccessModifier accessModifier; TODO private constructor
     private List<ParameterDecl> parameters;
     private Block block;
 

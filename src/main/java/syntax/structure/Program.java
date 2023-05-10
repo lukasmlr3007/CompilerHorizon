@@ -3,7 +3,6 @@ package syntax.structure;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import semantic.context.Context;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

@@ -1,6 +1,6 @@
 package semantic;
 
-import semantic.context.Context;
+import semantic.context.ProgramContext;
 import semantic.context.ScopeContext;
 import semantic.exception.AlreadyDefinedException;
 import semantic.exception.TypeUnknownException;
@@ -19,11 +19,13 @@ import java.util.List;
 
 public class SemanticChecker implements ISemanticVisitor {
 
-    private Context context;
-    private ClassDecl currentClass;
-    private List<String> currentFields = new ArrayList<>();
-    private List<String> currentMethods = new ArrayList<>();
-    private Type currentReturnType;
+    private ProgramContext context;
+    // private ClassDecl currentClass;
+    //private List<String> currentFields = new ArrayList<>();
+    //private List<String> currentMethods = new ArrayList<>();
+    //
+    //
+    // ÄLK;private Type currentReturnType;
     private ScopeContext currentLocalScope;
     private List<Exception> errors = new ArrayList<>();
 
@@ -38,8 +40,7 @@ public class SemanticChecker implements ISemanticVisitor {
         boolean isValid = true;
 
         // set program context
-        context = new Context();
-        program.setContext(context);
+        context = new ProgramContext();
         context.setProgram(program);
 
         for (ClassDecl classDecl : program.getClassDeclarations()) {
@@ -59,7 +60,7 @@ public class SemanticChecker implements ISemanticVisitor {
         boolean isValid = true;
 
         // TODO initialize context
-        currentClass = classDecl;
+        // currentClass = classDecl;
 
         // check field declarations
         currentFields.clear();

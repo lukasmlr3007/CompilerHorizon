@@ -1,11 +1,11 @@
 package semantic;
 
-import semantic.context.Context;
+import semantic.context.ProgramContext;
 import syntax.common.Type;
 
 public class TypeHelper {
 
-    public static boolean doesTypeExist(Type type, Context context) {
-
+    public static boolean doesTypeExist(Type type, ProgramContext context) {
+        return false; // TODO type check
     }
 }
