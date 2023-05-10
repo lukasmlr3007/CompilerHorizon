@@ -7,10 +7,11 @@ public class ExpressionAdapter {
 
     public static Expression adapt(JavaGrammerParser.ExpressionContext expressionContext) {
 
-        if(expressionContext.binaryExpression() != null){
+        if(expressionContext.binaryExpression() != null) {
             return BinaryExpressionAdapter.adapt(expressionContext.binaryExpression());
-        }else{
-            return null;
+        }else if (expressionContext.partExpression() != null) {
+            return PartExpressionAdapter.adapt(expressionContext.partExpression());
         }
+        return null;
     }
 }

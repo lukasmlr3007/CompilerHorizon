@@ -6,7 +6,7 @@ import syntax.common.BaseType;
 
 @Data
 @RequiredArgsConstructor
-public class BoolLiteral extends Expression {
+public class BoolLiteral extends PartExpression {
     boolean value;
 
     public BoolLiteral(boolean value) {

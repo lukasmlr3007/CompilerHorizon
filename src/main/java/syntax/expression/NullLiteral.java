@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class NullLiteral extends Expression {
+public class NullLiteral extends PartExpression {
 
 }
