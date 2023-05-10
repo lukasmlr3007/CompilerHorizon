@@ -20,7 +20,8 @@ public class ParserTest {
         classDecl.setMethodDeclList(null);
         classDecl.setConstructorDeclList(null);
         classDecl.setIdentifier("EmptyClass");
-        Program expected = new Program(Arrays.asList(classDecl));
+        Program expected = new Program();
+        expected.setClassDeclarations(Arrays.asList());
 
         assertEquals(expected, parser.getResult());
     }

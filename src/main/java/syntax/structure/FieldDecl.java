@@ -8,6 +8,13 @@ import semantic.TypeCheckResult;
 import syntax.common.AccessModifier;
 import syntax.common.Type;
 
+/**
+ * Feld-Deklaration <br>
+ * Deklariert ein neues Feld mit dem Namen identifier vom Typ type.
+ * <pre>
+ *     z.B.: accessModifier type identifier;
+ * </pre>
+ */
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor

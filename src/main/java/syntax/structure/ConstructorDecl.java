@@ -11,14 +11,22 @@ import syntax.statement.Block;
 
 import java.util.List;
 
+/**
+ * Konstruktor-Deklaration <br>
+ * Deklariert einen neuen Konstruktor mit den vorgegebenen Parametern.
+ * <pre>
+ *     z.B.: accessModifier identifier(paramters) {
+ *         block
+ *     }
+ * </pre>
+ */
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class ConstructorDecl {
 
-    private AccessModifier accessModifier;
+    // private AccessModifier accessModifier;
     private List<ParameterDecl> parameters;
-    private Type type;
     private Block block;
 
     public TypeCheckResult accept(ISemanticVisitor visitor) {

@@ -9,12 +9,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Programm <br>
+ * Alleinstehendes Java-Programm, das alle Klassen-Deklarationen enthält.
+ */
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class Program {
-
-    private Context context;
 
     private List<ClassDecl> classDeclarations;
 

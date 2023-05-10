@@ -1,6 +1,7 @@
 package parser.adapter;
 
 import parser.JavaGrammerParser;
+import syntax.common.AccessModifier;
 import syntax.statement.Block;
 import syntax.structure.ConstructorDecl;
 import syntax.structure.ParameterDecl;

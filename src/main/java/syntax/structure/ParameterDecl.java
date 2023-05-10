@@ -7,6 +7,13 @@ import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
 import syntax.common.Type;
 
+/**
+ * Parameter-Deklaration <br>
+ * Deklariert einen neuen Parameter mit dem Namen identifier vom Typ type.
+ * <pre>
+ *     z.B.: (type identifier)
+ * </pre>
+ */
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor

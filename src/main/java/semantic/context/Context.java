@@ -11,9 +11,11 @@ public class Context {
 
     private HashMap<String, ClassContext> classes;
 
-    public Context(Program program) {
-
+    public Context() {
         classes = new HashMap<>();
+    }
+
+    public void setProgram(Program program) {
 
         for (ClassDecl clazz : program.getClassDeclarations()) {
             classes.put(clazz.getIdentifier(), new ClassContext(clazz));

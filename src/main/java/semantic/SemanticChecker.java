@@ -38,8 +38,9 @@ public class SemanticChecker implements ISemanticVisitor {
         boolean isValid = true;
 
         // set program context
-        context = new Context(program);
+        context = new Context();
         program.setContext(context);
+        context.setProgram(program);
 
         for (ClassDecl classDecl : program.getClassDeclarations()) {
             isValid = isValid && classDecl.accept(this).isValid();
@@ -122,7 +123,8 @@ public class SemanticChecker implements ISemanticVisitor {
         currentLocalScope.pop();
 
         isValid = isValid && result.isValid();
-        return new TypeCheckResult(isValid, constructorDecl.getType());
+        // return new TypeCheckResult(isValid, constructorDecl.getType());
+        return null;
     }
 
     /**

@@ -9,15 +9,9 @@ import java.util.List;
 
 public class ConstructorContext {
 
-    private AccessModifier accessModifier;
-
-    private Type type;
-
     private List<ParameterDecl> parameters;
 
     public ConstructorContext(ConstructorDecl constructor) {
-        accessModifier = constructor.getAccessModifier();
-        type = constructor.getType();
         parameters = constructor.getParameters();
     }
 }

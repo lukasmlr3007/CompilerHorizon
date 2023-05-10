@@ -8,6 +8,15 @@ import semantic.TypeCheckResult;
 
 import java.util.List;
 
+/**
+ * Klassen-Deklaration <br>
+ * Deklariert eine neues Klasse mit dem Namen identifier und den vorgegebenen Listen von Feldern, Methoden und Konstruktoren.
+ * <pre>
+ *     z.B.: class identifier { <br>
+ *         ...                  <br>
+ *     }
+ * </pre>
+ */
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
