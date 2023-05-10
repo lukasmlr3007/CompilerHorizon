@@ -1,4 +1,4 @@
-// Generated from /Users/dennisheine/code/CompilerHorizon/src/main/java/parser/JavaGrammer.g4 by ANTLR 4.12.0
+// Generated from C:/Users/max20/Documents/Materialien_DHBW/4_Semester/Compilerbau/CompilerHorizon/src/main/java/parser\JavaGrammer.g4 by ANTLR 4.12.0
 package parser;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -144,30 +144,6 @@ public class JavaGrammerBaseListener implements JavaGrammerListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitIfElseStatement(JavaGrammerParser.IfElseStatementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterIfStatement(JavaGrammerParser.IfStatementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitIfStatement(JavaGrammerParser.IfStatementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterElseStatement(JavaGrammerParser.ElseStatementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitElseStatement(JavaGrammerParser.ElseStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
