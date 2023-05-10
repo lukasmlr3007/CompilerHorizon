@@ -1,4 +1,4 @@
-// Generated from C:/Users/fleck/Documents/CompilerHorizonCode/CompilerHorizon/src/main/java/parser\JavaGrammer.g4 by ANTLR 4.12.0
+// Generated from /Users/dennisheine/code/CompilerHorizon/src/main/java/parser/JavaGrammer.g4 by ANTLR 4.12.0
 package parser;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
