@@ -3,6 +3,7 @@ package syntax.structure;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import semantic.context.Context;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,6 +13,9 @@ import java.util.List;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class Program {
+
+    private Context context;
+
     private List<ClassDecl> classDeclarations;
 
     //genratebytecode für jede klasse in classDeclarations aufrufen und in datei schreiben (fileoutput)

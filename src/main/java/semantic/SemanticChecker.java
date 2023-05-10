@@ -1,7 +1,12 @@
-package semantik;
+package semantic;
 
-import semantik.context.Context;
+import semantic.context.Context;
+import semantic.context.ScopeContext;
+import semantic.exception.AlreadyDefinedException;
+import semantic.exception.TypeUnknownException;
+import syntax.common.BaseType;
 import syntax.common.ReferenceType;
+import syntax.common.Type;
 import syntax.expression.*;
 import syntax.statement.*;
 import syntax.statementexpression.Assign;
@@ -11,23 +16,30 @@ import syntax.structure.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
-public class SemantikCheck implements ISemantikCheck {
+public class SemanticChecker implements ISemanticVisitor {
 
-    private Stack<Context> context = new Stack<>();
-
+    private Context context;
     private ClassDecl currentClass;
-
     private List<String> currentFields = new ArrayList<>();
+    private List<String> currentMethods = new ArrayList<>();
+    private Type currentReturnType;
+    private ScopeContext currentLocalScope;
+    private List<Exception> errors = new ArrayList<>();
 
+    /**
+     *
+     * @param program
+     * @return
+     */
     @Override
     public TypeCheckResult check(Program program) {
 
         boolean isValid = true;
 
-        // TODO initialize context
-        context.push(new Context());
+        // set program context
+        context = new Context(program);
+        program.setContext(context);
 
         for (ClassDecl classDecl : program.getClassDeclarations()) {
             isValid = isValid && classDecl.accept(this).isValid();
@@ -35,6 +47,11 @@ public class SemantikCheck implements ISemantikCheck {
         return new TypeCheckResult(isValid, null);
     }
 
+    /**
+     *
+     * @param classDecl
+     * @return
+     */
     @Override
     public TypeCheckResult check(ClassDecl classDecl) {
 
@@ -44,7 +61,8 @@ public class SemantikCheck implements ISemantikCheck {
         currentClass = classDecl;
 
         // check field declarations
-        if (classDecl.getFieldDeclList() != null) {
+        currentFields.clear();
+        if (classDecl.getFieldDeclList() != null) { // nullcheck
             for (FieldDecl fieldDecl : classDecl.getFieldDeclList()) {
                 boolean isFieldValid = fieldDecl.accept(this).isValid();
                 if (isFieldValid) currentFields.add(fieldDecl.getIdentifier());
@@ -53,9 +71,27 @@ public class SemantikCheck implements ISemantikCheck {
         }
 
         // check method declarations
+        if (classDecl.getMethodDeclList() != null) { // nullcheck
+            for (MethodDecl methodDecl : classDecl.getMethodDeclList()) {
+                boolean isMethodValid = methodDecl.accept(this).isValid();
+                if (isMethodValid) currentMethods.add(methodDecl.getIdentifier());
+                isValid = isValid && isMethodValid;
+            }
+        }
 
         // check constructor declarations
-
+        if (classDecl.getConstructorDeclList() != null) { // nullcheck
+            if (classDecl.getConstructorDeclList().isEmpty()) {
+                // add new constructor if not set
+                ConstructorDecl newConstructorDecl = new ConstructorDecl();
+                isValid = isValid && newConstructorDecl.accept(this).isValid();
+                classDecl.getConstructorDeclList().add(newConstructorDecl);
+            }
+            else for (ConstructorDecl constructorDecl : classDecl.getConstructorDeclList()) {
+                boolean isConstructorValid = constructorDecl.accept(this).isValid();
+                isValid = isValid && isConstructorValid;
+            }
+        }
         return new TypeCheckResult(isValid, new ReferenceType(classDecl.getIdentifier()));
     }
 
@@ -64,19 +100,68 @@ public class SemantikCheck implements ISemantikCheck {
         return null;
     }
 
-    @Override
-    public TypeCheckResult check(ParameterDecl paramterDecl) {
-        return null;
-    }
-
+    /**
+     *
+     * @param constructorDecl
+     * @return
+     */
     @Override
     public TypeCheckResult check(ConstructorDecl constructorDecl) {
-        return null;
+
+        boolean isValid = true;
+        // create constructor scope
+        currentLocalScope.push();
+        // check constructor parameters
+        for (ParameterDecl parameter : constructorDecl.getParameters()) {
+            isValid = isValid && parameter.accept(this).isValid();
+            currentLocalScope.addVariable(parameter);
+        }
+        // check block
+        currentReturnType = BaseType.VOID;
+        TypeCheckResult result = constructorDecl.getBlock().accept(this);
+        currentLocalScope.pop();
+
+        isValid = isValid && result.isValid();
+        return new TypeCheckResult(isValid, constructorDecl.getType());
     }
 
+    /**
+     *
+     * @param paramterDecl
+     * @return
+     */
+    @Override
+    public TypeCheckResult check(ParameterDecl paramterDecl) {
+        if (TypeHelper.doesTypeExist(paramterDecl.getType(), context)) {
+            return new TypeCheckResult(true, paramterDecl.getType());
+        }
+        else {
+            errors.add(new TypeUnknownException("Type " + paramterDecl.getType() + " is unknown!"));
+            return new TypeCheckResult(false, paramterDecl.getType());
+        }
+    }
+
+    /**
+     *
+     * @param fieldDecl
+     * @return
+     */
     @Override
     public TypeCheckResult check(FieldDecl fieldDecl) {
-        return null;
+
+        boolean isValid = true;
+        if (currentFields.contains(fieldDecl.getIdentifier())) {
+            errors.add(new AlreadyDefinedException(
+                "Variable " + fieldDecl.getIdentifier() + " is already defined!"
+            ));
+            isValid = false;
+        }
+        else {
+            currentFields.add(fieldDecl.getIdentifier());
+        }
+        isValid = isValid && TypeHelper.doesTypeExist(fieldDecl.getType(), context);
+
+        return new TypeCheckResult(isValid, fieldDecl.getType());
     }
 
     @Override

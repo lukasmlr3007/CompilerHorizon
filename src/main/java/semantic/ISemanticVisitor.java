@@ -1,4 +1,4 @@
-package semantik;
+package semantic;
 
 import syntax.expression.*;
 import syntax.statement.*;
@@ -7,7 +7,7 @@ import syntax.statementexpression.MethodCall;
 import syntax.statementexpression.New;
 import syntax.structure.*;
 
-public interface ISemantikCheck {
+public interface ISemanticVisitor {
 
     // TODO blockinit, blockvoid, blocklocalvardecl ?
 

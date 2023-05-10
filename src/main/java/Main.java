@@ -1,6 +1,6 @@
 import parser.ParserAPI;
-import semantik.SemantikCheck;
-import semantik.TypeCheckResult;
+import semantic.SemanticChecker;
+import semantic.TypeCheckResult;
 import syntax.structure.Program;
 
 public class Main {
@@ -13,7 +13,7 @@ public class Main {
         Program syntaxTree = parserAPI.getResult();
         System.out.println("Syntax Tree: " + syntaxTree);
 
-        SemantikCheck semantikCheck = new SemantikCheck();
+        SemanticChecker semantikCheck = new SemanticChecker();
         TypeCheckResult typeCheckResult = semantikCheck.check(syntaxTree);
         System.out.println((typeCheckResult.isValid() ? "Semantik ist korrekt" : "Semantik ist inkorrekt"));
 
