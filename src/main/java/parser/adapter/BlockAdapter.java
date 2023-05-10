@@ -13,7 +13,7 @@ public class BlockAdapter {
 
     public static Block adapt(JavaGrammerParser.BlockContext blockContext){
         List<Statement> statements = new ArrayList<>();
-        blockContext.statement().forEach(statementContext -> statements.add(Statement.adapt(blockContext)));
+        blockContext.statement().forEach(statementContext -> statements.add(StatementAdapter.adapt(statementContext)));
 
         return new Block(statements);
     }

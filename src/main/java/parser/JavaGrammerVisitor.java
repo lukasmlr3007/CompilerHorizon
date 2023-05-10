@@ -77,18 +77,6 @@ public interface JavaGrammerVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIfElseStatement(JavaGrammerParser.IfElseStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JavaGrammerParser#ifStatement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitIfStatement(JavaGrammerParser.IfStatementContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JavaGrammerParser#elseStatement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitElseStatement(JavaGrammerParser.ElseStatementContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link JavaGrammerParser#statementExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

@@ -3,9 +3,10 @@ package parser.adapter;
 import parser.JavaGrammerParser;
 import syntax.statement.StatementExpressionStatement;
 import syntax.statement.WhileStatement;
+import syntax.statementexpression.StatementExpression;
 
 public class StatementExpressionAdapter {
-    public static StatementExpressionStatement adapt(JavaGrammerParser.StatementExpressionContext statementExpressionContext) {
-        return new StatementExpressionStatement(null);
+    public static StatementExpression adapt(JavaGrammerParser.StatementExpressionContext statementExpressionContext) {
+        return null;//new StatementExpression();
     }
 }

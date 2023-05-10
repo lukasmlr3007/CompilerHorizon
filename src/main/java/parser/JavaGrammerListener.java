@@ -118,26 +118,6 @@ public interface JavaGrammerListener extends ParseTreeListener {
 	 */
 	void exitIfElseStatement(JavaGrammerParser.IfElseStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JavaGrammerParser#ifStatement}.
-	 * @param ctx the parse tree
-	 */
-	void enterIfStatement(JavaGrammerParser.IfStatementContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JavaGrammerParser#ifStatement}.
-	 * @param ctx the parse tree
-	 */
-	void exitIfStatement(JavaGrammerParser.IfStatementContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link JavaGrammerParser#elseStatement}.
-	 * @param ctx the parse tree
-	 */
-	void enterElseStatement(JavaGrammerParser.ElseStatementContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JavaGrammerParser#elseStatement}.
-	 * @param ctx the parse tree
-	 */
-	void exitElseStatement(JavaGrammerParser.ElseStatementContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link JavaGrammerParser#statementExpression}.
 	 * @param ctx the parse tree
 	 */

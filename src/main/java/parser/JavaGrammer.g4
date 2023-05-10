@@ -2,7 +2,7 @@ grammar JavaGrammer;
 
 //Grammatik:
 program: classdecl+;
-classdecl: Class Identifier OpenCurlyBracket constructor+ fielddecl* ClosedCurlyBracket;
+classdecl: Class Identifier OpenCurlyBracket constructor* fielddecl* ClosedCurlyBracket;
 fielddecl: Static? AccessModifier type Identifier Semicolon;
 constructor: Identifier OpenRoundBracket parameters? ClosedRoundBracket block;
 parameters: parameterdecl(Comma parameterdecl)*;
@@ -11,9 +11,7 @@ block: OpenCurlyBracket statement* ClosedCurlyBracket;
 statement: block | localVarDecl | whileStatement | ifElseStatement | statementExpression | returnStatement;
 localVarDecl: type Identifier Semicolon;
 whileStatement: While OpenRoundBracket expression ClosedRoundBracket block;
-ifElseStatement: ifStatement elseStatement;
-ifStatement: If OpenRoundBracket expression ClosedRoundBracket block;
-elseStatement: Else block;
+ifElseStatement: If OpenRoundBracket expression ClosedRoundBracket block Else block;
 statementExpression: assign | methodCall | myNew ;
 assign: instanceVariable Assign expression Semicolon;
 methodCall: reciever extraMethod+ Semicolon;

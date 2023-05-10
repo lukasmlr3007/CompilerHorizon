@@ -235,7 +235,7 @@ public class SemanticChecker implements ISemanticVisitor {
     }
 
     @Override
-    public TypeCheckResult check(BinaryLiteral binaryExpr) {
+    public TypeCheckResult check(BinaryExpression binaryExpr) {
         return null;
     }
 
