@@ -7,5 +7,8 @@ import lombok.RequiredArgsConstructor;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public abstract class BinaryExpression extends Expression {
+public class AdditiveExpression extends Expression {
+    String operator;
+    Expression expressionLeft;
+    Expression expressionRight;
 }

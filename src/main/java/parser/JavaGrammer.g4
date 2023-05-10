@@ -22,7 +22,7 @@ returnStatement: Return (expression)? Semicolon;
 // expressions später
 expression: partExpression | binaryExpression;
 partExpression: literals | Identifier | This | statementExpression | instanceVariable | '!' expression | OpenRoundBracket expression ClosedRoundBracket;
-binaryExpression: additiveExpression | logicalExpression | relationalExpression;
+binaryExpression: additiveExpression | logicalExpression | relatiqonalExpression;
 
 additiveExpression: partExpression AdditiveOperator expression;
 relationalExpression: partExpression RelationalOperator expression;
