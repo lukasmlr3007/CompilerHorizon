@@ -13,12 +13,12 @@ public class ParserAPI {
     private Program result;
     public ParserAPI(String fileinput) {
         CharStream input = CharStreams.fromString(fileinput);
-        JavaGrammerLexer lexer = new parser.JavaGrammerLexer(input);
+        JavaGrammerLexer lexer = new JavaGrammerLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        JavaGrammerParser parser = new parser.JavaGrammerParser(tokens);
+        JavaGrammerParser parser = new JavaGrammerParser(tokens);
 
         //Beginn des Parsens:
-        parser.JavaGrammerParser.ProgramContext tree = parser.program();
+        JavaGrammerParser.ProgramContext tree = parser.program();
         ProgramAdapter programAdapter = new ProgramAdapter();
         result = programAdapter.adapt(tree);
     }

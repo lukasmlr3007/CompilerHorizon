@@ -2,13 +2,23 @@ package parser.adapter;
 
 import parser.JavaGrammerParser;
 import syntax.structure.ClassDecl;
+import syntax.structure.ConstructorDecl;
+import syntax.structure.FieldDecl;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClassDeclAdapter {
 
-    public static ClassDecl adapt(JavaGrammerParser.ClassdeclContext classdeclContext) {
-        ClassDecl cl = new ClassDecl();
+    private static JavaGrammerParser.ClassdeclContext classdeclContext;
 
-        return new ClassDecl(null, null,null, classdeclContext.Identifier().getText());
+    public static ClassDecl adapt(JavaGrammerParser.ClassdeclContext classdeclContext) {
+        List<FieldDecl> fields = new ArrayList<>();
+        classdeclContext.fielddecl().forEach(fielddeclcontext -> fields.add(FieldDeclAdapter.adapt(fielddeclcontext)));
+        List<ConstructorDecl> constructos = new ArrayList<>();
+        classdeclContext.constructor().forEach(constructorContext -> constructos.add(ConstructorAdapter.adapt(constructorContext)));
+
+        return new ClassDecl(fields, null,constructos, classdeclContext.Identifier().getText());
     }
 
 }
