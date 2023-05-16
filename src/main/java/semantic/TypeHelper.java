@@ -6,6 +6,6 @@ import syntax.common.Type;
 public class TypeHelper {
 
     public static boolean doesTypeExist(Type type, ProgramContext context) {
-        return false; // TODO type check
+        return false; // TODO implement type check
     }
 }

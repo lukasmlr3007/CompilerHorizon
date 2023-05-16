@@ -29,7 +29,7 @@ import static org.objectweb.asm.Opcodes.*;
 @RequiredArgsConstructor
 public class ConstructorDecl {
 
-    // private AccessModifier accessModifier; TODO private constructor
+    // private AccessModifier accessModifier; TODO add public/private constructor
     private List<ParameterDecl> parameters;
     private Block block;
 

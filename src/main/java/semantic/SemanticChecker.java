@@ -20,13 +20,13 @@ import java.util.List;
 public class SemanticChecker implements ISemanticVisitor {
 
     private ProgramContext context;
+
+    // private ScopeContext currentLocalScope;
     // private ClassDecl currentClass;
     //private List<String> currentFields = new ArrayList<>();
     //private List<String> currentMethods = new ArrayList<>();
-    //
-    //
-    // ÄLK;private Type currentReturnType;
-    private ScopeContext currentLocalScope;
+    // private Type currentReturnType;
+
     private List<Exception> errors = new ArrayList<>();
 
     /**
@@ -59,7 +59,7 @@ public class SemanticChecker implements ISemanticVisitor {
 
         boolean isValid = true;
 
-        // TODO initialize context
+        // TODO add class context
         // currentClass = classDecl;
 
         // check field declarations
@@ -111,21 +111,23 @@ public class SemanticChecker implements ISemanticVisitor {
     public TypeCheckResult check(ConstructorDecl constructorDecl) {
 
         boolean isValid = true;
-        // create constructor scope
-        currentLocalScope.push();
+
+        // TODO add constructor context
+
         // check constructor parameters
-        for (ParameterDecl parameter : constructorDecl.getParameters()) {
-            isValid = isValid && parameter.accept(this).isValid();
-            currentLocalScope.addVariable(parameter);
+        if (constructorDecl.getParameters() != null) {
+            for (ParameterDecl parameter : constructorDecl.getParameters()) {
+                isValid = isValid && parameter.accept(this).isValid();
+                // currentLocalScope.addVariable(parameter);
+            }
         }
         // check block
-        // currentReturnType = BaseType.VOID;
-        TypeCheckResult result = constructorDecl.getBlock().accept(this);
-        currentLocalScope.pop();
-
-        isValid = isValid && result.isValid();
-        // return new TypeCheckResult(isValid, constructorDecl.getType());
-        return null;
+        if (constructorDecl.getBlock() != null) {
+            TypeCheckResult result = constructorDecl.getBlock().accept(this);
+            // currentLocalScope.pop();
+            // TODO isValid = isValid && result.isValid();
+        }
+        return new TypeCheckResult(isValid, BaseType.VOID);
     }
 
     /**

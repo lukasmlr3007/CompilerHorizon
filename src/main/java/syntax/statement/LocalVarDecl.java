@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import syntax.common.Type;
 import syntax.statement.Statement;
 
-// TODO
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor

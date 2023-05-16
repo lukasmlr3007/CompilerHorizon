@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import syntax.statementexpression.StatementExpression;
 
-// TODO
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
