@@ -118,13 +118,11 @@ public class SemanticChecker implements ISemanticVisitor {
         if (constructorDecl.getParameters() != null) {
             for (ParameterDecl parameter : constructorDecl.getParameters()) {
                 isValid = isValid && parameter.accept(this).isValid();
-                // currentLocalScope.addVariable(parameter);
             }
         }
         // check block
         if (constructorDecl.getBlock() != null) {
             TypeCheckResult result = constructorDecl.getBlock().accept(this);
-            // currentLocalScope.pop();
             // TODO isValid = isValid && result.isValid();
         }
         return new TypeCheckResult(isValid, BaseType.VOID);
