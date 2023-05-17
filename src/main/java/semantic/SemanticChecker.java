@@ -3,6 +3,7 @@ package semantic;
 import semantic.context.ProgramContext;
 import semantic.context.ScopeContext;
 import semantic.exception.AlreadyDefinedException;
+import semantic.exception.TypeMismatchException;
 import semantic.exception.TypeUnknownException;
 import syntax.common.BaseType;
 import syntax.common.ReferenceType;
@@ -21,8 +22,9 @@ public class SemanticChecker implements ISemanticVisitor {
 
     private ProgramContext context;
 
+    private ClassDecl currentClass; // TODO obsolet?
+
     // private ScopeContext currentLocalScope;
-    // private ClassDecl currentClass;
     //private List<String> currentFields = new ArrayList<>();
     //private List<String> currentMethods = new ArrayList<>();
     // private Type currentReturnType;
@@ -60,7 +62,7 @@ public class SemanticChecker implements ISemanticVisitor {
         boolean isValid = true;
 
         // TODO add class context
-        // currentClass = classDecl;
+        currentClass = classDecl;
 
         // check field declarations
         // currentFields.clear();
@@ -97,9 +99,54 @@ public class SemanticChecker implements ISemanticVisitor {
         return new TypeCheckResult(isValid, new ReferenceType(classDecl.getIdentifier()));
     }
 
+    /**
+     *
+     * @param methodDecl
+     * @return
+     */
     @Override
     public TypeCheckResult check(MethodDecl methodDecl) {
-        return null;
+
+        boolean isValid = true;
+
+        // checks, if two methods with same name & parameter length are identical
+        for (MethodDecl classMethod : currentClass.getMethodDeclList()) {
+            if (methodDecl.equals(classMethod)) continue;
+            else if (methodDecl.getIdentifier().equals(classMethod.getIdentifier()) &&
+                    methodDecl.getParameters().size() == classMethod.getParameters().size()) {
+
+                boolean hasSameParameters = true;
+                for (int i = 0; i < methodDecl.getParameters().size(); i++) {
+                    if (!methodDecl.getParameters().get(i).getType().equals(classMethod.getParameters().get(i).getType())) {
+                        hasSameParameters = false;
+                        break;
+                    }
+                }
+                if (hasSameParameters) {
+                    errors.add(new AlreadyDefinedException("Method " + methodDecl.getIdentifier() + " is already defined!"));
+                    isValid = false;
+                }
+            }
+        }
+
+        for (ParameterDecl methodParameter : methodDecl.getParameters()) {
+            isValid = isValid && methodParameter.accept(this).isValid();
+            // TODO add to method context
+        }
+
+        TypeCheckResult blockResult = methodDecl.getBlock().accept(this);
+        isValid = isValid && blockResult.isValid();
+
+        // check if return type is correct
+        Type returnType = null;
+        if (blockResult.getType() == null) returnType = BaseType.VOID;
+        else returnType = blockResult.getType();
+
+        if (methodDecl.getReturnType() != returnType) {
+            errors.add(new TypeMismatchException("Method " + methodDecl.getIdentifier() + " returns the incorrect type!"));
+            isValid = false;
+        }
+        return new TypeCheckResult(isValid, returnType);
     }
 
     /**

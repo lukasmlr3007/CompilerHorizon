@@ -9,7 +9,8 @@ import syntax.structure.*;
 
 public interface ISemanticVisitor {
 
-    // TODO blockinit, blockvoid, blocklocalvardecl ?
+    // TODO blockinit, blockvoid, blocklocalvardecl
+    //  for-Schleife, ExpressionPart
 
     TypeCheckResult check(Program toCheck);
 
