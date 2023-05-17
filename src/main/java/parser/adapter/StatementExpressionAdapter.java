@@ -7,6 +7,13 @@ import syntax.statementexpression.StatementExpression;
 
 public class StatementExpressionAdapter {
     public static StatementExpression adapt(JavaGrammerParser.StatementExpressionContext statementExpressionContext) {
-        return null;//TODO StatementExpression();
+        if (statementExpressionContext.assign() != null) {
+            return AssignAdapter.adapt(statementExpressionContext.assign());
+        } else if (statementExpressionContext.methodCall() != null) {
+            return MethodCallAdapter.adapt(statementExpressionContext.methodCall());
+        } else if (statementExpressionContext.myNew() != null) { //TODO myNew
+            //return WhileStatementAdapter.adapt(statementContext.whileStatement());
+        }
+        return null;
     }
 }

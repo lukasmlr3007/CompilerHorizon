@@ -20,7 +20,7 @@ import syntax.expression.InstVar;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class Assign extends StatementStmtExpr {
+public class Assign extends StatementExpression {
     InstVar assignLeft;
     Expression assignRight;
 

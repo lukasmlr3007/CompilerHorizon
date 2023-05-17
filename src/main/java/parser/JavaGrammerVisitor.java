@@ -47,6 +47,12 @@ public interface JavaGrammerVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParameterdecl(JavaGrammerParser.ParameterdeclContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link JavaGrammerParser#parameterValues}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParameterValues(JavaGrammerParser.ParameterValuesContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link JavaGrammerParser#block}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

@@ -4,6 +4,7 @@ import parser.JavaGrammerParser;
 import syntax.statement.Block;
 import syntax.statement.ReturnStatement;
 import syntax.statement.Statement;
+import syntax.statementexpression.StatementStmtExpr;
 
 public class StatementAdapter {
 
@@ -21,8 +22,8 @@ public class StatementAdapter {
             return WhileStatementAdapter.adapt(statementContext.whileStatement());
         } else if (statementContext.ifElseStatement() != null) {
             return IfElseStatementAdapter.adapt(statementContext.ifElseStatement());
-        } else if (statementContext.statementExpression() != null) {  //TODO StatementExpression
-            return StatementStmtExprAdapter.adapt(statementContext.statementExpression());
+        } else if (statementContext.statementExpression() != null) {  //TODO StatementExpression weiter fortführen
+            return new StatementStmtExpr(StatementExpressionAdapter.adapt(statementContext.statementExpression()));
         }
         return null;
     }

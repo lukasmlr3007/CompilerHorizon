@@ -7,6 +7,8 @@ fielddecl: Static? AccessModifier type Identifier Semicolon;
 constructor: Identifier OpenRoundBracket parameters? ClosedRoundBracket block;
 parameters: parameterdecl(Comma parameterdecl)*;
 parameterdecl: type Identifier;
+parameterValues: partExpression(Comma partExpression)*;
+//parameterValdecl: partExpression;
 block: OpenCurlyBracket statement* ClosedCurlyBracket;
 statement: block | localVarDecl | whileStatement | ifElseStatement | statementExpression | returnStatement;
 localVarDecl: type Identifier Semicolon;
@@ -15,8 +17,8 @@ ifElseStatement: If OpenRoundBracket expression ClosedRoundBracket block Else bl
 statementExpression: assign | methodCall | myNew ;
 assign: instanceVariable Assign expression Semicolon;
 methodCall: reciever extraMethod+ Semicolon;
-reciever: (This | Identifier | myNew);
-extraMethod: Point Identifier OpenRoundBracket parameters ClosedRoundBracket;
+reciever: (This | Identifier | instanceVariable); //myNew
+extraMethod: Point Identifier OpenRoundBracket parameterValues ClosedRoundBracket;
 myNew: New Identifier OpenRoundBracket parameters ClosedRoundBracket;
 returnStatement: Return (expression)? Semicolon;
 // expressions später

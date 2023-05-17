@@ -8,6 +8,8 @@ import semantic.TypeCheckResult;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 import syntax.expression.Expression;
+import syntax.expression.PartExpression;
+import syntax.structure.ParameterDecl;
 
 import java.util.List;
 
@@ -25,7 +27,7 @@ import java.util.List;
 public class MethodCall extends StatementExpression {
     String identifier;
     Expression receiver;
-    List<Expression> parameterList;
+    List<PartExpression> parameterList;
 
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
