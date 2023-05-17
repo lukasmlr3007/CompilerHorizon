@@ -14,8 +14,10 @@ public class ClassContext {
 
     public ClassContext(ClassDecl clazz) {
 
-        for (FieldDecl field : clazz.getFieldDeclList()) {
-            classVariables.put(field.getIdentifier(), field.getType());
+        if (classVariables != null){
+            for (FieldDecl field : clazz.getFieldDeclList()) {
+                classVariables.put(field.getIdentifier(), field.getType());
+            }
         }
     }
 }

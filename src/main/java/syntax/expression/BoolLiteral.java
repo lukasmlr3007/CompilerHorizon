@@ -2,6 +2,8 @@ package syntax.expression;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.MethodVisitor;
 import syntax.common.BaseType;
 
 @Data
@@ -12,5 +14,10 @@ public class BoolLiteral extends PartExpression {
     public BoolLiteral(boolean value) {
         this.value = value;
         setType(BaseType.BOOLEAN);
+    }
+
+    @Override
+    public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor) {
+
     }
 }

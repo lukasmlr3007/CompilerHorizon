@@ -3,6 +3,8 @@ package syntax.statementexpression;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.MethodVisitor;
 import syntax.common.Type;
 import syntax.expression.Expression;
 import syntax.statementexpression.StatementExpression;
@@ -22,4 +24,9 @@ import java.util.List;
 public class New extends StatementExpression {
     private List<Expression> paramterList;
     private String identifier;
+
+    @Override
+    public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor) {
+
+    }
 }

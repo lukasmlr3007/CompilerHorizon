@@ -3,6 +3,8 @@ package syntax.statement;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.MethodVisitor;
 import syntax.expression.Expression;
 
 /**
@@ -19,4 +21,9 @@ public class IfElseStatement extends Statement {
     Expression condition;
     Block ifBlock;
     Block elseBlock;
+
+    @Override
+    public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor) {
+
+    }
 }
