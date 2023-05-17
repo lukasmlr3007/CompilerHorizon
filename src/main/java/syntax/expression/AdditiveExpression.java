@@ -9,6 +9,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AdditiveExpression extends BinaryExpression {
     String operator;
-    Expression expressionLeft;
+    PartExpression expressionLeft;
     Expression expressionRight;
 }
