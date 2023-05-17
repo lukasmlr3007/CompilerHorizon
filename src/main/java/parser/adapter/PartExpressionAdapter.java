@@ -7,7 +7,7 @@ import syntax.expression.PartExpression;
 import syntax.structure.ParameterDecl;
 
 public class PartExpressionAdapter {
-    public static Expression adapt(JavaGrammerParser.PartExpressionContext partExpressionContext) {
+    public static PartExpression adapt(JavaGrammerParser.PartExpressionContext partExpressionContext) {
         if(partExpressionContext.literals() != null) {
             return LiteralAdapter.adapt(partExpressionContext.literals());
         } else if (partExpressionContext.Identifier() != null) {
@@ -16,8 +16,6 @@ public class PartExpressionAdapter {
             return null; //TODO wie????
         } else if (partExpressionContext.statementExpression() != null) {
             return StatementExpressionAdapter.adapt(partExpressionContext.statementExpression());
-        } else if (partExpressionContext.expression() != null) {
-            return ExpressionAdapter.adapt(partExpressionContext.expression());
         }
         return null;
     }
