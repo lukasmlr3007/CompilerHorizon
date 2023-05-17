@@ -1,5 +1,5 @@
-private class A { }
+class A { }
 
-public class B { }
+class B { }
 
-private class C { }
+class C { }
