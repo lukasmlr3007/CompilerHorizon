@@ -11,6 +11,5 @@ import syntax.expression.PartExpression;
  */
 @Data
 public abstract class StatementExpression extends PartExpression {
-public abstract class StatementExpression extends PartExpression { // TODO add extends Statement ?
     public abstract void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor);
 }
