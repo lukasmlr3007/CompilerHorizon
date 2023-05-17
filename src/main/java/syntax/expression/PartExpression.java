@@ -3,6 +3,6 @@ package syntax.expression;
 /**
  * keine Ahnung
  */
-public class PartExpression extends Expression {
+public abstract class PartExpression extends Expression {
 
 }

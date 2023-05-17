@@ -6,5 +6,6 @@ import lombok.Data;
  * keine Ahnung
  */
 @Data
-public abstract class BinaryExpression extends Expression{
+public abstract class BinaryExpression extends Expression {
+
 }

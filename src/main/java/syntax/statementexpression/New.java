@@ -3,6 +3,8 @@ package syntax.statementexpression;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import semantic.ISemanticVisitor;
+import semantic.TypeCheckResult;
 import syntax.common.Type;
 import syntax.expression.Expression;
 import syntax.statementexpression.StatementExpression;
@@ -22,4 +24,8 @@ import java.util.List;
 public class New extends StatementExpression {
     private List<Expression> paramterList;
     private String identifier;
+
+    public TypeCheckResult accept(ISemanticVisitor visitor) {
+        return visitor.check(this);
+    }
 }

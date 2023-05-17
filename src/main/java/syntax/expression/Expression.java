@@ -1,6 +1,8 @@
 package syntax.expression;
 
 import lombok.Data;
+import semantic.ISemanticVisitor;
+import semantic.TypeCheckResult;
 import syntax.common.Type;
 import syntax.statementexpression.Assign;
 import syntax.statementexpression.MethodCall;
@@ -20,4 +22,6 @@ import syntax.statementexpression.StatementExpression;
 public abstract class Expression {
 
     private Type type;
+
+    public abstract TypeCheckResult accept(ISemanticVisitor visitor);
 }

@@ -216,6 +216,11 @@ public class SemanticChecker implements ISemanticVisitor {
         return new TypeCheckResult(isValid, fieldDecl.getType());
     }
 
+    /**
+     *
+     * @param block
+     * @return
+     */
     @Override
     public TypeCheckResult check(Block block) {
 
@@ -300,7 +305,10 @@ public class SemanticChecker implements ISemanticVisitor {
 
     @Override
     public TypeCheckResult check(Unary unaryExpr) {
-        return null;
+
+        boolean isValid = true;
+
+        return new TypeCheckResult(isValid, null);
     }
 
 

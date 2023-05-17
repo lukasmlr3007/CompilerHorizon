@@ -2,6 +2,8 @@ package syntax.expression;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import semantic.ISemanticVisitor;
+import semantic.TypeCheckResult;
 import syntax.common.BaseType;
 
 /**
@@ -16,5 +18,9 @@ public class BoolLiteral extends PartExpression {
     public BoolLiteral(boolean value) {
         this.value = value;
         setType(BaseType.BOOLEAN);
+    }
+
+    public TypeCheckResult accept(ISemanticVisitor visitor) {
+        return visitor.check(this);
     }
 }

@@ -3,6 +3,8 @@ package syntax.expression;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import semantic.ISemanticVisitor;
+import semantic.TypeCheckResult;
 import syntax.expression.Expression;
 
 /**
@@ -19,4 +21,8 @@ import syntax.expression.Expression;
 public class InstVar extends PartExpression {
     Expression expression;
     String identifier;
+
+    public TypeCheckResult accept(ISemanticVisitor visitor) {
+        return visitor.check(this);
+    }
 }

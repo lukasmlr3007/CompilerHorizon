@@ -2,6 +2,8 @@ package syntax.expression;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import semantic.ISemanticVisitor;
+import semantic.TypeCheckResult;
 import syntax.common.BaseType;
 
 /**
@@ -16,5 +18,9 @@ public class IntegerLiteral extends PartExpression {
     public IntegerLiteral(int value) {
         this.value = value;
         setType(BaseType.INT);
+    }
+
+    public TypeCheckResult accept(ISemanticVisitor visitor) {
+        return visitor.check(this);
     }
 }
