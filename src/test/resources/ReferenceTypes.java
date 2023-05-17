@@ -4,7 +4,7 @@ class ReferenceTypes {
 }
 
 class A {
-    B b;
+    private B b;
 }
 
 class B { }
