@@ -1,4 +1,4 @@
-class A { }
+private class A { }
 
 public class B { }
 
