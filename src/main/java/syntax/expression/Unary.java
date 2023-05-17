@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import syntax.common.Operator;
 
+/**
+ * TODO
+ */
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor

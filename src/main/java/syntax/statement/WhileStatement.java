@@ -3,6 +3,8 @@ package syntax.statement;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import semantic.ISemanticVisitor;
+import semantic.TypeCheckResult;
 import syntax.expression.Expression;
 
 /**
@@ -18,4 +20,8 @@ import syntax.expression.Expression;
 public class WhileStatement extends Statement {
     Expression expression;
     Block block;
+
+    public TypeCheckResult accept(ISemanticVisitor visitor) {
+        return visitor.check(this);
+    }
 }

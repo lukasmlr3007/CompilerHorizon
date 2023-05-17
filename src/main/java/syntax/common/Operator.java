@@ -2,6 +2,10 @@ package syntax.common;
 
 import lombok.AllArgsConstructor;
 
+/**
+ * Operatoren <br>
+ * Verschiedene Operatoren für arithmetische Operationen.
+ */
 @AllArgsConstructor
 public enum Operator {
     PLUS("+"),

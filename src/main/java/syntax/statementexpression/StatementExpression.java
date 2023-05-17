@@ -8,5 +8,5 @@ import syntax.expression.PartExpression;
  * {@link MethodCall}, {@link Assign} oder {@link New}
  */
 @Data
-public abstract class StatementExpression extends PartExpression { // TODO add extends Statement ?
+public abstract class StatementExpression extends PartExpression {
 }

@@ -1,9 +1,10 @@
 package syntax.expression;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
+/**
+ * keine Ahnung
+ */
 @Data
 public abstract class BinaryExpression extends Expression{
 }

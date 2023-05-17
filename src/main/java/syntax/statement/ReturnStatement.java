@@ -3,6 +3,9 @@ package syntax.statement;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import semantic.ISemanticVisitor;
+import semantic.TypeCheckResult;
+import syntax.common.Type;
 import syntax.expression.Expression;
 
 /**
@@ -17,4 +20,8 @@ import syntax.expression.Expression;
 @RequiredArgsConstructor
 public class ReturnStatement extends Statement {
     Expression expression;
+
+    public TypeCheckResult accept(ISemanticVisitor visitor) {
+        return visitor.check(this);
+    }
 }
