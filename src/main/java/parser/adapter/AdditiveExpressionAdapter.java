@@ -9,6 +9,8 @@ public class AdditiveExpressionAdapter extends BinaryExpressionAdapter {
 
     public static Expression adapt(JavaGrammerParser.AdditiveExpressionContext additiveExpressionContext){
         PartExpression exLeft = PartExpressionAdapter.adapt(additiveExpressionContext.partExpression());
-        return new AdditiveExpression(null, null,null);
+        Expression exRight = ExpressionAdapter.adapt(additiveExpressionContext.expression());
+        String operator = additiveExpressionContext.AdditiveOperator().getSymbol().getText();
+        return new AdditiveExpression(operator, exLeft, exRight);
     }
 }

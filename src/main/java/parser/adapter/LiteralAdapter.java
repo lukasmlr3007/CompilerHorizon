@@ -12,7 +12,7 @@ public class LiteralAdapter {
         } else if (literalsContext.BoolValue() != null) {
             return new BoolLiteral((literalsContext.BoolValue().getSymbol().getText().equalsIgnoreCase("true")));
         }
-        //TODO eventuell VoidLiteral?
+        //TODO eventuell VoidLiteral bzw. null-Literal?
         return null;
     }
 }
