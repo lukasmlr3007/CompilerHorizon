@@ -5,9 +5,9 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
-import syntax.common.Type;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.MethodVisitor;
 import syntax.expression.Expression;
-import syntax.statementexpression.StatementExpression;
 
 import java.util.List;
 
@@ -27,5 +27,10 @@ public class New extends StatementExpression {
 
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
+    }
+
+    @Override
+    public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor) {
+
     }
 }

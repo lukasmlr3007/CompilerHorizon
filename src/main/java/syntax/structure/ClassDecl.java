@@ -54,9 +54,17 @@ public class ClassDecl {
                 constructorDecl.generateBytecode(classWriter, this.getIdentifier());
             }
         }
-        for (FieldDecl fieldDecl : fieldDeclList){
-            fieldDecl.generateBytecode(classWriter);
+        if (fieldDeclList != null){
+            for (FieldDecl fieldDecl : fieldDeclList){
+                fieldDecl.generateBytecode(classWriter);
+            }
         }
+        if (methodDeclList != null){
+            for (MethodDecl methodDecl : methodDeclList){
+                methodDecl.generateBytecode(classWriter);
+            }
+        }
+
         classWriter.visitEnd();
 
         return classWriter.toByteArray();

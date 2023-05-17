@@ -3,6 +3,8 @@ package syntax.expression;
 import lombok.Data;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.MethodVisitor;
 import syntax.common.Type;
 import syntax.statementexpression.Assign;
 import syntax.statementexpression.MethodCall;
@@ -20,8 +22,9 @@ import syntax.statementexpression.StatementExpression;
  */
 @Data
 public abstract class Expression {
-
     private Type type;
 
     public abstract TypeCheckResult accept(ISemanticVisitor visitor);
+
+    public abstract void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor);
 }

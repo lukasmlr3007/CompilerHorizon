@@ -1,6 +1,8 @@
 package syntax.statementexpression;
 
 import lombok.Data;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.MethodVisitor;
 import syntax.expression.PartExpression;
 
 /**
@@ -9,4 +11,6 @@ import syntax.expression.PartExpression;
  */
 @Data
 public abstract class StatementExpression extends PartExpression {
+public abstract class StatementExpression extends PartExpression { // TODO add extends Statement ?
+    public abstract void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor);
 }

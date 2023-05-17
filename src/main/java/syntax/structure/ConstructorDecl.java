@@ -13,15 +13,6 @@ import syntax.statement.Block;
 
 import java.util.List;
 
-/**
- * Konstruktor-Deklaration <br>
- * Deklariert einen neuen Konstruktor mit den vorgegebenen Parametern.
- * <pre>
- *     z.B.: accessModifier identifier(paramters) {
- *         block
- *     }
- * </pre>
- */
 import static org.objectweb.asm.Opcodes.*;
 
 @Data
@@ -31,6 +22,7 @@ public class ConstructorDecl {
 
     // private AccessModifier accessModifier; TODO add public/private constructor
     private List<ParameterDecl> parameters;
+    //private Type type;
     private Block block;
 
     public TypeCheckResult accept(ISemanticVisitor visitor) {
@@ -42,14 +34,15 @@ public class ConstructorDecl {
         methodVisitor.visitCode();
         methodVisitor.visitVarInsn(ALOAD, 0);
         methodVisitor.visitVarInsn(ILOAD, 1);
-        for (ParameterDecl parameterDecl : parameters) {
-            methodVisitor.visitFieldInsn(PUTFIELD, ownerClassName, parameterDecl.getIdentifier(), "I");
+        if (parameters != null) {
+            for (ParameterDecl parameterDecl : parameters) {
+                methodVisitor.visitFieldInsn(PUTFIELD, ownerClassName, parameterDecl.getIdentifier(), "I");
 
-
-            methodVisitor.visitFieldInsn(PUTFIELD, "EmptyClass", "number", "I");
-            methodVisitor.visitInsn(RETURN);
-            methodVisitor.visitMaxs(2, 2);
-            methodVisitor.visitEnd();
+                methodVisitor.visitFieldInsn(PUTFIELD, "EmptyClass", "number", "I");
+                methodVisitor.visitInsn(RETURN);
+                methodVisitor.visitMaxs(2, 2);
+                methodVisitor.visitEnd();
+            }
         }
     }
 }

@@ -5,8 +5,9 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.MethodVisitor;
 import syntax.expression.Expression;
-import syntax.statementexpression.StatementExpression;
 
 /**
  * Assign / Wertzuweisung <br>
@@ -21,6 +22,11 @@ import syntax.statementexpression.StatementExpression;
 public class Assign extends StatementExpression {
     Expression assignLeft;
     Expression assignRight;
+
+    @Override
+    public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor) {
+
+    }
 
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
