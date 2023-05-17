@@ -82,4 +82,19 @@ public class IntegrationTest {
 
         assertTrue(typeCheckResult.isValid());
     }
+
+    @Test
+    void semanticTest() {
+
+        String input = TestHelper.getFileInput("SemanticTest.java");
+        ParserAPI parser = new ParserAPI(input);
+        SemanticChecker semantic = new SemanticChecker();
+
+        Program program = parser.getResult();
+        TypeCheckResult typeCheckResult = semantic.check(program);
+
+        // program.generateBytecode();
+
+        assertTrue(typeCheckResult.isValid());
+    }
 }
