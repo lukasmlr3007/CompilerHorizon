@@ -1,4 +1,4 @@
-class A {
+class Constructors {
 
     A() { }
 
