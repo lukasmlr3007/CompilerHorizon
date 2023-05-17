@@ -17,15 +17,11 @@ public class ParserTest {
         String input = TestHelper.getFileInput("EmptyClass.java");
         ParserAPI parser = new ParserAPI(input);
 
-        ClassDecl classDecl = new ClassDecl();
-        classDecl.setFieldDeclList(null);
-        classDecl.setMethodDeclList(null);
-        classDecl.setConstructorDeclList(null);
-        classDecl.setIdentifier("Empty");
+        ClassDecl classDecl = new ClassDecl(new ArrayList<>(), null, new ArrayList<>(), "Empty");
         List<ClassDecl> cl = new ArrayList<>();
         cl.add(classDecl);
         Program expected = new Program(cl);
-        expected.setClassDeclarations(Arrays.asList());
+
 
         assertEquals(expected, parser.getResult());
     }

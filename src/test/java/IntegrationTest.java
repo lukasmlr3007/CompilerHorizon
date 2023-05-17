@@ -4,6 +4,7 @@ import semantic.SemanticChecker;
 import semantic.TypeCheckResult;
 import syntax.structure.Program;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class IntegrationTest {
@@ -35,6 +36,7 @@ public class IntegrationTest {
 
         program.generateBytecode();
 
+        assertEquals(3, program.getClassDeclarations().size());
         assertTrue(typeCheckResult.isValid());
     }
 
@@ -50,6 +52,7 @@ public class IntegrationTest {
 
         program.generateBytecode();
 
+        assertEquals(2, program.getClassDeclarations().get(0).getConstructorDeclList().size());
         assertTrue(typeCheckResult.isValid());
     }
 
@@ -65,6 +68,7 @@ public class IntegrationTest {
 
         program.generateBytecode();
 
+        assertEquals(3, program.getClassDeclarations().get(0).getFieldDeclList().size());
         assertTrue(typeCheckResult.isValid());
     }
 
@@ -84,4 +88,18 @@ public class IntegrationTest {
     }
 
     @Test
+    void methodsTest() {
+
+        String input = TestHelper.getFileInput("Methods.java");
+        ParserAPI parser = new ParserAPI(input);
+        SemanticChecker semantic = new SemanticChecker();
+
+        Program program = parser.getResult();
+        TypeCheckResult typeCheckResult = semantic.check(program);
+
+        program.generateBytecode();
+
+        // TODO assertEquals(4, program.getClassDeclarations().get(0).getMethodDeclList().size());
+        assertTrue(typeCheckResult.isValid());
+    }
 }
