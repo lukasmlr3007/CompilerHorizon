@@ -19,7 +19,7 @@ public class IntegrationTest {
         Program program = parser.getResult();
         TypeCheckResult typeCheckResult = semantic.check(program);
 
-        // program.generateBytecode();
+        program.generateBytecode();
 
         assertTrue(typeCheckResult.isValid());
     }
@@ -34,7 +34,7 @@ public class IntegrationTest {
         Program program = parser.getResult();
         TypeCheckResult typeCheckResult = semantic.check(program);
 
-        // program.generateBytecode();
+        program.generateBytecode();
 
         assertEquals(3, program.getClassDeclarations().size());
         assertTrue(typeCheckResult.isValid());
@@ -50,7 +50,7 @@ public class IntegrationTest {
         Program program = parser.getResult();
         TypeCheckResult typeCheckResult = semantic.check(program);
 
-        // program.generateBytecode();
+        program.generateBytecode();
 
         assertEquals(2, program.getClassDeclarations().get(0).getConstructorDeclList().size());
         assertTrue(typeCheckResult.isValid());
@@ -66,7 +66,7 @@ public class IntegrationTest {
         Program program = parser.getResult();
         TypeCheckResult typeCheckResult = semantic.check(program);
 
-        // program.generateBytecode();
+        program.generateBytecode();
 
         assertEquals(3, program.getClassDeclarations().get(0).getFieldDeclList().size());
         assertTrue(typeCheckResult.isValid());
@@ -82,7 +82,7 @@ public class IntegrationTest {
         Program program = parser.getResult();
         TypeCheckResult typeCheckResult = semantic.check(program);
 
-        // program.generateBytecode();
+        program.generateBytecode();
 
         assertTrue(typeCheckResult.isValid());
     }
@@ -97,9 +97,9 @@ public class IntegrationTest {
         Program program = parser.getResult();
         TypeCheckResult typeCheckResult = semantic.check(program);
 
-        // program.generateBytecode();
+        program.generateBytecode();
 
-        // assertEquals(4, program.getClassDeclarations().get(0).getMethodDeclList().size());
+        // TODO assertEquals(4, program.getClassDeclarations().get(0).getMethodDeclList().size());
         assertTrue(typeCheckResult.isValid());
     }
 }
