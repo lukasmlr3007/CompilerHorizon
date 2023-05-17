@@ -21,7 +21,7 @@ myNew: New Identifier OpenRoundBracket parameters ClosedRoundBracket;
 returnStatement: Return (expression)? Semicolon;
 // expressions später
 expression: partExpression | binaryExpression;
-partExpression: literals | Identifier | This | statementExpression | instanceVariable | '!' expression | OpenRoundBracket expression ClosedRoundBracket;
+partExpression: literals | Identifier | This | statementExpression | instanceVariable | OpenRoundBracket expression ClosedRoundBracket;
 binaryExpression: additiveExpression | logicalExpression | relationalExpression;
 
 additiveExpression: partExpression AdditiveOperator expression;

@@ -16,8 +16,9 @@ public class ClassDeclAdapter {
         List<FieldDecl> fields = new ArrayList<>();
         classdeclContext.fielddecl().forEach(fielddeclcontext -> fields.add(FieldDeclAdapter.adapt(fielddeclcontext)));
         List<ConstructorDecl> constructos = new ArrayList<>();
-        classdeclContext.constructor().forEach(constructorContext -> constructos.add(ConstructorAdapter.adapt(constructorContext)));
-
+        if(classdeclContext.constructor() != null) {
+            classdeclContext.constructor().forEach(constructorContext -> constructos.add(ConstructorAdapter.adapt(constructorContext)));
+        }
         return new ClassDecl(fields, null,constructos, classdeclContext.Identifier().getText());
     }
 

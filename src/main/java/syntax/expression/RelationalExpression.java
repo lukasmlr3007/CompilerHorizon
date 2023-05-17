@@ -12,6 +12,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RelationalExpression extends BinaryExpression {
     String operator;
-    Expression expressionLeft;
+    PartExpression expressionLeft;
     Expression expressionRight;
 }

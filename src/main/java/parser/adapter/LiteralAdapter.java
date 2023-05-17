@@ -1,13 +1,10 @@
 package parser.adapter;
 
 import parser.JavaGrammerParser;
-import syntax.expression.BoolLiteral;
-import syntax.expression.CharLiteral;
-import syntax.expression.Expression;
-import syntax.expression.IntegerLiteral;
+import syntax.expression.*;
 
 public class LiteralAdapter {
-    public static Expression adapt(JavaGrammerParser.LiteralsContext literalsContext) {
+    public static PartExpression adapt(JavaGrammerParser.LiteralsContext literalsContext) {
         if(literalsContext.IntValue() != null) {
             return new IntegerLiteral(Integer.parseInt(literalsContext.IntValue().getSymbol().getText()));
         } else if (literalsContext.CharValue() != null) {
@@ -15,7 +12,7 @@ public class LiteralAdapter {
         } else if (literalsContext.BoolValue() != null) {
             return new BoolLiteral((literalsContext.BoolValue().getSymbol().getText().equalsIgnoreCase("true")));
         }
-        //TODO eventuell VoidLiteral?
+        //TODO eventuell VoidLiteral bzw. null-Literal?
         return null;
     }
 }
