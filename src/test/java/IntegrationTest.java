@@ -18,7 +18,7 @@ public class IntegrationTest {
         Program program = parser.getResult();
         TypeCheckResult typeCheckResult = semantic.check(program);
 
-        // program.generateBytecode();
+        program.generateBytecode();
 
         assertTrue(typeCheckResult.isValid());
     }
@@ -33,7 +33,7 @@ public class IntegrationTest {
         Program program = parser.getResult();
         TypeCheckResult typeCheckResult = semantic.check(program);
 
-        // program.generateBytecode();
+        program.generateBytecode();
 
         assertTrue(typeCheckResult.isValid());
     }
@@ -48,7 +48,7 @@ public class IntegrationTest {
         Program program = parser.getResult();
         TypeCheckResult typeCheckResult = semantic.check(program);
 
-        // program.generateBytecode();
+        program.generateBytecode();
 
         assertTrue(typeCheckResult.isValid());
     }
@@ -63,7 +63,7 @@ public class IntegrationTest {
         Program program = parser.getResult();
         TypeCheckResult typeCheckResult = semantic.check(program);
 
-        // program.generateBytecode();
+        program.generateBytecode();
 
         assertTrue(typeCheckResult.isValid());
     }
@@ -78,8 +78,10 @@ public class IntegrationTest {
         Program program = parser.getResult();
         TypeCheckResult typeCheckResult = semantic.check(program);
 
-        // program.generateBytecode();
+        program.generateBytecode();
 
         assertTrue(typeCheckResult.isValid());
     }
+
+    @Test
 }
