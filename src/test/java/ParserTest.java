@@ -3,7 +3,9 @@ import parser.ParserAPI;
 import syntax.structure.ClassDecl;
 import syntax.structure.Program;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -19,8 +21,10 @@ public class ParserTest {
         classDecl.setFieldDeclList(null);
         classDecl.setMethodDeclList(null);
         classDecl.setConstructorDeclList(null);
-        classDecl.setIdentifier("EmptyClass");
-        Program expected = new Program();
+        classDecl.setIdentifier("Empty");
+        List<ClassDecl> cl = new ArrayList<>();
+        cl.add(classDecl);
+        Program expected = new Program(cl);
         expected.setClassDeclarations(Arrays.asList());
 
         assertEquals(expected, parser.getResult());

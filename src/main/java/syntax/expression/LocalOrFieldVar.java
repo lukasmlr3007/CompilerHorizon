@@ -8,6 +8,6 @@ import syntax.expression.Expression;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class LocalOrFieldVar extends Expression {
+public class LocalOrFieldVar extends PartExpression {
     String identifier;
 }
