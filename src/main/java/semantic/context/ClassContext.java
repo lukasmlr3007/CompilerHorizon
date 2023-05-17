@@ -13,7 +13,7 @@ public class ClassContext {
     private HashMap<String, Type> classVariables;
 
     public ClassContext(ClassDecl clazz) {
-
+        classVariables = new HashMap<>();
         for (FieldDecl field : clazz.getFieldDeclList()) {
             classVariables.put(field.getIdentifier(), field.getType());
         }

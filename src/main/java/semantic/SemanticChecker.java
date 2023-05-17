@@ -22,7 +22,7 @@ public class SemanticChecker implements ISemanticVisitor {
 
     private ProgramContext context;
 
-    private ClassDecl currentClass; // TODO obsolet?
+    private ClassDecl currentClass;
 
     // private ScopeContext currentLocalScope;
     //private List<String> currentFields = new ArrayList<>();
@@ -170,7 +170,7 @@ public class SemanticChecker implements ISemanticVisitor {
         // check block
         if (constructorDecl.getBlock() != null) {
             TypeCheckResult result = constructorDecl.getBlock().accept(this);
-            // TODO isValid = isValid && result.isValid();
+            isValid = isValid && result.isValid();
         }
         return new TypeCheckResult(isValid, BaseType.VOID);
     }
@@ -218,7 +218,14 @@ public class SemanticChecker implements ISemanticVisitor {
 
     @Override
     public TypeCheckResult check(Block block) {
-        return null;
+
+        boolean isValid = true;
+
+        for (Statement statement : block.getStatementList()) {
+            isValid = isValid && statement.accept(this).isValid();
+        }
+        // TODO hier fehlt noch was
+        return new TypeCheckResult(isValid, BaseType.VOID);
     }
 
     @Override
