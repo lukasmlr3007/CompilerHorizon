@@ -21,8 +21,8 @@ public class StatementAdapter {
             return WhileStatementAdapter.adapt(statementContext.whileStatement());
         } else if (statementContext.ifElseStatement() != null) {
             return IfElseStatementAdapter.adapt(statementContext.ifElseStatement());
-        } else{ //TODO StatementExpression
-            return null;//StatementExpressionAdapter.adapt(statementContext.statementExpression());
+        } else if (statementContext.statementExpression() != null) {  //TODO StatementExpression
+            return StatementStmtExprAdapter.adapt(statementContext.statementExpression());
         }
         return null;
     }

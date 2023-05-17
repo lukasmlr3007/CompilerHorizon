@@ -8,6 +8,7 @@ import semantic.TypeCheckResult;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 import syntax.expression.Expression;
+import syntax.expression.InstVar;
 
 /**
  * Assign / Wertzuweisung <br>
@@ -19,8 +20,8 @@ import syntax.expression.Expression;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class Assign extends StatementExpression {
-    Expression assignLeft;
+public class Assign extends StatementStmtExpr {
+    InstVar assignLeft;
     Expression assignRight;
 
     @Override
