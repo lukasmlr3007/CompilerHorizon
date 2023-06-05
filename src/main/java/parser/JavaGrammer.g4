@@ -19,7 +19,7 @@ assign: instanceVariable Assign expression Semicolon;
 methodCall: reciever extraMethod+ Semicolon;
 reciever: (This | Identifier | instanceVariable); //myNew
 extraMethod: Point Identifier OpenRoundBracket parameterValues ClosedRoundBracket;
-myNew: New Identifier OpenRoundBracket parameters ClosedRoundBracket;
+myNew: New Identifier OpenRoundBracket parameterValues ClosedRoundBracket;
 returnStatement: Return (expression)? Semicolon;
 // expressions später
 expression: partExpression | binaryExpression;

@@ -11,8 +11,8 @@ public class StatementExpressionAdapter {
             return AssignAdapter.adapt(statementExpressionContext.assign());
         } else if (statementExpressionContext.methodCall() != null) {
             return MethodCallAdapter.adapt(statementExpressionContext.methodCall());
-        } else if (statementExpressionContext.myNew() != null) { //TODO myNew
-            //return WhileStatementAdapter.adapt(statementContext.whileStatement());
+        } else if (statementExpressionContext.myNew() != null) {
+            return MyNewAdapter.adapt(statementExpressionContext.myNew());
         }
         return null;
     }

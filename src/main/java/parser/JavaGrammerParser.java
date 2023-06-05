@@ -1258,8 +1258,8 @@ public class JavaGrammerParser extends Parser {
 		public TerminalNode New() { return getToken(JavaGrammerParser.New, 0); }
 		public TerminalNode Identifier() { return getToken(JavaGrammerParser.Identifier, 0); }
 		public TerminalNode OpenRoundBracket() { return getToken(JavaGrammerParser.OpenRoundBracket, 0); }
-		public ParametersContext parameters() {
-			return getRuleContext(ParametersContext.class,0);
+		public ParameterValuesContext parameterValues() {
+			return getRuleContext(ParameterValuesContext.class,0);
 		}
 		public TerminalNode ClosedRoundBracket() { return getToken(JavaGrammerParser.ClosedRoundBracket, 0); }
 		public MyNewContext(ParserRuleContext parent, int invokingState) {
@@ -1294,7 +1294,7 @@ public class JavaGrammerParser extends Parser {
 			setState(183);
 			match(OpenRoundBracket);
 			setState(184);
-			parameters();
+			parameterValues();
 			setState(185);
 			match(ClosedRoundBracket);
 			}
@@ -2197,7 +2197,7 @@ public class JavaGrammerParser extends Parser {
 		"\u0000\u00b1\u00b2\u0005\u0012\u0000\u0000\u00b2\u00b3\u0003\f\u0006\u0000"+
 		"\u00b3\u00b4\u0005\u0013\u0000\u0000\u00b4!\u0001\u0000\u0000\u0000\u00b5"+
 		"\u00b6\u0005\r\u0000\u0000\u00b6\u00b7\u0005\u001b\u0000\u0000\u00b7\u00b8"+
-		"\u0005\u0012\u0000\u0000\u00b8\u00b9\u0003\b\u0004\u0000\u00b9\u00ba\u0005"+
+		"\u0005\u0012\u0000\u0000\u00b8\u00b9\u0003\f\u0006\u0000\u00b9\u00ba\u0005"+
 		"\u0013\u0000\u0000\u00ba#\u0001\u0000\u0000\u0000\u00bb\u00bd\u0005\u0017"+
 		"\u0000\u0000\u00bc\u00be\u0003&\u0013\u0000\u00bd\u00bc\u0001\u0000\u0000"+
 		"\u0000\u00bd\u00be\u0001\u0000\u0000\u0000\u00be\u00bf\u0001\u0000\u0000"+
