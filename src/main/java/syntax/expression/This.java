@@ -1,5 +1,6 @@
 package syntax.expression;
 
+import jdk.internal.org.objectweb.asm.Opcodes;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import semantic.ISemanticVisitor;
@@ -20,6 +21,6 @@ public class This extends PartExpression {
     }
     @Override
     public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor) {
-
+        methodVisitor.visitVarInsn(Opcodes.ALOAD, 0);
     }
 }

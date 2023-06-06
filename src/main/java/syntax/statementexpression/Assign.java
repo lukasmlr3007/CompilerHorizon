@@ -32,7 +32,7 @@ public class Assign extends StatementExpression {
 
         methodVisitor.visitVarInsn(ALOAD, 0);
         methodVisitor.visitVarInsn(ILOAD, 1);
-        methodVisitor.visitFieldInsn(PUTFIELD, "TestClass", "number", "I");
+        methodVisitor.visitFieldInsn(PUTFIELD, "TestClass", "number", "I"); //TODO Classname statt Testclass übergeben
     }
 
     public TypeCheckResult accept(ISemanticVisitor visitor) {
