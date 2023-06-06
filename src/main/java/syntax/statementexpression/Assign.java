@@ -10,6 +10,8 @@ import org.objectweb.asm.MethodVisitor;
 import syntax.expression.Expression;
 import syntax.expression.InstVar;
 
+import static org.objectweb.asm.Opcodes.*;
+
 /**
  * Assign / Wertzuweisung <br>
  * Überschreibt die assignLeft-Expression mit dem Wert der assignRight
@@ -26,7 +28,11 @@ public class Assign extends StatementExpression {
 
     @Override
     public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor) {
+        //number = i;
 
+        methodVisitor.visitVarInsn(ALOAD, 0);
+        methodVisitor.visitVarInsn(ILOAD, 1);
+        methodVisitor.visitFieldInsn(PUTFIELD, "TestClass", "number", "I");
     }
 
     public TypeCheckResult accept(ISemanticVisitor visitor) {

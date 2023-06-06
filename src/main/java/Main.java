@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        String input = "class FirstTest { FirstTest(){} } class SecondTest { }";
+        String input = "class FirstTest { FirstTest(){} }";
 
         ParserAPI parserAPI = new ParserAPI(input);
         Program syntaxTree = parserAPI.getResult();
@@ -17,8 +17,6 @@ public class Main {
         TypeCheckResult typeCheckResult = semantikCheck.check(syntaxTree);
         System.out.println((typeCheckResult.isValid() ? "Semantik ist korrekt" : "Semantik ist inkorrekt"));
 
-        //ProgramGen programGen = new ProgramGen();
-        //programGen.visit(syntaxTree);
         syntaxTree.generateBytecode();
     }
 }

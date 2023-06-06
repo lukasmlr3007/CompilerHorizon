@@ -40,15 +40,17 @@ public class MethodDecl {
         return visitor.check(this);
     }
 
-    public void generateBytecode(ClassWriter classWriter){
-        int accessModifierOpcode = accessModifierToOpcode(accessModifier);
-        String returnTypeDescriptor = returnTypeToDescriptor(returnType);
+    public void generateBytecode(ClassWriter classWriter){ //parameter übergeben und klasse übergeben
+        int accessModifierOpcode = accessModifierToOpcode(this.accessModifier);
+        String returnTypeDescriptor = returnTypeToDescriptor(this.returnType);
         MethodVisitor methodVisitor = classWriter.visitMethod(accessModifierOpcode, identifier, returnTypeDescriptor, null, null);
         methodVisitor.visitCode();
         block.generateBytecode(classWriter, methodVisitor);
         //in block.generateBytecode methodVisitor.visitInsn(RETURN);
         methodVisitor.visitMaxs(0, 1);
         methodVisitor.visitEnd();
+
+        //map mit parametern löschen
     }
 
     public int accessModifierToOpcode(AccessModifier accessModifier){

@@ -19,8 +19,6 @@ public class Program {
 
     private List<ClassDecl> classDeclarations;
 
-    //genratebytecode für jede klasse in classDeclarations aufrufen und in datei schreiben (fileoutput)
-
     public void generateBytecode() {
         for (ClassDecl oneClass : classDeclarations) {
             byte[] bytecode = oneClass.generateBytecode();

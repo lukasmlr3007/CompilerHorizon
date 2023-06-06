@@ -32,5 +32,6 @@ public class ReturnStatement extends Statement {
     @Override
     public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor) {
         methodVisitor.visitInsn(RETURN);
+        expression.generateBytecode(classWriter, methodVisitor);
     }
 }
