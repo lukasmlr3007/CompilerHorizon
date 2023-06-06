@@ -4,7 +4,6 @@ grammar JavaGrammer;
 program: classdecl+;
 classdecl: Class Identifier OpenCurlyBracket constructor* fielddecl* ClosedCurlyBracket;
 fielddecl: Static? AccessModifier type Identifier Semicolon;
-constructor: Identifier OpenRoundBracket parameters? ClosedRoundBracket block;
 parameters: parameterdecl(Comma parameterdecl)*;
 parameterdecl: type Identifier;
 parameterValues: partExpression(Comma partExpression)*;
@@ -32,6 +31,10 @@ logicalExpression: partExpression LogicOperator expression;
 literals: IntValue | BoolValue | CharValue;
 instanceVariable: This Point Identifier | (This Point)? (Identifier Point)+ Identifier;
 
+constructor: Identifier OpenRoundBracket parameters? ClosedRoundBracket block;
+
+//TODO Methodendeklaration fehlt komplett
+//TODO Wertzuweisung zu Variablen funktioniert nicht
 
 type: Int | Bool | Char | Void | Identifier;
 sysout: 'System.out.println' OpenRoundBracket expression ClosedRoundBracket Semicolon;

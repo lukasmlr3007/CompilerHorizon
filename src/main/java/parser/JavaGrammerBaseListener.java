@@ -53,18 +53,6 @@ public class JavaGrammerBaseListener implements JavaGrammerListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConstructor(JavaGrammerParser.ConstructorContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitConstructor(JavaGrammerParser.ConstructorContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterParameters(JavaGrammerParser.ParametersContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -336,6 +324,18 @@ public class JavaGrammerBaseListener implements JavaGrammerListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitInstanceVariable(JavaGrammerParser.InstanceVariableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterConstructor(JavaGrammerParser.ConstructorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitConstructor(JavaGrammerParser.ConstructorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

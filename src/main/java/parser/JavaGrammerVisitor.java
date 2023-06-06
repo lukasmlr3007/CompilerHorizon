@@ -29,12 +29,6 @@ public interface JavaGrammerVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFielddecl(JavaGrammerParser.FielddeclContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JavaGrammerParser#constructor}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitConstructor(JavaGrammerParser.ConstructorContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link JavaGrammerParser#parameters}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -172,6 +166,12 @@ public interface JavaGrammerVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitInstanceVariable(JavaGrammerParser.InstanceVariableContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JavaGrammerParser#constructor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConstructor(JavaGrammerParser.ConstructorContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JavaGrammerParser#type}.
 	 * @param ctx the parse tree

@@ -102,4 +102,19 @@ public class IntegrationTest {
         // TODO assertEquals(4, program.getClassDeclarations().get(0).getMethodDeclList().size());
         assertTrue(typeCheckResult.isValid());
     }
+
+    @Test
+    void complexTest() {
+
+        String input = TestHelper.getFileInput("complex.java");
+        ParserAPI parser = new ParserAPI(input);
+        SemanticChecker semantic = new SemanticChecker();
+
+        Program program = parser.getResult();
+        TypeCheckResult typeCheckResult = semantic.check(program);
+
+        program.generateBytecode();
+
+        assertTrue(typeCheckResult.isValid());
+    }
 }
