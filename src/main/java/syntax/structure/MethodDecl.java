@@ -55,7 +55,7 @@ public class MethodDecl implements CodeVisitor {
         String returnTypeDescriptor = returnTypeToDescriptor(this.returnType);
         MethodVisitor methodVisitor = classWriter.visitMethod(accessModifierOpcode, identifier, returnTypeDescriptor, null, null);
         methodVisitor.visitCode();
-        block.generateBytecode(classWriter, methodVisitor, parameterMap);
+        block.generateBytecode(classWriter, methodVisitor);
         //in block.generateBytecode methodVisitor.visitInsn(RETURN);
         methodVisitor.visitMaxs(0, 1);
         methodVisitor.visitEnd();

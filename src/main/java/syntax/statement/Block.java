@@ -30,6 +30,10 @@ public class Block extends Statement implements CodeVisitor {
     private List<Statement> statementList;
     public HashMap<Integer, String> localVarsInBlock;
 
+    public Block(List<Statement> statements){
+        this.statementList = statements;
+    }
+
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
     }

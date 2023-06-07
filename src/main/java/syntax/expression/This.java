@@ -2,9 +2,9 @@ package syntax.expression;
 
 import bytecode.CodeVisitor;
 import bytecode.MethodBytecodeVisitor;
-import jdk.internal.org.objectweb.asm.Opcodes;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.objectweb.asm.Opcodes;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
 import org.objectweb.asm.ClassWriter;

@@ -29,7 +29,10 @@ public class ClassBytecode implements ClassBytecodeVisitor {
             myclass.getConstructorDeclList().forEach(constructor -> constructor.accept(new MethodBytecode(myclass.getIdentifier(), classWriter)));
         }
 
-        myclass.getMethodDeclList().forEach(method -> method.accept(new MethodBytecode(myclass.getIdentifier(), classWriter)));
+        if (myclass.getMethodDeclList() != null){
+            myclass.getMethodDeclList().forEach(method -> method.accept(new MethodBytecode(myclass.getIdentifier(), classWriter)));
+        }
+
 
         classWriter.visitEnd();
     }
