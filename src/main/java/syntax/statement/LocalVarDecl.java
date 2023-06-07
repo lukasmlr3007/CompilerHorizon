@@ -1,5 +1,7 @@
 package syntax.statement;
 
+import bytecode.CodeVisitor;
+import bytecode.MethodBytecodeVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +17,7 @@ import syntax.common.Type;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class LocalVarDecl extends Statement {
+public class LocalVarDecl extends Statement implements CodeVisitor {
     private Type type;
     private String identifier;
 
@@ -26,5 +28,10 @@ public class LocalVarDecl extends Statement {
     @Override
     public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor) {
 
+    }
+
+    @Override
+    public void accept(MethodBytecodeVisitor visitor) {
+        visitor.visit(this);
     }
 }

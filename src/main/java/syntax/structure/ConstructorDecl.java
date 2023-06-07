@@ -1,5 +1,7 @@
 package syntax.structure;
 
+import bytecode.CodeVisitor;
+import bytecode.MethodBytecodeVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +21,7 @@ import static org.objectweb.asm.Opcodes.*;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class ConstructorDecl {
+public class ConstructorDecl implements CodeVisitor {
 
     // private AccessModifier accessModifier; TODO add public/private constructor
     private List<ParameterDecl> parameters;
@@ -47,6 +49,11 @@ public class ConstructorDecl {
         methodVisitor.visitEnd();
 
 
+    }
+
+    @Override
+    public void accept(MethodBytecodeVisitor visitor) {
+        visitor.visit(this);
     }
 
     public String allParametersToString(){

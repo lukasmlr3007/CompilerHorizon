@@ -1,5 +1,7 @@
 package syntax.expression;
 
+import bytecode.CodeVisitor;
+import bytecode.MethodBytecodeVisitor;
 import jdk.internal.org.objectweb.asm.Opcodes;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +16,7 @@ import org.objectweb.asm.MethodVisitor;
  */
 @Data
 @AllArgsConstructor
-public class This extends PartExpression {
+public class This extends PartExpression implements CodeVisitor {
 
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
@@ -22,5 +24,10 @@ public class This extends PartExpression {
     @Override
     public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor) {
         methodVisitor.visitVarInsn(Opcodes.ALOAD, 0);
+    }
+
+    @Override
+    public void accept(MethodBytecodeVisitor visitor) {
+        visitor.visit(this);
     }
 }

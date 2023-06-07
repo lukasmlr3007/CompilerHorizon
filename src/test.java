@@ -1,10 +1,8 @@
 class TestClass {
     int number;
 
-    public TestClass(int i, char b){
-        number = i;
-    }
-    public int makesmth() {
-        return 35;
+    public TestClass(){ }
+    public void makesmth() {
+        number = 1 + 3;
     };
 }

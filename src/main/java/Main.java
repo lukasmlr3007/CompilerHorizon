@@ -1,3 +1,4 @@
+import bytecode.ProgramBytecode;
 import parser.ParserAPI;
 import semantic.SemanticChecker;
 import semantic.TypeCheckResult;
@@ -18,6 +19,8 @@ public class Main {
         TypeCheckResult typeCheckResult = semantikCheck.check(syntaxTree);
         System.out.println((typeCheckResult.isValid() ? "Semantik ist korrekt" : "Semantik ist inkorrekt"));
 
-        syntaxTree.generateBytecode();
+        //syntaxTree.generateBytecode();
+        ProgramBytecode programBytecode = new ProgramBytecode();
+        programBytecode.visit(syntaxTree);
     }
 }

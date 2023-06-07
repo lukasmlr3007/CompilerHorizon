@@ -1,5 +1,7 @@
 package syntax.statementexpression;
 
+import bytecode.CodeVisitor;
+import bytecode.MethodBytecodeVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +23,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class New extends StatementExpression {
+public class New extends StatementExpression implements CodeVisitor {
     private List<Expression> paramterList;
     private String identifier;
 
@@ -32,5 +34,10 @@ public class New extends StatementExpression {
     @Override
     public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor) {
 
+    }
+
+    @Override
+    public void accept(MethodBytecodeVisitor visitor) {
+        visitor.visit(this);
     }
 }

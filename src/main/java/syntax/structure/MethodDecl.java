@@ -1,5 +1,7 @@
 package syntax.structure;
 
+import bytecode.CodeVisitor;
+import bytecode.MethodBytecodeVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,7 @@ import syntax.statement.Block;
 import syntax.common.AccessModifier;
 import syntax.common.Type;
 
+import java.util.HashMap;
 import java.util.List;
 
 import static org.objectweb.asm.Opcodes.*;
@@ -28,7 +31,7 @@ import static org.objectweb.asm.Opcodes.*;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class MethodDecl {
+public class MethodDecl implements CodeVisitor {
     private Type returnType;
     private String identifier;
     private List<ParameterDecl> parameters;
@@ -40,12 +43,19 @@ public class MethodDecl {
         return visitor.check(this);
     }
 
-    public void generateBytecode(ClassWriter classWriter){ //parameter übergeben und klasse übergeben
+    public void generateBytecode(ClassWriter classWriter) { //parameter übergeben und klasse übergeben
+        HashMap<Integer, String> parameterMap = new HashMap<Integer, String>();
+        int index = 0;
+        for (ParameterDecl parameter: parameters) {
+            parameterMap.put(index, parameter.getIdentifier());
+            index++;
+        }
+
         int accessModifierOpcode = accessModifierToOpcode(this.accessModifier);
         String returnTypeDescriptor = returnTypeToDescriptor(this.returnType);
         MethodVisitor methodVisitor = classWriter.visitMethod(accessModifierOpcode, identifier, returnTypeDescriptor, null, null);
         methodVisitor.visitCode();
-        block.generateBytecode(classWriter, methodVisitor);
+        block.generateBytecode(classWriter, methodVisitor, parameterMap);
         //in block.generateBytecode methodVisitor.visitInsn(RETURN);
         methodVisitor.visitMaxs(0, 1);
         methodVisitor.visitEnd();
@@ -53,25 +63,31 @@ public class MethodDecl {
         //map mit parametern löschen
     }
 
-    public int accessModifierToOpcode(AccessModifier accessModifier){
-        if (accessModifier == AccessModifier.PUBLIC){
+    @Override
+    public void accept(MethodBytecodeVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public int accessModifierToOpcode(AccessModifier accessModifier) {
+        if (accessModifier == AccessModifier.PUBLIC) {
             return ACC_PUBLIC;
-        } else if (accessModifier == AccessModifier.PRIVATE){
+        } else if (accessModifier == AccessModifier.PRIVATE) {
             return ACC_PRIVATE;
-        } else if (accessModifier == AccessModifier.PROTECTED){
+        } else if (accessModifier == AccessModifier.PROTECTED) {
             return ACC_PROTECTED;
         } else {
             return 0;
         }
     }
-    public String returnTypeToDescriptor(Type returnType){
-        if (returnType == BaseType.VOID){
+
+    public String returnTypeToDescriptor(Type returnType) {
+        if (returnType == BaseType.VOID) {
             return "V()";
-        } else if (returnType == BaseType.INT){
+        } else if (returnType == BaseType.INT) {
             return "I()";
-        } else if (returnType == BaseType.CHAR){
+        } else if (returnType == BaseType.CHAR) {
             return "C()";
-        } else if (returnType == BaseType.BOOLEAN){
+        } else if (returnType == BaseType.BOOLEAN) {
             return "B()";
         } else {
             return returnType.getIdentifier();

@@ -1,5 +1,7 @@
 package syntax.structure;
 
+import bytecode.CodeVisitor;
+import bytecode.ProgramBytecodeVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +17,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class Program {
+public class Program implements CodeVisitor {
 
     private List<ClassDecl> classDeclarations;
 
@@ -28,5 +30,10 @@ public class Program {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    @Override
+    public void accept(ProgramBytecodeVisitor visitor) {
+        visitor.visit(this);
     }
 }

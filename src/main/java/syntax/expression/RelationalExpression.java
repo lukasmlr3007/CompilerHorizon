@@ -1,5 +1,7 @@
 package syntax.expression;
 
+import bytecode.CodeVisitor;
+import bytecode.MethodBytecodeVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +16,7 @@ import org.objectweb.asm.MethodVisitor;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class RelationalExpression extends BinaryExpression {
+public class RelationalExpression extends BinaryExpression implements CodeVisitor {
     String operator;
     PartExpression expressionLeft;
     Expression expressionRight;
@@ -26,5 +28,10 @@ public class RelationalExpression extends BinaryExpression {
     @Override
     public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor) {
 
+    }
+
+    @Override
+    public void accept(MethodBytecodeVisitor visitor) {
+        visitor.visit(this);
     }
 }

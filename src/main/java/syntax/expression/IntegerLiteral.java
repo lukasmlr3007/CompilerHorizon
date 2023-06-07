@@ -1,5 +1,7 @@
 package syntax.expression;
 
+import bytecode.CodeVisitor;
+import bytecode.MethodBytecodeVisitor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import semantic.ISemanticVisitor;
@@ -16,7 +18,7 @@ import static org.objectweb.asm.Opcodes.*;
 
 @Data
 @RequiredArgsConstructor
-public class IntegerLiteral extends PartExpression {
+public class IntegerLiteral extends PartExpression implements CodeVisitor {
     int value;
 
     public IntegerLiteral(int value) {
@@ -45,5 +47,10 @@ public class IntegerLiteral extends PartExpression {
         } else {
             methodVisitor.visitIntInsn(BIPUSH, this.value);
         }
+    }
+
+    @Override
+    public void accept(MethodBytecodeVisitor visitor) {
+        visitor.visit(this);
     }
 }

@@ -1,5 +1,7 @@
 package syntax.statementexpression;
 
+import bytecode.CodeVisitor;
+import bytecode.MethodBytecodeVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +24,7 @@ import static org.objectweb.asm.Opcodes.*;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class Assign extends StatementExpression {
+public class Assign extends StatementExpression implements CodeVisitor {
     InstVar assignLeft;
     Expression assignRight;
 
@@ -30,12 +32,19 @@ public class Assign extends StatementExpression {
     public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor) {
         //number = i;
 
-        methodVisitor.visitVarInsn(ALOAD, 0);
-        methodVisitor.visitVarInsn(ILOAD, 1);
-        methodVisitor.visitFieldInsn(PUTFIELD, "TestClass", "number", "I"); //TODO Classname statt Testclass übergeben
+        //methodVisitor.visitVarInsn(ALOAD, 0);
+        //methodVisitor.visitVarInsn(ILOAD, 1);
+        //methodVisitor.visitFieldInsn(PUTFIELD, "TestClass", "number", "I"); //TODO Classname und Variablenname statt feste Werte übergeben
+        assignLeft.generateBytecode(classWriter, methodVisitor);
+        assignRight.generateBytecode(classWriter, methodVisitor);
     }
 
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
+    }
+
+    @Override
+    public void accept(MethodBytecodeVisitor visitor) {
+        visitor.visit(this);
     }
 }

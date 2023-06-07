@@ -1,5 +1,7 @@
 package syntax.statementexpression;
 
+import bytecode.CodeVisitor;
+import bytecode.MethodBytecodeVisitor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.objectweb.asm.ClassWriter;
@@ -10,7 +12,7 @@ import syntax.statement.Statement;
 
 @Data
 @RequiredArgsConstructor
-public class StatementStmtExpr extends Statement {
+public class StatementStmtExpr extends Statement implements CodeVisitor {
     private StatementExpression statementExpression;
 
     public StatementStmtExpr(StatementExpression se) {
@@ -25,5 +27,10 @@ public class StatementStmtExpr extends Statement {
     @Override
     public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor) {
 
+    }
+
+    @Override
+    public void accept(MethodBytecodeVisitor visitor) {
+        visitor.visit(this);
     }
 }
