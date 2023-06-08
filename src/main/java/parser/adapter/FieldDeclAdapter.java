@@ -3,15 +3,20 @@ package parser.adapter;
 import parser.JavaGrammerParser;
 import syntax.common.AccessModifier;
 import syntax.common.BaseType;
+import syntax.common.ReferenceType;
+import syntax.common.Type;
 import syntax.structure.FieldDecl;
 
 public class FieldDeclAdapter {
 
     public static FieldDecl adapt(JavaGrammerParser.FielddeclContext fielddeclContext) {
-        FieldDecl fd = new FieldDecl();
         AccessModifier am = AccessModifier.valueOf(fielddeclContext.AccessModifier().getText().toUpperCase());
-        BaseType bt = BaseType.valueOf(fielddeclContext.type().getText().toUpperCase());
-        //TODO BaseType vs ReferenceType
-        return new FieldDecl(fielddeclContext.Identifier().getText(), am, bt);
+        Type type;
+        try {
+            type = BaseType.valueOf(fielddeclContext.type().getText().toUpperCase());
+        } catch (Exception e) {
+            type = new ReferenceType(fielddeclContext.type().getText());
+        }
+        return new FieldDecl(fielddeclContext.Identifier().getText(), am, type);
     }
 }
