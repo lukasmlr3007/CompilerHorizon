@@ -2,6 +2,7 @@ package bytecode;
 
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
 import syntax.expression.*;
 import syntax.statement.*;
 import syntax.statementexpression.Assign;
@@ -27,17 +28,38 @@ public class MethodBytecode implements MethodBytecodeVisitor {
 
     @Override
     public void visit(AdditiveExpression additiveExpression) {
-
+        if (additiveExpression.getOperator().equals("+")){
+            methodVisitor.visitInsn(Opcodes.IADD);
+        } else if (additiveExpression.getOperator().equals("-")){
+            methodVisitor.visitInsn(Opcodes.ISUB);
+        } else if (additiveExpression.getOperator().equals("*")){
+            methodVisitor.visitInsn(Opcodes.IMUL);
+        } else if (additiveExpression.getOperator().equals("/")){
+            methodVisitor.visitInsn(Opcodes.IDIV);
+        } else {
+            throw new IllegalArgumentException("Operator not valid");
+        }
     }
 
     @Override
     public void visit(BoolLiteral boolLiteral) {
-
+        if (boolLiteral.getValue()){
+            methodVisitor.visitInsn(Opcodes.ICONST_1);
+        } else {
+            methodVisitor.visitInsn(Opcodes.ICONST_0);
+        }
     }
 
     @Override
     public void visit(CharLiteral charLiteral) {
-
+        char value = charLiteral.getValue();
+        if (value <= Byte.MAX_VALUE){
+            methodVisitor.visitIntInsn(Opcodes.BIPUSH, value);
+        } else if (value <= Short.MAX_VALUE) {
+            methodVisitor.visitIntInsn(Opcodes.SIPUSH, value);
+        } else {
+            methodVisitor.visitLdcInsn(value);
+        }
     }
 
     @Override
@@ -47,7 +69,14 @@ public class MethodBytecode implements MethodBytecodeVisitor {
 
     @Override
     public void visit(IntegerLiteral integerLiteral) {
-
+        int value = integerLiteral.getValue();
+        if (value >= Byte.MIN_VALUE && value <= Byte.MAX_VALUE){
+            methodVisitor.visitIntInsn(Opcodes.BIPUSH, value);
+        } else if (value >= Short.MIN_VALUE && value <= Short.MAX_VALUE){
+            methodVisitor.visitIntInsn(Opcodes.SIPUSH, value);
+        } else {
+            methodVisitor.visitLdcInsn(value);
+        }
     }
 
     @Override
