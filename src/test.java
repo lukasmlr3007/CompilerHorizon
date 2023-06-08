@@ -1,6 +1,8 @@
 class TestClass {
     int number;
-    public int makesmth() {
-        return 35;
+
+    public TestClass(){ }
+    public void makesmth() {
+        number = 1 + 3;
     };
 }

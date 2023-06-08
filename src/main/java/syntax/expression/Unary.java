@@ -1,5 +1,7 @@
 package syntax.expression;
 
+import bytecode.CodeVisitor;
+import bytecode.MethodBytecodeVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +18,7 @@ import syntax.common.Operator;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class Unary extends Expression {
+public class Unary extends Expression implements CodeVisitor {
     Operator operator;
     Expression expression;
 
@@ -27,5 +29,10 @@ public class Unary extends Expression {
     @Override
     public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor) {
 
+    }
+
+    @Override
+    public void accept(MethodBytecodeVisitor visitor) {
+        visitor.visit(this);
     }
 }

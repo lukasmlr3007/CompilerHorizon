@@ -19,7 +19,8 @@ public class ClassDeclAdapter {
         if(classdeclContext.constructor() != null) {
             classdeclContext.constructor().forEach(constructorContext -> constructos.add(ConstructorAdapter.adapt(constructorContext)));
         }
-        return new ClassDecl(fields, null,constructos, classdeclContext.Identifier().getText());
+        return new ClassDecl(fields, null, constructos, classdeclContext.Identifier().getText());
+        //TODO methodDeclList
     }
 
 }

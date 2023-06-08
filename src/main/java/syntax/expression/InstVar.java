@@ -1,5 +1,7 @@
 package syntax.expression;
 
+import bytecode.CodeVisitor;
+import bytecode.MethodBytecodeVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +22,7 @@ import syntax.expression.Expression;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class InstVar extends PartExpression {
+public class InstVar extends PartExpression implements CodeVisitor {
     Expression expression;
     String identifier;
 
@@ -31,5 +33,10 @@ public class InstVar extends PartExpression {
     @Override
     public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor) {
 
+    }
+
+    @Override
+    public void accept(MethodBytecodeVisitor visitor) {
+        visitor.visit(this);
     }
 }

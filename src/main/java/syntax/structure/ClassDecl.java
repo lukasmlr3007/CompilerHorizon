@@ -1,5 +1,7 @@
 package syntax.structure;
 
+import bytecode.ClassBytecodeVisitor;
+import bytecode.CodeVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +25,7 @@ import static org.objectweb.asm.Opcodes.*;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class ClassDecl {
+public class ClassDecl implements CodeVisitor {
     private List<FieldDecl> fieldDeclList;
     private List<MethodDecl> methodDeclList;
     private List<ConstructorDecl> constructorDeclList;
@@ -68,5 +70,10 @@ public class ClassDecl {
         classWriter.visitEnd();
 
         return classWriter.toByteArray();
+    }
+
+    @Override
+    public void accept(ClassBytecodeVisitor visitor) {
+        visitor.visit(this);
     }
 }

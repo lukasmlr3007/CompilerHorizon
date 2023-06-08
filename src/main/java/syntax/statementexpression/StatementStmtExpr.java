@@ -1,28 +1,27 @@
-package syntax.expression;
+package syntax.statementexpression;
 
 import bytecode.CodeVisitor;
 import bytecode.MethodBytecodeVisitor;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import semantic.ISemanticVisitor;
-import semantic.TypeCheckResult;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
+import semantic.ISemanticVisitor;
+import semantic.TypeCheckResult;
+import syntax.statement.Statement;
 
-/**
- * keine Ahnung
- */
 @Data
-@AllArgsConstructor
 @RequiredArgsConstructor
-public class RelationalExpression extends BinaryExpression implements CodeVisitor {
-    String operator;
-    PartExpression expressionLeft;
-    Expression expressionRight;
+public class StatementStmtExpr extends Statement implements CodeVisitor {
+    private StatementExpression statementExpression;
 
+    public StatementStmtExpr(StatementExpression se) {
+        this.statementExpression = se;
+    }
+
+    @Override
     public TypeCheckResult accept(ISemanticVisitor visitor) {
-        return visitor.check(this);
+        return null;
     }
 
     @Override

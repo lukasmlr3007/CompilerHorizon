@@ -1,5 +1,7 @@
 package syntax.statement;
 
+import bytecode.CodeVisitor;
+import bytecode.MethodBytecodeVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +24,7 @@ import static org.objectweb.asm.Opcodes.RETURN;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class ReturnStatement extends Statement {
+public class ReturnStatement extends Statement implements CodeVisitor {
     Expression expression;
 
     public TypeCheckResult accept(ISemanticVisitor visitor) {
@@ -32,5 +34,11 @@ public class ReturnStatement extends Statement {
     @Override
     public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor) {
         methodVisitor.visitInsn(RETURN);
+        expression.generateBytecode(classWriter, methodVisitor);
+    }
+
+    @Override
+    public void accept(MethodBytecodeVisitor visitor) {
+        visitor.visit(this);
     }
 }

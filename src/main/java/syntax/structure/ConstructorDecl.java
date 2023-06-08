@@ -1,5 +1,7 @@
 package syntax.structure;
 
+import bytecode.CodeVisitor;
+import bytecode.MethodBytecodeVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +10,7 @@ import org.objectweb.asm.MethodVisitor;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
 import syntax.common.AccessModifier;
+import syntax.common.BaseType;
 import syntax.common.Type;
 import syntax.statement.Block;
 
@@ -18,7 +21,7 @@ import static org.objectweb.asm.Opcodes.*;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class ConstructorDecl {
+public class ConstructorDecl implements CodeVisitor {
 
     // private AccessModifier accessModifier; TODO add public/private constructor
     private List<ParameterDecl> parameters;
@@ -30,19 +33,48 @@ public class ConstructorDecl {
     }
 
     public void generateBytecode(ClassWriter classWriter, String ownerClassName) {
-        MethodVisitor methodVisitor = classWriter.visitMethod(0, "<init>", "(I)V", null, null);
+        String descriptor = "(" + allParametersToString() + ")V";
+        System.out.println(descriptor);
+
+        MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC, "<init>", descriptor, null, null);
         methodVisitor.visitCode();
         methodVisitor.visitVarInsn(ALOAD, 0);
-        methodVisitor.visitVarInsn(ILOAD, 1);
-        if (parameters != null) {
-            for (ParameterDecl parameterDecl : parameters) {
-                methodVisitor.visitFieldInsn(PUTFIELD, ownerClassName, parameterDecl.getIdentifier(), "I");
+        methodVisitor.visitMethodInsn(INVOKESPECIAL, "java/lang/Object", "<init>", "()V", false);
+        block.generateBytecode(classWriter, methodVisitor);
+        //methodVisitor.visitVarInsn(ALOAD, 0);
+        //methodVisitor.visitInsn(ICONST_2);
+        //methodVisitor.visitFieldInsn(PUTFIELD, "TestClass", "number", "I");
+        methodVisitor.visitInsn(RETURN);
+        methodVisitor.visitMaxs(2, 1);
+        methodVisitor.visitEnd();
 
-                methodVisitor.visitFieldInsn(PUTFIELD, "EmptyClass", "number", "I");
-                methodVisitor.visitInsn(RETURN);
-                methodVisitor.visitMaxs(2, 2);
-                methodVisitor.visitEnd();
-            }
+
+    }
+
+    @Override
+    public void accept(MethodBytecodeVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public String allParametersToString(){
+        String params = "";
+        for (ParameterDecl parameter : parameters){
+            params = params + parameterTypeToDescriptor(parameter.getType());
+        }
+        return params;
+    }
+
+    public String parameterTypeToDescriptor(Type parameterType){
+        if (parameterType == BaseType.VOID){
+            return "V";
+        } else if (parameterType == BaseType.INT){
+            return "I";
+        } else if (parameterType == BaseType.CHAR){
+            return "C";
+        } else if (parameterType == BaseType.BOOLEAN){
+            return "B";
+        } else {
+            return parameterType.getIdentifier();
         }
     }
 }

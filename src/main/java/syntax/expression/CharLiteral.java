@@ -1,5 +1,7 @@
 package syntax.expression;
 
+import bytecode.CodeVisitor;
+import bytecode.MethodBytecodeVisitor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import semantic.ISemanticVisitor;
@@ -14,7 +16,7 @@ import syntax.common.BaseType;
  */
 @Data
 @RequiredArgsConstructor
-public class CharLiteral extends PartExpression {
+public class CharLiteral extends PartExpression implements CodeVisitor {
     private char value;
 
     public CharLiteral(char value) {
@@ -29,5 +31,10 @@ public class CharLiteral extends PartExpression {
     @Override
     public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor) {
 
+    }
+
+    @Override
+    public void accept(MethodBytecodeVisitor visitor) {
+        visitor.visit(this);
     }
 }

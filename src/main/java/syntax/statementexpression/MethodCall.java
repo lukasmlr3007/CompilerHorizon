@@ -1,5 +1,7 @@
 package syntax.statementexpression;
 
+import bytecode.CodeVisitor;
+import bytecode.MethodBytecodeVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +10,8 @@ import semantic.TypeCheckResult;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 import syntax.expression.Expression;
+import syntax.expression.PartExpression;
+import syntax.structure.ParameterDecl;
 
 import java.util.List;
 
@@ -22,10 +26,10 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class MethodCall extends StatementExpression {
+public class MethodCall extends StatementExpression implements CodeVisitor {
     String identifier;
     Expression receiver;
-    List<Expression> parameterList;
+    List<PartExpression> parameterList;
 
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
@@ -34,5 +38,10 @@ public class MethodCall extends StatementExpression {
     @Override
     public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor) {
 
+    }
+
+    @Override
+    public void accept(MethodBytecodeVisitor visitor) {
+        visitor.visit(this);
     }
 }

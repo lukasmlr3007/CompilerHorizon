@@ -1,5 +1,7 @@
 package syntax.statement;
 
+import bytecode.CodeVisitor;
+import bytecode.MethodBytecodeVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +21,7 @@ import syntax.expression.Expression;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class IfElseStatement extends Statement {
+public class IfElseStatement extends Statement implements CodeVisitor {
     Expression condition;
     Block ifBlock;
     Block elseBlock;
@@ -31,5 +33,10 @@ public class IfElseStatement extends Statement {
     @Override
     public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor) {
 
+    }
+
+    @Override
+    public void accept(MethodBytecodeVisitor visitor) {
+        visitor.visit(this);
     }
 }

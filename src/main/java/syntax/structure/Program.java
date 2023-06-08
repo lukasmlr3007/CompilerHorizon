@@ -1,5 +1,7 @@
 package syntax.structure;
 
+import bytecode.CodeVisitor;
+import bytecode.ProgramBytecodeVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -15,11 +17,9 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class Program {
+public class Program implements CodeVisitor {
 
     private List<ClassDecl> classDeclarations;
-
-    //genratebytecode für jede klasse in classDeclarations aufrufen und in datei schreiben (fileoutput)
 
     public void generateBytecode() {
         for (ClassDecl oneClass : classDeclarations) {
@@ -30,5 +30,10 @@ public class Program {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    @Override
+    public void accept(ProgramBytecodeVisitor visitor) {
+        visitor.visit(this);
     }
 }
