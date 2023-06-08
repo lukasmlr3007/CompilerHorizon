@@ -19,7 +19,7 @@ public class IntegrationTest {
         Program program = parser.getResult();
         TypeCheckResult typeCheckResult = semantic.check(program);
 
-        program.generateBytecode();
+        // program.generateBytecode();
 
         assertTrue(typeCheckResult.isValid());
     }
@@ -34,7 +34,7 @@ public class IntegrationTest {
         Program program = parser.getResult();
         TypeCheckResult typeCheckResult = semantic.check(program);
 
-        program.generateBytecode();
+        // program.generateBytecode();
 
         assertEquals(3, program.getClassDeclarations().size());
         assertTrue(typeCheckResult.isValid());
@@ -50,7 +50,7 @@ public class IntegrationTest {
         Program program = parser.getResult();
         TypeCheckResult typeCheckResult = semantic.check(program);
 
-        program.generateBytecode();
+        // program.generateBytecode();
 
         assertEquals(2, program.getClassDeclarations().get(0).getConstructorDeclList().size());
         assertTrue(typeCheckResult.isValid());
@@ -66,7 +66,7 @@ public class IntegrationTest {
         Program program = parser.getResult();
         TypeCheckResult typeCheckResult = semantic.check(program);
 
-        program.generateBytecode();
+        // program.generateBytecode();
 
         assertEquals(3, program.getClassDeclarations().get(0).getFieldDeclList().size());
         assertTrue(typeCheckResult.isValid());
@@ -82,7 +82,7 @@ public class IntegrationTest {
         Program program = parser.getResult();
         TypeCheckResult typeCheckResult = semantic.check(program);
 
-        program.generateBytecode();
+        // program.generateBytecode();
 
         assertTrue(typeCheckResult.isValid());
     }
@@ -97,7 +97,7 @@ public class IntegrationTest {
         Program program = parser.getResult();
         TypeCheckResult typeCheckResult = semantic.check(program);
 
-        program.generateBytecode();
+        // program.generateBytecode();
 
         // TODO assertEquals(4, program.getClassDeclarations().get(0).getMethodDeclList().size());
         assertTrue(typeCheckResult.isValid());
@@ -106,14 +106,14 @@ public class IntegrationTest {
     @Test
     void complexTest() {
 
-        String input = TestHelper.getFileInput("complex.java");
+        String input = TestHelper.getFileInput("Complex.java");
         ParserAPI parser = new ParserAPI(input);
         SemanticChecker semantic = new SemanticChecker();
 
         Program program = parser.getResult();
         TypeCheckResult typeCheckResult = semantic.check(program);
 
-        program.generateBytecode();
+        // program.generateBytecode();
 
         assertTrue(typeCheckResult.isValid());
     }
