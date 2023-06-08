@@ -10,7 +10,7 @@ public class Main {
 
         //String input = "class FirstTest { FirstTest(){} } class SecondTest { }";
         //String input = "class FirstTest {FirstTest(int zahl, char zeichen){}  private int meinint; this.meinint = 3} class SecondTest {}";
-        String input = "class FirstTest {}";
+        String input = "class FirstTest { public static void methodeNeu(int zahlparam){} }";
 
         ParserAPI parserAPI = new ParserAPI(input);
         Program syntaxTree = parserAPI.getResult();

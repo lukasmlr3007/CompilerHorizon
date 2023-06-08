@@ -11,7 +11,7 @@ public class FieldDeclAdapter {
         FieldDecl fd = new FieldDecl();
         AccessModifier am = AccessModifier.valueOf(fielddeclContext.AccessModifier().getText().toUpperCase());
         BaseType bt = BaseType.valueOf(fielddeclContext.type().getText().toUpperCase());
-
+        //TODO BaseType vs ReferenceType
         return new FieldDecl(fielddeclContext.Identifier().getText(), am, bt);
     }
 }

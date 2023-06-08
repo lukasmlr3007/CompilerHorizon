@@ -68,6 +68,16 @@ public interface JavaGrammerListener extends ParseTreeListener {
 	 */
 	void exitParameterValues(JavaGrammerParser.ParameterValuesContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link JavaGrammerParser#methoddecl}.
+	 * @param ctx the parse tree
+	 */
+	void enterMethoddecl(JavaGrammerParser.MethoddeclContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JavaGrammerParser#methoddecl}.
+	 * @param ctx the parse tree
+	 */
+	void exitMethoddecl(JavaGrammerParser.MethoddeclContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link JavaGrammerParser#block}.
 	 * @param ctx the parse tree
 	 */

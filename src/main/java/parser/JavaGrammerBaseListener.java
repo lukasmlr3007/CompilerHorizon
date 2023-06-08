@@ -89,6 +89,18 @@ public class JavaGrammerBaseListener implements JavaGrammerListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterMethoddecl(JavaGrammerParser.MethoddeclContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMethoddecl(JavaGrammerParser.MethoddeclContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterBlock(JavaGrammerParser.BlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
