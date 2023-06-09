@@ -1,5 +1,7 @@
 package syntax.expression;
 
+import bytecode.CodeVisitor;
+import bytecode.MethodBytecodeVisitor;
 import lombok.Data;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
@@ -21,10 +23,12 @@ import syntax.statementexpression.StatementExpression;
  * Advanced Expressions: {@link BinaryExpression}, {@link StatementExpression}, {@link StatementExpressionExpression}
  */
 @Data
-public abstract class Expression {
+public abstract class Expression implements CodeVisitor {
     private Type type;
 
     public abstract TypeCheckResult accept(ISemanticVisitor visitor);
+
+    public abstract void accept(MethodBytecodeVisitor visitor);
 
     public abstract void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor);
 }

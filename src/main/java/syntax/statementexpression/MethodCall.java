@@ -9,6 +9,8 @@ import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
+import syntax.common.BaseType;
+import syntax.common.Type;
 import syntax.expression.Expression;
 import syntax.expression.PartExpression;
 import syntax.structure.ParameterDecl;
@@ -43,5 +45,27 @@ public class MethodCall extends StatementExpression implements CodeVisitor {
     @Override
     public void accept(MethodBytecodeVisitor visitor) {
         visitor.visit(this);
+    }
+
+    public String allParametersToString(){
+        String params = "";
+        for (PartExpression parameter : parameterList){
+            params = params + parameterTypeToDescriptor(parameter.getType());
+        }
+        return params;
+    }
+
+    public String parameterTypeToDescriptor(Type parameterType){
+        if (parameterType == BaseType.VOID){
+            return "V";
+        } else if (parameterType == BaseType.INT){
+            return "I";
+        } else if (parameterType == BaseType.CHAR){
+            return "C";
+        } else if (parameterType == BaseType.BOOLEAN){
+            return "B";
+        } else {
+            return parameterType.getIdentifier();
+        }
     }
 }

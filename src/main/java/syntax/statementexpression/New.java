@@ -10,6 +10,7 @@ import semantic.TypeCheckResult;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 import syntax.expression.Expression;
+import syntax.expression.PartExpression;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ import java.util.List;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class New extends StatementExpression implements CodeVisitor {
-    private List<Expression> paramterList;
+    private List<Expression> parameterList;
     private String identifier;
 
     public TypeCheckResult accept(ISemanticVisitor visitor) {
@@ -39,5 +40,13 @@ public class New extends StatementExpression implements CodeVisitor {
     @Override
     public void accept(MethodBytecodeVisitor visitor) {
         visitor.visit(this);
+    }
+
+    public String allParametersToString(){
+        String params = "";
+        for (Expression parameter : parameterList){
+            params = params + "V()";
+        }
+        return params;
     }
 }
