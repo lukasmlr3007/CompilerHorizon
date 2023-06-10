@@ -6,13 +6,11 @@ import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import syntax.common.BaseType;
+import syntax.common.Operator;
 import syntax.common.ReferenceType;
 import syntax.expression.*;
 import syntax.statement.*;
-import syntax.statementexpression.Assign;
-import syntax.statementexpression.MethodCall;
-import syntax.statementexpression.New;
-import syntax.statementexpression.StatementStmtExpr;
+import syntax.statementexpression.*;
 import syntax.structure.ConstructorDecl;
 import syntax.structure.MethodDecl;
 
@@ -25,12 +23,13 @@ public class MethodBytecode implements MethodBytecodeVisitor {
     private final ClassWriter classWriter;
     private MethodVisitor methodVisitor;
     private String lastClass;
+    private LocalVariableStack localVariables;
 
     public MethodBytecode(String className, ClassWriter classWriter) {
         this.className = className;
         this.classWriter = classWriter;
 
-        //localVars = new LocalVarStack();
+        localVariables = new LocalVariableStack();
     }
 
     @Override
@@ -71,7 +70,7 @@ public class MethodBytecode implements MethodBytecodeVisitor {
 
     @Override
     public void visit(InstVar instVar) {
-
+        this.visitInstVar(instVar, true);
     }
 
     @Override
@@ -88,7 +87,21 @@ public class MethodBytecode implements MethodBytecodeVisitor {
 
     @Override
     public void visit(LocalOrFieldVar localOrFieldVar) {
-
+        int index = localVariables.get(localOrFieldVar.getIdentifier());
+        if (index >= 0){
+            if (localOrFieldVar.getType() instanceof BaseType){
+                methodVisitor.visitVarInsn(Opcodes.ILOAD, index);
+            } else {
+                methodVisitor.visitVarInsn(Opcodes.ALOAD, index);
+            }
+        } else {
+            methodVisitor.visitVarInsn(Opcodes.ALOAD, 0);
+            methodVisitor.visitFieldInsn(Opcodes.GETFIELD, className, localOrFieldVar.getIdentifier(), localOrFieldVar.parameterTypeToDescriptor(localOrFieldVar.getType()));
+        }
+        if (localOrFieldVar.getType() instanceof ReferenceType){
+            this.lastClass = localOrFieldVar.getIdentifier();
+            System.out.println("console log : localOrFieldVar.getIdentifier()");
+        }
     }
 
     @Override
@@ -97,31 +110,7 @@ public class MethodBytecode implements MethodBytecodeVisitor {
         Label labelTrue = new Label();
 
         String operator = logicalExpression.getOperator();
-        if (operator.equals("==")){
-            logicalExpression.getExpressionLeft().accept(this);
-            logicalExpression.getExpressionRight().accept(this);
-            if (logicalExpression.getExpressionLeft().getType() instanceof BaseType && logicalExpression.getExpressionRight().getType() instanceof BaseType){
-                methodVisitor.visitJumpInsn(Opcodes.IF_ICMPNE, labelFalse);
-            } else {
-                methodVisitor.visitJumpInsn(Opcodes.IF_ACMPNE, labelFalse);
-            }
-        } else if (operator.equals("<")){
-            logicalExpression.getExpressionLeft().accept(this);
-            logicalExpression.getExpressionRight().accept(this);
-            methodVisitor.visitJumpInsn(Opcodes.IF_ICMPGE, labelFalse);
-        } else if (operator.equals(">")){
-            logicalExpression.getExpressionLeft().accept(this);
-            logicalExpression.getExpressionRight().accept(this);
-            methodVisitor.visitJumpInsn(Opcodes.IF_ICMPLE, labelFalse);
-        } else if (operator.equals("<=")){
-            logicalExpression.getExpressionLeft().accept(this);
-            logicalExpression.getExpressionRight().accept(this);
-            methodVisitor.visitJumpInsn(Opcodes.IF_ICMPLT, labelFalse);
-        } else if (operator.equals(">=")){
-            logicalExpression.getExpressionLeft().accept(this);
-            logicalExpression.getExpressionRight().accept(this);
-            methodVisitor.visitJumpInsn(Opcodes.IF_ICMPLT, labelFalse);
-        } else if (operator.equals("||")){
+        if (operator.equals("||")){
             logicalExpression.getExpressionLeft().accept(this);
             methodVisitor.visitJumpInsn(Opcodes.IFNE, labelTrue);
             logicalExpression.getExpressionRight().accept(this);
@@ -131,14 +120,6 @@ public class MethodBytecode implements MethodBytecodeVisitor {
             methodVisitor.visitJumpInsn(Opcodes.IFEQ, labelFalse);
             logicalExpression.getExpressionRight().accept(this);
             methodVisitor.visitJumpInsn(Opcodes.IFEQ, labelFalse);
-        } else if (operator.equals("!=")){
-            logicalExpression.getExpressionLeft().accept(this);
-            logicalExpression.getExpressionRight().accept(this);
-            if (logicalExpression.getExpressionLeft().getType() instanceof BaseType && logicalExpression.getExpressionRight().getType() instanceof BaseType){
-                methodVisitor.visitJumpInsn(Opcodes.IF_ICMPEQ, labelFalse);
-            } else {
-                methodVisitor.visitJumpInsn(Opcodes.IF_ACMPEQ, labelFalse);
-            }
         } else {
             throw new IllegalArgumentException("logical operator not valid");
         }
@@ -159,7 +140,53 @@ public class MethodBytecode implements MethodBytecodeVisitor {
 
     @Override
     public void visit(RelationalExpression relationalExpression) {
+        Label labelFalse = new Label();
+        Label labelTrue = new Label();
 
+        String operator = relationalExpression.getOperator();
+        if (operator.equals("==")){
+            relationalExpression.getExpressionLeft().accept(this);
+            relationalExpression.getExpressionRight().accept(this);
+            if (relationalExpression.getExpressionLeft().getType() instanceof BaseType && relationalExpression.getExpressionRight().getType() instanceof BaseType){
+                methodVisitor.visitJumpInsn(Opcodes.IF_ICMPNE, labelFalse);
+            } else {
+                methodVisitor.visitJumpInsn(Opcodes.IF_ACMPNE, labelFalse);
+            }
+        } else if (operator.equals("<")){
+            relationalExpression.getExpressionLeft().accept(this);
+            relationalExpression.getExpressionRight().accept(this);
+            methodVisitor.visitJumpInsn(Opcodes.IF_ICMPGE, labelFalse);
+        } else if (operator.equals(">")){
+            relationalExpression.getExpressionLeft().accept(this);
+            relationalExpression.getExpressionRight().accept(this);
+            methodVisitor.visitJumpInsn(Opcodes.IF_ICMPLE, labelFalse);
+        } else if (operator.equals("<=")){
+            relationalExpression.getExpressionLeft().accept(this);
+            relationalExpression.getExpressionRight().accept(this);
+            methodVisitor.visitJumpInsn(Opcodes.IF_ICMPLT, labelFalse);
+        } else if (operator.equals(">=")){
+            relationalExpression.getExpressionLeft().accept(this);
+            relationalExpression.getExpressionRight().accept(this);
+            methodVisitor.visitJumpInsn(Opcodes.IF_ICMPLT, labelFalse);
+        } else if (operator.equals("!=")){
+            relationalExpression.getExpressionLeft().accept(this);
+            relationalExpression.getExpressionRight().accept(this);
+            if (relationalExpression.getExpressionLeft().getType() instanceof BaseType && relationalExpression.getExpressionRight().getType() instanceof BaseType){
+                methodVisitor.visitJumpInsn(Opcodes.IF_ICMPEQ, labelFalse);
+            } else {
+                methodVisitor.visitJumpInsn(Opcodes.IF_ACMPEQ, labelFalse);
+            }
+        } else {
+            throw new IllegalArgumentException("relational operator not valid");
+        }
+        Label labelEnd = new Label();
+
+        methodVisitor.visitLabel(labelTrue);
+        methodVisitor.visitInsn(Opcodes.ICONST_1);
+        methodVisitor.visitJumpInsn(Opcodes.GOTO, labelEnd);
+        methodVisitor.visitLabel(labelFalse);
+        methodVisitor.visitInsn(Opcodes.ICONST_0);
+        methodVisitor.visitLabel(labelEnd);
     }
 
     @Override
@@ -175,12 +202,39 @@ public class MethodBytecode implements MethodBytecodeVisitor {
 
     @Override
     public void visit(Unary unary) {
+        if (unary.getOperator() == Operator.NOT){
+            Label labelTrue = new Label();
+            Label labelFalse = new Label();
 
+            unary.getExpression().accept(this);
+            methodVisitor.visitJumpInsn(Opcodes.IFNE, labelFalse);
+
+            Label labelEnd = new Label();
+            methodVisitor.visitLabel(labelTrue);
+            methodVisitor.visitInsn(Opcodes.ICONST_1);
+            methodVisitor.visitJumpInsn(Opcodes.GOTO, labelEnd);
+            methodVisitor.visitLabel(labelFalse);
+            methodVisitor.visitInsn(Opcodes.ICONST_0);
+
+            methodVisitor.visitLabel(labelEnd);
+
+        } else {
+            throw new IllegalArgumentException("invalid unary operator");
+        }
     }
 
     @Override
     public void visit(Block block) {
-
+        localVariables.startBlock();
+        block.getStatementList().forEach(statement -> {
+            statement.accept(this);
+            if (statement instanceof StatementExpressionStatement){
+                if (!(((StatementExpressionStatement) statement).getStatementExpression().getType() instanceof BaseType) || ((StatementExpressionStatement) statement).getStatementExpression().getType().getIdentifier() != "void"){
+                    methodVisitor.visitInsn(Opcodes.POP);
+                }
+            }
+        });
+        localVariables.endBlock();
     }
 
     @Override
@@ -202,7 +256,12 @@ public class MethodBytecode implements MethodBytecodeVisitor {
 
     @Override
     public void visit(LocalVarDecl localVarDecl) {
-
+        if (localVarDecl.getType() instanceof BaseType){
+            methodVisitor.visitVarInsn(Opcodes.ISTORE, localVariables.push(localVarDecl.getIdentifier()));
+        } else {
+            methodVisitor.visitVarInsn(Opcodes.ASTORE, localVariables.push(localVarDecl.getIdentifier()));
+        }
+        localVariables.push(localVarDecl.getIdentifier());
     }
 
     @Override
@@ -227,7 +286,21 @@ public class MethodBytecode implements MethodBytecodeVisitor {
 
     @Override
     public void visit(WhileStatement whileStatement) {
+        Label labelLoop = new Label();
+        Label labelEnd = new Label();
 
+        methodVisitor.visitLabel(labelLoop);
+        whileStatement.getExpression().accept(this);
+        methodVisitor.visitJumpInsn(Opcodes.IFEQ, labelEnd);
+
+        whileStatement.getBlock().accept(this);
+
+        if (!(whileStatement.getExpression().getType() instanceof BaseType) || whileStatement.getExpression().getType().getIdentifier() != "void"){
+            methodVisitor.visitInsn(Opcodes.POP);
+        }
+
+        methodVisitor.visitJumpInsn(Opcodes.GOTO, labelLoop);
+        methodVisitor.visitLabel(labelEnd);
     }
 
     @Override
@@ -275,8 +348,8 @@ public class MethodBytecode implements MethodBytecodeVisitor {
         methodVisitor = classWriter.visitMethod(Opcodes.ACC_PUBLIC, "<init>", constructorDecl.allParametersToString(), null, null); // Konstruktor immer public
         methodVisitor.visitCode();
 
-        //localVars.push("this");
-        //constructorDecl.getParameterDecls().forEach(parameter -> localVars.push(parameter.getIdentifier()));
+        localVariables.push("this");
+        constructorDecl.getParameters().forEach(parameter -> localVariables.push(parameter.getIdentifier()));
 
         methodVisitor.visitVarInsn(Opcodes.ALOAD, 0);
         methodVisitor.visitMethodInsn(INVOKESPECIAL, "java/lang/Object", "<init>", "()V", false);
@@ -291,8 +364,8 @@ public class MethodBytecode implements MethodBytecodeVisitor {
         methodVisitor = classWriter.visitMethod(methodDecl.accessModifierToOpcode(methodDecl.getAccessModifier()), methodDecl.getIdentifier(), methodDecl.returnTypeToDescriptor(methodDecl.getReturnType()), null, null);
         methodVisitor.visitCode();
 
-        //localVars.push("this");
-        //methodDecl.getParameterDecls().forEach(parameter -> localVars.push(parameter.getIdentifier()));
+        localVariables.push("this");
+        methodDecl.getParameters().forEach(parameter -> localVariables.push(parameter.getIdentifier()));
 
         methodDecl.getBlock().accept(this);
         if (methodDecl.getReturnType() instanceof BaseType){

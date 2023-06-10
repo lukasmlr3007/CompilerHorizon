@@ -9,6 +9,8 @@ import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
+import syntax.common.BaseType;
+import syntax.common.Type;
 import syntax.expression.Expression;
 
 /**
@@ -33,4 +35,18 @@ public class LocalOrFieldVar extends PartExpression implements CodeVisitor {
     public void accept(MethodBytecodeVisitor visitor) {
         visitor.visit(this);
     }
+    public String parameterTypeToDescriptor(Type parameterType){
+        if (parameterType == BaseType.VOID){
+            return "V";
+        } else if (parameterType == BaseType.INT){
+            return "I";
+        } else if (parameterType == BaseType.CHAR){
+            return "C";
+        } else if (parameterType == BaseType.BOOLEAN){
+            return "B";
+        } else {
+            return parameterType.getIdentifier();
+        }
+    }
+
 }
