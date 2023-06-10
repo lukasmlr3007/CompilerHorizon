@@ -18,9 +18,9 @@ ifElseStatement: If OpenRoundBracket expression ClosedRoundBracket block Else bl
 statementExpression: assign | methodCall | myNew ;
 assign: instanceVariable Assign expression Semicolon;
 methodCall: reciever extraMethod+ Semicolon;
-reciever: (This | Identifier | instanceVariable); //myNew
-extraMethod: Point Identifier OpenRoundBracket parameterValues ClosedRoundBracket;
-myNew: New Identifier OpenRoundBracket parameterValues ClosedRoundBracket;
+reciever: This | Identifier | instanceVariable; //myNew
+extraMethod: Point Identifier OpenRoundBracket parameterValues? ClosedRoundBracket;
+myNew: New Identifier OpenRoundBracket parameterValues? ClosedRoundBracket Semicolon;
 returnStatement: Return (expression)? Semicolon;
 
 //TODO: Überprüfen
@@ -34,8 +34,6 @@ literals: IntValue | BoolValue | CharValue;
 instanceVariable: This Point Identifier | (This Point)? (Identifier Point)+ Identifier;
 
 constructor: Identifier OpenRoundBracket parameters? ClosedRoundBracket block;
-
-//TODO Wertzuweisung zu Variablen funktioniert nicht
 
 type: Int | Bool | Char | Void | Identifier;
 sysout: 'System.out.println' OpenRoundBracket expression ClosedRoundBracket Semicolon;
