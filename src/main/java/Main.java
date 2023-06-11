@@ -9,8 +9,8 @@ public class Main {
     public static void main(String[] args) {
 
         //String input = "class FirstTest { FirstTest(){} } class SecondTest { }";
-        //String input = "class FirstTest {FirstTest(int zahl, char zeichen){}  private int meinint; this.meinint = 3} class SecondTest {}";
-        String input = "class FirstTest { public static void methodeNeu(int zahlparam){} }";
+        String input = "class FirstTest {FirstTest(int zahl, char zeichen){}  private int meinint; this.meinint = 3} class SecondTest {}";
+        //String input = "class FirstTest { public static void methodeNeu(int zahlparam){} }";
 
         ParserAPI parserAPI = new ParserAPI(input);
         Program syntaxTree = parserAPI.getResult();

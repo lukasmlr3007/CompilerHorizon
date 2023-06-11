@@ -82,13 +82,13 @@ public class MethodDecl implements CodeVisitor {
 
     public String returnTypeToDescriptor(Type returnType) {
         if (returnType == BaseType.VOID) {
-            return "V()";
+            return "()V";
         } else if (returnType == BaseType.INT) {
-            return "I()";
+            return "()I";
         } else if (returnType == BaseType.CHAR) {
-            return "C()";
+            return "()C";
         } else if (returnType == BaseType.BOOLEAN) {
-            return "B()";
+            return "()B";
         } else {
             return returnType.getIdentifier();
         }

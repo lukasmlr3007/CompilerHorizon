@@ -349,11 +349,14 @@ public class MethodBytecode implements MethodBytecodeVisitor {
         methodVisitor.visitCode();
 
         localVariables.push("this");
-        constructorDecl.getParameters().forEach(parameter -> localVariables.push(parameter.getIdentifier()));
-
+        if (constructorDecl.getParameters() != null){
+            constructorDecl.getParameters().forEach(parameter -> localVariables.push(parameter.getIdentifier()));
+        }
         methodVisitor.visitVarInsn(Opcodes.ALOAD, 0);
         methodVisitor.visitMethodInsn(INVOKESPECIAL, "java/lang/Object", "<init>", "()V", false);
-        constructorDecl.getBlock().accept(this);
+        if (constructorDecl.getBlock() != null){
+            constructorDecl.getBlock().accept(this);
+        }
         methodVisitor.visitInsn(Opcodes.RETURN);
         methodVisitor.visitMaxs(0, 0);
         methodVisitor.visitEnd();
