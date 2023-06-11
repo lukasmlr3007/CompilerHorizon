@@ -15,9 +15,13 @@ public class ClassDeclAdapter {
 
     public static ClassDecl adapt(JavaGrammerParser.ClassdeclContext classdeclContext) {
         List<FieldDecl> fields = new ArrayList<>();
-        classdeclContext.fielddecl().forEach(fielddeclcontext -> fields.add(FieldDeclAdapter.adapt(fielddeclcontext)));
+        if (classdeclContext.fielddecl() != null){
+            classdeclContext.fielddecl().forEach(fielddeclcontext -> fields.add(FieldDeclAdapter.adapt(fielddeclcontext)));
+        }
         List<MethodDecl> methods = new ArrayList<>();
-        classdeclContext.methoddecl().forEach(methoddeclContext -> methods.add(MethodDeclAdapter.adapt(methoddeclContext)));
+        if (classdeclContext.methoddecl() != null){
+            classdeclContext.methoddecl().forEach(methoddeclContext -> methods.add(MethodDeclAdapter.adapt(methoddeclContext)));
+        }
         List<ConstructorDecl> constructos = new ArrayList<>();
         if(classdeclContext.constructor() != null) {
             classdeclContext.constructor().forEach(constructorContext -> constructos.add(ConstructorAdapter.adapt(constructorContext)));

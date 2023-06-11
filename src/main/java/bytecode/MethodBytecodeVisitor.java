@@ -58,6 +58,4 @@ public interface MethodBytecodeVisitor {
     void visit(ConstructorDecl constructorDecl);
 
     void visit(MethodDecl methodDecl);
-
-    void visit(ParameterDecl parameterDecl);
 }

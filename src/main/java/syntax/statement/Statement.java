@@ -1,5 +1,6 @@
 package syntax.statement;
 
+import bytecode.MethodBytecodeVisitor;
 import lombok.Data;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
@@ -15,5 +16,6 @@ public abstract class Statement {
 
     public abstract TypeCheckResult accept(ISemanticVisitor visitor);
 
-    public abstract void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor);
+    public abstract void accept(MethodBytecodeVisitor visitor);
+
 }

@@ -21,10 +21,6 @@ public class AdditiveExpression extends BinaryExpression implements CodeVisitor 
     PartExpression expressionLeft;
     Expression expressionRight;
 
-    @Override
-    public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor) {
-
-    }
 
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);

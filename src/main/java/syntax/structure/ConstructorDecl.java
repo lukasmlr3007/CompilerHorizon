@@ -32,34 +32,20 @@ public class ConstructorDecl implements CodeVisitor {
         return visitor.check(this);
     }
 
-    public void generateBytecode(ClassWriter classWriter, String ownerClassName) {
-        String descriptor = "(" + allParametersToString() + ")V";
-        System.out.println(descriptor);
-
-        MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC, "<init>", descriptor, null, null);
-        methodVisitor.visitCode();
-        methodVisitor.visitVarInsn(ALOAD, 0);
-        methodVisitor.visitMethodInsn(INVOKESPECIAL, "java/lang/Object", "<init>", "()V", false);
-        block.generateBytecode(classWriter, methodVisitor);
-        //methodVisitor.visitVarInsn(ALOAD, 0);
-        //methodVisitor.visitInsn(ICONST_2);
-        //methodVisitor.visitFieldInsn(PUTFIELD, "TestClass", "number", "I");
-        methodVisitor.visitInsn(RETURN);
-        methodVisitor.visitMaxs(2, 1);
-        methodVisitor.visitEnd();
-
-
-    }
-
     @Override
     public void accept(MethodBytecodeVisitor visitor) {
         visitor.visit(this);
     }
 
     public String allParametersToString(){
-        String params = "";
-        for (ParameterDecl parameter : parameters){
-            params = params + parameterTypeToDescriptor(parameter.getType());
+        String params = "()";
+        if (parameters != null){
+            System.out.println("Terst");
+            for (ParameterDecl parameter : parameters){
+                params = params + parameterTypeToDescriptor(parameter.getType());
+            }
+        } else {
+            params = params + "V";
         }
         return params;
     }

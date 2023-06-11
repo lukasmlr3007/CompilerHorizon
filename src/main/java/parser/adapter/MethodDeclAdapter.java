@@ -31,7 +31,7 @@ public class MethodDeclAdapter {
 
         Block block = BlockAdapter.adapt(methoddeclContext.block());
         AccessModifier am = AccessModifier.valueOf(methoddeclContext.AccessModifier().getText().toUpperCase());
-        boolean isStatic = methoddeclContext.Static().getSymbol().getText().equalsIgnoreCase("static");
+        boolean isStatic = methoddeclContext.Static() != null;
 
         return new MethodDecl(type, identifier, params, block, am, isStatic);
     }

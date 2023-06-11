@@ -14,7 +14,7 @@ public class InstVarAdapter {
     public static InstVar adapt(JavaGrammerParser.InstanceVariableContext instVarContext) {
         Expression generated = generateInstVar(instVarContext.Identifier(), null, 0);
         if (generated instanceof LocalOrFieldVar) { // this
-            return new InstVar(new This(), ((LocalOrFieldVar) generated).getIdentifier());
+            return new InstVar(new This(), ((LocalOrFieldVar) generated).getIdentifier(), false); //TODO: static keyword tatsächlich behandeln
         }
         return (InstVar) generated;
     }
@@ -25,7 +25,7 @@ public class InstVarAdapter {
         if (previous == null) {
             previous = new LocalOrFieldVar(identifier.getText());
         } else {
-            previous = new InstVar(previous, identifier.getText());
+            previous = new InstVar(previous, identifier.getText(), false); //TODO: static keyword tatsächlich behandeln
         }
 
         if (position < identifiers.size() - 1) {

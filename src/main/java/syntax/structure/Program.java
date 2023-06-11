@@ -21,17 +21,6 @@ public class Program implements CodeVisitor {
 
     private List<ClassDecl> classDeclarations;
 
-    public void generateBytecode() {
-        for (ClassDecl oneClass : classDeclarations) {
-            byte[] bytecode = oneClass.generateBytecode();
-            try (FileOutputStream fos = new FileOutputStream("./src/main/java/output/" + oneClass.getIdentifier() + ".class")) {
-                fos.write(bytecode);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
     @Override
     public void accept(ProgramBytecodeVisitor visitor) {
         visitor.visit(this);

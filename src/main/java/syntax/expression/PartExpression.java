@@ -1,5 +1,6 @@
 package syntax.expression;
 
+import bytecode.MethodBytecodeVisitor;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 
@@ -8,5 +9,5 @@ import org.objectweb.asm.MethodVisitor;
  */
 public abstract class PartExpression extends Expression {
 
-    public abstract void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor);
+    public abstract void accept(MethodBytecodeVisitor visitor);
 }

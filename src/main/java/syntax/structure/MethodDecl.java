@@ -43,26 +43,6 @@ public class MethodDecl implements CodeVisitor {
         return visitor.check(this);
     }
 
-    public void generateBytecode(ClassWriter classWriter) { //parameter übergeben und klasse übergeben
-        HashMap<Integer, String> parameterMap = new HashMap<Integer, String>();
-        int index = 0;
-        for (ParameterDecl parameter: parameters) {
-            parameterMap.put(index, parameter.getIdentifier());
-            index++;
-        }
-
-        int accessModifierOpcode = accessModifierToOpcode(this.accessModifier);
-        String returnTypeDescriptor = returnTypeToDescriptor(this.returnType);
-        MethodVisitor methodVisitor = classWriter.visitMethod(accessModifierOpcode, identifier, returnTypeDescriptor, null, null);
-        methodVisitor.visitCode();
-        block.generateBytecode(classWriter, methodVisitor);
-        //in block.generateBytecode methodVisitor.visitInsn(RETURN);
-        methodVisitor.visitMaxs(0, 1);
-        methodVisitor.visitEnd();
-
-        //map mit parametern löschen
-    }
-
     @Override
     public void accept(MethodBytecodeVisitor visitor) {
         visitor.visit(this);
@@ -82,13 +62,13 @@ public class MethodDecl implements CodeVisitor {
 
     public String returnTypeToDescriptor(Type returnType) {
         if (returnType == BaseType.VOID) {
-            return "V()";
+            return "()V";
         } else if (returnType == BaseType.INT) {
-            return "I()";
+            return "()I";
         } else if (returnType == BaseType.CHAR) {
-            return "C()";
+            return "()C";
         } else if (returnType == BaseType.BOOLEAN) {
-            return "B()";
+            return "()B";
         } else {
             return returnType.getIdentifier();
         }
