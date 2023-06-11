@@ -226,14 +226,17 @@ public class MethodBytecode implements MethodBytecodeVisitor {
     @Override
     public void visit(Block block) {
         localVariables.startBlock();
-        block.getStatementList().forEach(statement -> {
-            statement.accept(this);
-            if (statement instanceof StatementExpressionStatement){
-                if (!(((StatementExpressionStatement) statement).getStatementExpression().getType() instanceof BaseType) || ((StatementExpressionStatement) statement).getStatementExpression().getType().getIdentifier() != "void"){
-                    methodVisitor.visitInsn(Opcodes.POP);
+        if (block.getStatementList() != null){
+            block.getStatementList().forEach(statement -> {
+                statement.accept(this);
+                if (statement instanceof StatementExpressionStatement){
+                    if (!(((StatementExpressionStatement) statement).getStatementExpression().getType() instanceof BaseType) || ((StatementExpressionStatement) statement).getStatementExpression().getType().getIdentifier() != "void"){
+                        methodVisitor.visitInsn(Opcodes.POP);
+                    }
                 }
-            }
-        });
+            });
+        }
+
         localVariables.endBlock();
     }
 
@@ -322,7 +325,9 @@ public class MethodBytecode implements MethodBytecodeVisitor {
     @Override
     public void visit(MethodCall methodCall) {
         methodCall.getReceiver().accept(this);
-        methodCall.getParameterList().forEach(parameter -> parameter.accept(this));
+        if (methodCall.getParameterList() != null){
+            methodCall.getParameterList().forEach(parameter -> parameter.accept(this));
+        }
         methodVisitor.visitMethodInsn(INVOKEVIRTUAL, methodCall.getReceiver().getType().getIdentifier(), methodCall.getIdentifier(), methodCall.allParametersToString(), false);
         if (methodCall.getType() instanceof ReferenceType) {
             this.lastClass = methodCall.getType().getIdentifier();
@@ -334,7 +339,9 @@ public class MethodBytecode implements MethodBytecodeVisitor {
         this.lastClass = aNew.getIdentifier();
         methodVisitor.visitTypeInsn(Opcodes.NEW, aNew.getIdentifier());
         methodVisitor.visitInsn(Opcodes.DUP);
-        aNew.getParameterList().forEach(expression -> expression.accept(this));
+        if (aNew.getParameterList() != null){
+            aNew.getParameterList().forEach(expression -> expression.accept(this));
+        }
         methodVisitor.visitMethodInsn(Opcodes.INVOKESPECIAL, aNew.getIdentifier(), "<init>", "V()", false);
     }
 
@@ -368,7 +375,9 @@ public class MethodBytecode implements MethodBytecodeVisitor {
         methodVisitor.visitCode();
 
         localVariables.push("this");
-        methodDecl.getParameters().forEach(parameter -> localVariables.push(parameter.getIdentifier()));
+        if (methodDecl.getParameters() != null){
+            methodDecl.getParameters().forEach(parameter -> localVariables.push(parameter.getIdentifier()));
+        }
 
         methodDecl.getBlock().accept(this);
         if (methodDecl.getReturnType() instanceof BaseType){

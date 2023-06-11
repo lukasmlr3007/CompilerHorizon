@@ -21,7 +21,9 @@ public class ClassBytecode implements ClassBytecodeVisitor {
     public void visit(ClassDecl myclass) {
         classWriter.visit(Opcodes.V1_5, Opcodes.ACC_PUBLIC, myclass.getIdentifier(), null, "java/lang/Object", null);
 
-        myclass.getFieldDeclList().forEach(field -> field.accept(this));
+        if (myclass.getFieldDeclList() != null){
+            myclass.getFieldDeclList().forEach(field -> field.accept(this));
+        }
 
         if (myclass.getConstructorDeclList().isEmpty()) {
             new ConstructorDecl().accept(new MethodBytecode(myclass.getIdentifier(), classWriter));
