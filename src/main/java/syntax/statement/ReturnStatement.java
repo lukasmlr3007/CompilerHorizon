@@ -32,12 +32,6 @@ public class ReturnStatement extends Statement implements CodeVisitor {
     }
 
     @Override
-    public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor) {
-        methodVisitor.visitInsn(RETURN);
-        expression.generateBytecode(classWriter, methodVisitor);
-    }
-
-    @Override
     public void accept(MethodBytecodeVisitor visitor) {
         visitor.visit(this);
     }

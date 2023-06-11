@@ -35,43 +35,6 @@ public class ClassDecl implements CodeVisitor {
         return visitor.check(this);
     }
 
-    public byte[] generateBytecode() {
-
-        ClassWriter classWriter = new ClassWriter(0);
-        FieldVisitor fieldVisitor;
-        RecordComponentVisitor recordComponentVisitor;
-        MethodVisitor methodVisitor;
-        AnnotationVisitor annotationVisitor0;
-
-        classWriter.visit(V17, ACC_SUPER, identifier, null, "java/lang/Object", null);
-
-        if (constructorDeclList.isEmpty()){
-            methodVisitor = classWriter.visitMethod(0, "<init>", "()V", null, null);
-            methodVisitor.visitCode();
-            methodVisitor.visitVarInsn(ALOAD, 0);
-            methodVisitor.visitMaxs(1, 1);
-            methodVisitor.visitEnd();
-        } else {
-            for (ConstructorDecl constructorDecl : constructorDeclList){
-                constructorDecl.generateBytecode(classWriter, this.getIdentifier());
-            }
-        }
-        if (fieldDeclList != null){
-            for (FieldDecl fieldDecl : fieldDeclList){
-                fieldDecl.generateBytecode(classWriter);
-            }
-        }
-        if (methodDeclList != null){
-            for (MethodDecl methodDecl : methodDeclList){
-                methodDecl.generateBytecode(classWriter);
-            }
-        }
-
-        classWriter.visitEnd();
-
-        return classWriter.toByteArray();
-    }
-
     @Override
     public void accept(ClassBytecodeVisitor visitor) {
         visitor.visit(this);

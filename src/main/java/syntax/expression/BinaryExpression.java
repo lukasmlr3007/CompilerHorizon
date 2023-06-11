@@ -12,5 +12,4 @@ import org.objectweb.asm.MethodVisitor;
 public abstract class BinaryExpression extends Expression {
 
     public abstract void accept(MethodBytecodeVisitor visitor);
-    public abstract void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor);
 }

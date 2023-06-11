@@ -21,10 +21,6 @@ public class This extends PartExpression implements CodeVisitor {
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
     }
-    @Override
-    public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor) {
-        methodVisitor.visitVarInsn(Opcodes.ALOAD, 0);
-    }
 
     @Override
     public void accept(MethodBytecodeVisitor visitor) {

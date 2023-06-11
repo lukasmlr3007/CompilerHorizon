@@ -30,5 +30,4 @@ public abstract class Expression implements CodeVisitor {
 
     public abstract void accept(MethodBytecodeVisitor visitor);
 
-    public abstract void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor);
 }

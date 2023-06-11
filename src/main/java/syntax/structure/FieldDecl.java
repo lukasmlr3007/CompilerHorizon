@@ -34,11 +34,6 @@ public class FieldDecl implements CodeVisitor {
         return visitor.check(this);
     }
 
-    public void generateBytecode(ClassWriter classWriter) {
-        FieldVisitor fieldVisitor = classWriter.visitField(0, this.getType().getIdentifier(), this.getIdentifier(), null, null);
-        fieldVisitor.visitEnd();
-    }
-
     @Override
     public void accept(ClassBytecodeVisitor visitor) {
         visitor.visit(this);

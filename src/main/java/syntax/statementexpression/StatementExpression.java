@@ -15,5 +15,4 @@ import syntax.statement.Statement;
 public abstract class StatementExpression extends PartExpression {
 
     public abstract void accept(MethodBytecodeVisitor visitor);
-    public abstract void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor);
 }

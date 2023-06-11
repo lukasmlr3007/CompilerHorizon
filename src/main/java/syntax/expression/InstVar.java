@@ -33,10 +33,6 @@ public class InstVar extends PartExpression implements CodeVisitor {
         return visitor.check(this);
     }
 
-    @Override
-    public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor) {
-
-    }
 
     @Override
     public void accept(MethodBytecodeVisitor visitor) {
