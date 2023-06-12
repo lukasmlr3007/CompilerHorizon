@@ -191,7 +191,15 @@ public class MethodBytecode implements MethodBytecodeVisitor {
 
     @Override
     public void visit(StatementExpressionExpression statementExpressionExpression) {
-
+        if(statementExpressionExpression.getStatementExpression() instanceof Assign){
+            this.visit((Assign) statementExpressionExpression.getStatementExpression());
+        } else if (statementExpressionExpression.getStatementExpression() instanceof New) {
+            this.visit((New) statementExpressionExpression.getStatementExpression());
+        } else if(statementExpressionExpression.getStatementExpression() instanceof MethodCall){
+            this.visit((MethodCall) statementExpressionExpression.getStatementExpression());
+        } else {
+            System.out.println("invalid StatementExpressionExpression");
+        }
     }
 
     @Override
@@ -309,7 +317,7 @@ public class MethodBytecode implements MethodBytecodeVisitor {
     @Override
     public void visit(Assign assign) {
         InstVar expressionLeft = assign.getAssignLeft();
-        Expression expressionRight = assign.getAssignLeft();
+        Expression expressionRight = assign.getAssignRight();
 
         if (expressionLeft != null){
             this.visitInstVar(expressionLeft, false);
@@ -347,7 +355,15 @@ public class MethodBytecode implements MethodBytecodeVisitor {
 
     @Override
     public void visit(StatementStmtExpr statementStmtExpr) {
-
+        if(statementStmtExpr.getStatementExpression() instanceof Assign){
+            this.visit((Assign) statementStmtExpr.getStatementExpression());
+        } else if (statementStmtExpr.getStatementExpression() instanceof New) {
+            this.visit((New) statementStmtExpr.getStatementExpression());
+        } else if(statementStmtExpr.getStatementExpression() instanceof MethodCall){
+            this.visit((MethodCall) statementStmtExpr.getStatementExpression());
+        } else {
+            System.out.println("invalid StatementStatementExpression");
+        }
     }
 
     @Override
@@ -392,7 +408,9 @@ public class MethodBytecode implements MethodBytecodeVisitor {
     public void visitInstVar(InstVar instVar, boolean getField){
         Expression expression = instVar.getExpression();
         expression.accept(this);
-        this.lastClass = expression.getType().getIdentifier();
+        if (expression.getType() != null){
+            this.lastClass = expression.getType().getIdentifier();
+        }
         if (getField){
             if (instVar.getStatic()){
                 methodVisitor.visitFieldInsn(Opcodes.GETSTATIC, this.lastClass, instVar.getIdentifier(), instVar.returnTypeToDescriptor(instVar.getType()));

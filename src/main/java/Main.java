@@ -9,8 +9,8 @@ public class Main {
     public static void main(String[] args) {
 
         //String input = "class FirstTest { FirstTest(){} } class SecondTest { }";
-        String input = "class FirstTest {FirstTest(int zahl, char zeichen){}  private int meinint; this.meinint = 3} class SecondTest {}";
-        //String input = "class FirstTest { public static void methodeNeu(int zahlparam){} }";
+        //String input = "class FirstTest {FirstTest(int zahl, char zeichen){xy = 1+2;}  private int meinint; this.meinint = 3} class SecondTest {}";
+        String input = "class FirstTest { public static void methodeNeu(){this.xy=3+1;} }";
 
         ParserAPI parserAPI = new ParserAPI(input);
         Program syntaxTree = parserAPI.getResult();
@@ -20,7 +20,6 @@ public class Main {
         TypeCheckResult typeCheckResult = semantikCheck.check(syntaxTree);
         System.out.println((typeCheckResult.isValid() ? "Semantik ist korrekt" : "Semantik ist inkorrekt"));
 
-        //syntaxTree.generateBytecode();
         ProgramBytecode programBytecode = new ProgramBytecode();
         programBytecode.visit(syntaxTree);
     }

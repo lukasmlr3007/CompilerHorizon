@@ -53,7 +53,7 @@ public class InstVar extends PartExpression implements CodeVisitor {
         } else if (returnType == BaseType.BOOLEAN) {
             return "B()";
         } else {
-            return returnType.getIdentifier();
+            return "V()";
         }
     }
 }
