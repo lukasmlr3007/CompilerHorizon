@@ -1,6 +1,5 @@
 package bytecode;
 
-//import jdk.vm.ci.meta.Local;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
@@ -292,7 +291,15 @@ public class MethodBytecode implements MethodBytecodeVisitor {
 
     @Override
     public void visit(StatementExpressionStatement statementExpressionStatement) {
-
+        if(statementExpressionStatement.getStatementExpression() instanceof Assign){
+            this.visit((Assign) statementExpressionStatement.getStatementExpression());
+        } else if (statementExpressionStatement.getStatementExpression() instanceof New) {
+            this.visit((New) statementExpressionStatement.getStatementExpression());
+        } else if(statementExpressionStatement.getStatementExpression() instanceof MethodCall){
+            this.visit((MethodCall) statementExpressionStatement.getStatementExpression());
+        } else {
+            System.out.println("invalid StatementExpressionStatement");
+        }
     }
 
     @Override
