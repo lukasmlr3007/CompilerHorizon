@@ -38,14 +38,12 @@ public class ConstructorDecl implements CodeVisitor {
     }
 
     public String allParametersToString(){
-        String params = "()";
-        if (parameters != null){
-            System.out.println("Terst");
+        String params = "";
+        if (parameters != null && !parameters.isEmpty()) {
             for (ParameterDecl parameter : parameters){
                 params = params + parameterTypeToDescriptor(parameter.getType());
             }
-        } else {
-            params = params + "V";
+            params = "()" + params;
         }
         return params;
     }

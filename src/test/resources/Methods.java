@@ -1,12 +1,12 @@
 class Methods {
 
-    public void a() { }
+    public void aa() { }
 
-    private int b() { return 1; }
+    private int bb() { return 1; }
 
-    private int b(int x) { return 0; }
+    private int bb(int xx) { return 0; }
 
-    protected void c() { }
+    protected void cc() { }
 
-    void d() { }
+    public void dd() { }
 }

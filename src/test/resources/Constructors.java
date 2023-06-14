@@ -1,6 +1,6 @@
 class Constructors {
 
-    A() { }
+    AA() { }
 
-    A(int b) { }
+    AA(int bb) { }
 }

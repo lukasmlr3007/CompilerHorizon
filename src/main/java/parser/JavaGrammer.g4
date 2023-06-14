@@ -3,6 +3,7 @@ grammar JavaGrammer;
 //Grammatik:
 program: classdecl+;
 classdecl: Class Identifier OpenCurlyBracket constructor* fielddecl* methoddecl* ClosedCurlyBracket;
+constructor: Identifier OpenRoundBracket parameters? ClosedRoundBracket block;
 fielddecl: Static? AccessModifier type Identifier Semicolon;
 parameters: parameterdecl(Comma parameterdecl)*;
 parameterdecl: type Identifier;
@@ -33,7 +34,6 @@ logicalExpression: partExpression LogicOperator expression;
 literals: IntValue | BoolValue | CharValue;
 instanceVariable: This Point Identifier | (This Point)? (Identifier Point)+ Identifier;
 
-constructor: Identifier OpenRoundBracket parameters? ClosedRoundBracket block;
 
 type: Int | Bool | Char | Void | Identifier;
 sysout: 'System.out.println' OpenRoundBracket expression ClosedRoundBracket Semicolon;

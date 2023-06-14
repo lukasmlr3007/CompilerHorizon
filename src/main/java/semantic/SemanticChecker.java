@@ -226,6 +226,8 @@ public class SemanticChecker implements ISemanticVisitor {
 
         boolean isValid = true;
 
+        if (block.getStatementList() == null) return new TypeCheckResult(true, BaseType.VOID);
+
         for (Statement statement : block.getStatementList()) {
             isValid = isValid && statement.accept(this).isValid();
         }

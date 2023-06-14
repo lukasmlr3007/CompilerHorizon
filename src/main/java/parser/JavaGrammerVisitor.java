@@ -1,4 +1,4 @@
-// Generated from C:/Users/fleck/Documents/CompilerHorizonCode/CompilerHorizon/src/main/java/parser\JavaGrammer.g4 by ANTLR 4.12.0
+// Generated from C:/Users/bauma/IdeaProjects/CompilerHorizon/src/main/java/parser\JavaGrammer.g4 by ANTLR 4.12.0
 package parser;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -10,6 +10,12 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  * operations with no return type.
  */
 public interface JavaGrammerVisitor<T> extends ParseTreeVisitor<T> {
+	/**
+	 * Visit a parse tree produced by {@link JavaGrammerParser#constructor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConstructor(JavaGrammerParser.ConstructorContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JavaGrammerParser#program}.
 	 * @param ctx the parse tree
@@ -172,12 +178,6 @@ public interface JavaGrammerVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitInstanceVariable(JavaGrammerParser.InstanceVariableContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JavaGrammerParser#constructor}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitConstructor(JavaGrammerParser.ConstructorContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JavaGrammerParser#type}.
 	 * @param ctx the parse tree

@@ -1,5 +1,5 @@
-class A { }
+class AA { }
 
-class B { }
+class BB { }
 
-class C { }
+class CC { }
