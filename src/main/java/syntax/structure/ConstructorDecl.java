@@ -5,18 +5,13 @@ import bytecode.MethodBytecodeVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
-import syntax.common.AccessModifier;
 import syntax.common.BaseType;
 import syntax.common.Type;
 import syntax.statement.Block;
 
 import java.util.List;
-
-import static org.objectweb.asm.Opcodes.*;
 
 @Data
 @AllArgsConstructor
@@ -25,7 +20,6 @@ public class ConstructorDecl implements CodeVisitor {
 
     // private AccessModifier accessModifier; TODO add public/private constructor
     private List<ParameterDecl> parameters;
-    //private Type type;
     private Block block;
 
     public TypeCheckResult accept(ISemanticVisitor visitor) {
@@ -37,28 +31,28 @@ public class ConstructorDecl implements CodeVisitor {
         visitor.visit(this);
     }
 
-    public String allParametersToString(){
-        String params = "";
-        if (parameters != null && !parameters.isEmpty()) {
+    public String returnAndParameterTypeToDescriptor(List<ParameterDecl> parameters) {
+        String descriptor = "(";
+        if (parameters.size() > 0){
             for (ParameterDecl parameter : parameters){
-                params = params + parameterTypeToDescriptor(parameter.getType());
+                descriptor = descriptor + typeToString(parameter.getType());
             }
-            params = "()" + params;
         }
-        return params;
+        descriptor = descriptor + ")V";
+        return descriptor;
     }
 
-    public String parameterTypeToDescriptor(Type parameterType){
-        if (parameterType == BaseType.VOID){
+    public String typeToString(Type type){
+        if (type == BaseType.VOID) {
             return "V";
-        } else if (parameterType == BaseType.INT){
+        } else if (type == BaseType.INT) {
             return "I";
-        } else if (parameterType == BaseType.CHAR){
+        } else if (type == BaseType.CHAR) {
             return "C";
-        } else if (parameterType == BaseType.BOOLEAN){
-            return "B";
+        } else if (type == BaseType.BOOLEAN) {
+            return "Z";
         } else {
-            return parameterType.getIdentifier();
+            return "L" + type.getIdentifier();
         }
     }
 }

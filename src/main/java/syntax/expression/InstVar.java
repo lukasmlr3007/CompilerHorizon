@@ -7,11 +7,8 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
 import syntax.common.BaseType;
 import syntax.common.Type;
-import syntax.expression.Expression;
 
 /**
  * Instanz-Variable <br>
@@ -33,7 +30,6 @@ public class InstVar extends PartExpression implements CodeVisitor {
         return visitor.check(this);
     }
 
-
     @Override
     public void accept(MethodBytecodeVisitor visitor) {
         visitor.visit(this);
@@ -43,17 +39,15 @@ public class InstVar extends PartExpression implements CodeVisitor {
         return myStatic;
     }
 
-    public String returnTypeToDescriptor(Type returnType) {
-        if (returnType == BaseType.VOID) {
-            return "V()";
-        } else if (returnType == BaseType.INT) {
-            return "I()";
-        } else if (returnType == BaseType.CHAR) {
-            return "C()";
-        } else if (returnType == BaseType.BOOLEAN) {
-            return "B()";
+    public String fieldTypeToDescriptor(Type fieldType) {
+        if (fieldType == BaseType.INT) {
+            return "I";
+        } else if (fieldType == BaseType.CHAR) {
+            return "C";
+        } else if (fieldType == BaseType.BOOLEAN) {
+            return "Z";
         } else {
-            return "V()";
+            return "L" + fieldType.getIdentifier();
         }
     }
 }

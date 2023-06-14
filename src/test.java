@@ -1,8 +1,14 @@
 class TestClass {
-    int number;
+    TestClass number;
 
-    public TestClass(){ }
-    public void makesmth() {
-        number = 1 + 3;
-    };
+    public TestClass(int nummer, boolean wert, char zeichen) {
+    }
+
+    public int rechnen(int nummer, char zeichen, boolean wert){
+        return 5;
+    }
+
+    public void machen(boolean eins, int zwei){
+        rechnen(5, 'a', true);
+    }
 }

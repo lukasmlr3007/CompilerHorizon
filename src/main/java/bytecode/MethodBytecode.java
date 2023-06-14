@@ -95,7 +95,7 @@ public class MethodBytecode implements MethodBytecodeVisitor {
             }
         } else {
             methodVisitor.visitVarInsn(Opcodes.ALOAD, 0);
-            methodVisitor.visitFieldInsn(Opcodes.GETFIELD, className, localOrFieldVar.getIdentifier(), localOrFieldVar.parameterTypeToDescriptor(localOrFieldVar.getType()));
+            methodVisitor.visitFieldInsn(Opcodes.GETFIELD, className, localOrFieldVar.getIdentifier(), localOrFieldVar.fieldTypeToDescriptor(localOrFieldVar.getType()));
         }
         if (localOrFieldVar.getType() instanceof ReferenceType){
             this.lastClass = localOrFieldVar.getIdentifier();
@@ -331,7 +331,7 @@ public class MethodBytecode implements MethodBytecodeVisitor {
             String owner = this.lastClass;
             expressionRight.accept(this);
             methodVisitor.visitInsn(Opcodes.DUP_X1);
-            methodVisitor.visitFieldInsn(Opcodes.PUTFIELD, owner, (expressionLeft).getIdentifier(), (expressionLeft).returnTypeToDescriptor(expressionLeft.getType()));
+            methodVisitor.visitFieldInsn(Opcodes.PUTFIELD, owner, expressionLeft.getIdentifier(), expressionLeft.fieldTypeToDescriptor(expressionLeft.getType()));
         } else {
             throw new NullPointerException("expressionLeft is null");
         }
@@ -343,7 +343,7 @@ public class MethodBytecode implements MethodBytecodeVisitor {
         if (methodCall.getParameterList() != null){
             methodCall.getParameterList().forEach(parameter -> parameter.accept(this));
         }
-        methodVisitor.visitMethodInsn(INVOKEVIRTUAL, methodCall.getReceiver().getType().getIdentifier(), methodCall.getIdentifier(), methodCall.allParametersToString(), false);
+        methodVisitor.visitMethodInsn(INVOKEVIRTUAL, methodCall.getReceiver().getType().getIdentifier(), methodCall.getIdentifier(), methodCall.returnAndParameterTypeToDescriptor(), false);
         if (methodCall.getType() instanceof ReferenceType) {
             this.lastClass = methodCall.getType().getIdentifier();
         }
@@ -357,7 +357,7 @@ public class MethodBytecode implements MethodBytecodeVisitor {
         if (aNew.getParameterList() != null){
             aNew.getParameterList().forEach(expression -> expression.accept(this));
         }
-        methodVisitor.visitMethodInsn(Opcodes.INVOKESPECIAL, aNew.getIdentifier(), "<init>", "V()", false);
+        methodVisitor.visitMethodInsn(Opcodes.INVOKESPECIAL, aNew.getIdentifier(), "<init>", "()V", false);
     }
 
     @Override
@@ -375,7 +375,7 @@ public class MethodBytecode implements MethodBytecodeVisitor {
 
     @Override
     public void visit(ConstructorDecl constructorDecl) {
-        methodVisitor = classWriter.visitMethod(Opcodes.ACC_PUBLIC, "<init>", constructorDecl.allParametersToString(), null, null); // Konstruktor immer public
+        methodVisitor = classWriter.visitMethod(Opcodes.ACC_PUBLIC, "<init>", constructorDecl.returnAndParameterTypeToDescriptor(constructorDecl.getParameters()), null, null); // Konstruktor immer public
         methodVisitor.visitCode();
 
         localVariables.push("this");
@@ -394,7 +394,7 @@ public class MethodBytecode implements MethodBytecodeVisitor {
 
     @Override
     public void visit(MethodDecl methodDecl) {
-        methodVisitor = classWriter.visitMethod(methodDecl.accessModifierToOpcode(methodDecl.getAccessModifier()), methodDecl.getIdentifier(), methodDecl.returnTypeToDescriptor(methodDecl.getReturnType()), null, null);
+        methodVisitor = classWriter.visitMethod(methodDecl.accessModifierToOpcode(methodDecl.getAccessModifier()), methodDecl.getIdentifier(), methodDecl.returnAndParameterTypeToDescriptor(methodDecl.getParameters(), methodDecl.getReturnType()), null, null);
         methodVisitor.visitCode();
 
         localVariables.push("this");
@@ -420,9 +420,9 @@ public class MethodBytecode implements MethodBytecodeVisitor {
         }
         if (getField){
             if (instVar.getStatic()){
-                methodVisitor.visitFieldInsn(Opcodes.GETSTATIC, this.lastClass, instVar.getIdentifier(), instVar.returnTypeToDescriptor(instVar.getType()));
+                methodVisitor.visitFieldInsn(Opcodes.GETSTATIC, this.lastClass, instVar.getIdentifier(), instVar.fieldTypeToDescriptor(instVar.getType()));
             } else {
-                methodVisitor.visitFieldInsn(Opcodes.GETFIELD, this.lastClass, instVar.getIdentifier(), instVar.returnTypeToDescriptor(instVar.getType()));
+                methodVisitor.visitFieldInsn(Opcodes.GETFIELD, this.lastClass, instVar.getIdentifier(), instVar.fieldTypeToDescriptor(instVar.getType()));
             }
         }
     }

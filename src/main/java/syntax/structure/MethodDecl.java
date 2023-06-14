@@ -5,8 +5,6 @@ import bytecode.MethodBytecodeVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
 import syntax.common.BaseType;
@@ -14,7 +12,6 @@ import syntax.statement.Block;
 import syntax.common.AccessModifier;
 import syntax.common.Type;
 
-import java.util.HashMap;
 import java.util.List;
 
 import static org.objectweb.asm.Opcodes.*;
@@ -60,17 +57,31 @@ public class MethodDecl implements CodeVisitor {
         }
     }
 
-    public String returnTypeToDescriptor(Type returnType) {
-        if (returnType == BaseType.VOID) {
-            return "()V";
-        } else if (returnType == BaseType.INT) {
-            return "()I";
-        } else if (returnType == BaseType.CHAR) {
-            return "()C";
-        } else if (returnType == BaseType.BOOLEAN) {
-            return "()B";
+    public String returnAndParameterTypeToDescriptor(List<ParameterDecl> parameters, Type returnType) {
+        String descriptor = "(";
+        if (parameters.size() > 0){
+            for (ParameterDecl parameter : parameters){
+                descriptor = descriptor + typeToString(parameter.getType());
+            }
+        }
+        descriptor = descriptor + ")";
+
+        descriptor = descriptor + typeToString(returnType);
+
+        return descriptor;
+    }
+
+    public String typeToString(Type type){
+        if (type == BaseType.VOID) {
+            return "V";
+        } else if (type == BaseType.INT) {
+            return "I";
+        } else if (type == BaseType.CHAR) {
+            return "C";
+        } else if (type == BaseType.BOOLEAN) {
+            return "Z";
         } else {
-            return returnType.getIdentifier();
+            return "L" + type.getIdentifier();
         }
     }
 }
