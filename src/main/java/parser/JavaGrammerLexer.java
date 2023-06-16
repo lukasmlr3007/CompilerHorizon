@@ -1,4 +1,4 @@
-// Generated from C:/Users/max20/Documents/Materialien_DHBW/4_Semester/Compilerbau/CompilerHorizon/src/main/java/parser\JavaGrammer.g4 by ANTLR 4.12.0
+// Generated from C:/Users/bauma/IdeaProjects/CompilerHorizon/src/main/java/parser\JavaGrammer.g4 by ANTLR 4.12.0
 package parser;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
@@ -21,7 +21,7 @@ public class JavaGrammerLexer extends Lexer {
 		While=10, If=11, Else=12, New=13, This=14, AccessModifier=15, OpenCurlyBracket=16, 
 		ClosedCurlyBracket=17, OpenRoundBracket=18, ClosedRoundBracket=19, Semicolon=20, 
 		Comma=21, Point=22, Return=23, LogicOperator=24, RelationalOperator=25, 
-		AdditiveOperator=26, Identifier=27, IntValue=28, BoolValue=29, CharValue=30, 
+		AdditiveOperator=26, IntValue=27, BoolValue=28, CharValue=29, Identifier=30, 
 		WS=31;
 	public static String[] channelNames = {
 		"DEFAULT_TOKEN_CHANNEL", "HIDDEN"
@@ -37,7 +37,7 @@ public class JavaGrammerLexer extends Lexer {
 			"While", "If", "Else", "New", "This", "AccessModifier", "OpenCurlyBracket", 
 			"ClosedCurlyBracket", "OpenRoundBracket", "ClosedRoundBracket", "Semicolon", 
 			"Comma", "Point", "Return", "LogicOperator", "RelationalOperator", "AdditiveOperator", 
-			"Identifier", "IntValue", "BoolValue", "CharValue", "WS"
+			"IntValue", "BoolValue", "CharValue", "Identifier", "WS"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -57,7 +57,7 @@ public class JavaGrammerLexer extends Lexer {
 			"Void", "While", "If", "Else", "New", "This", "AccessModifier", "OpenCurlyBracket", 
 			"ClosedCurlyBracket", "OpenRoundBracket", "ClosedRoundBracket", "Semicolon", 
 			"Comma", "Point", "Return", "LogicOperator", "RelationalOperator", "AdditiveOperator", 
-			"Identifier", "IntValue", "BoolValue", "CharValue", "WS"
+			"IntValue", "BoolValue", "CharValue", "Identifier", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -159,16 +159,16 @@ public class JavaGrammerLexer extends Lexer {
 		"\u0017\u00e7\b\u0017\u0001\u0018\u0001\u0018\u0001\u0018\u0001\u0018\u0001"+
 		"\u0018\u0001\u0018\u0001\u0018\u0001\u0018\u0001\u0018\u0003\u0018\u00f2"+
 		"\b\u0018\u0001\u0019\u0001\u0019\u0001\u001a\u0004\u001a\u00f7\b\u001a"+
-		"\u000b\u001a\f\u001a\u00f8\u0001\u001b\u0004\u001b\u00fc\b\u001b\u000b"+
-		"\u001b\f\u001b\u00fd\u0001\u001c\u0001\u001c\u0001\u001c\u0001\u001c\u0001"+
-		"\u001c\u0001\u001c\u0001\u001c\u0001\u001c\u0001\u001c\u0003\u001c\u0109"+
-		"\b\u001c\u0001\u001d\u0001\u001d\u0001\u001e\u0004\u001e\u010e\b\u001e"+
+		"\u000b\u001a\f\u001a\u00f8\u0001\u001b\u0001\u001b\u0001\u001b\u0001\u001b"+
+		"\u0001\u001b\u0001\u001b\u0001\u001b\u0001\u001b\u0001\u001b\u0003\u001b"+
+		"\u0104\b\u001b\u0001\u001c\u0001\u001c\u0001\u001d\u0004\u001d\u0109\b"+
+		"\u001d\u000b\u001d\f\u001d\u010a\u0001\u001e\u0004\u001e\u010e\b\u001e"+
 		"\u000b\u001e\f\u001e\u010f\u0001\u001e\u0001\u001e\u0000\u0000\u001f\u0001"+
 		"\u0001\u0003\u0002\u0005\u0003\u0007\u0004\t\u0005\u000b\u0006\r\u0007"+
 		"\u000f\b\u0011\t\u0013\n\u0015\u000b\u0017\f\u0019\r\u001b\u000e\u001d"+
 		"\u000f\u001f\u0010!\u0011#\u0012%\u0013\'\u0014)\u0015+\u0016-\u0017/"+
 		"\u00181\u00193\u001a5\u001b7\u001c9\u001d;\u001e=\u001f\u0001\u0000\u0005"+
-		"\u0002\u0000<<>>\u0003\u0000*+--//\u0002\u0000AZaz\u0001\u000009\u0003"+
+		"\u0002\u0000<<>>\u0003\u0000*+--//\u0001\u000009\u0002\u0000AZaz\u0003"+
 		"\u0000\t\n\r\r  \u011d\u0000\u0001\u0001\u0000\u0000\u0000\u0000\u0003"+
 		"\u0001\u0000\u0000\u0000\u0000\u0005\u0001\u0000\u0000\u0000\u0000\u0007"+
 		"\u0001\u0000\u0000\u0000\u0000\t\u0001\u0000\u0000\u0000\u0000\u000b\u0001"+
@@ -196,7 +196,7 @@ public class JavaGrammerLexer extends Lexer {
 		")\u00d7\u0001\u0000\u0000\u0000+\u00d9\u0001\u0000\u0000\u0000-\u00db"+
 		"\u0001\u0000\u0000\u0000/\u00e6\u0001\u0000\u0000\u00001\u00f1\u0001\u0000"+
 		"\u0000\u00003\u00f3\u0001\u0000\u0000\u00005\u00f6\u0001\u0000\u0000\u0000"+
-		"7\u00fb\u0001\u0000\u0000\u00009\u0108\u0001\u0000\u0000\u0000;\u010a"+
+		"7\u0103\u0001\u0000\u0000\u00009\u0105\u0001\u0000\u0000\u0000;\u0108"+
 		"\u0001\u0000\u0000\u0000=\u010d\u0001\u0000\u0000\u0000?@\u0005S\u0000"+
 		"\u0000@A\u0005y\u0000\u0000AB\u0005s\u0000\u0000BC\u0005t\u0000\u0000"+
 		"CD\u0005e\u0000\u0000DE\u0005m\u0000\u0000EF\u0005.\u0000\u0000FG\u0005"+
@@ -275,20 +275,20 @@ public class JavaGrammerLexer extends Lexer {
 		"4\u0001\u0000\u0000\u0000\u00f5\u00f7\u0007\u0002\u0000\u0000\u00f6\u00f5"+
 		"\u0001\u0000\u0000\u0000\u00f7\u00f8\u0001\u0000\u0000\u0000\u00f8\u00f6"+
 		"\u0001\u0000\u0000\u0000\u00f8\u00f9\u0001\u0000\u0000\u0000\u00f96\u0001"+
-		"\u0000\u0000\u0000\u00fa\u00fc\u0007\u0003\u0000\u0000\u00fb\u00fa\u0001"+
-		"\u0000\u0000\u0000\u00fc\u00fd\u0001\u0000\u0000\u0000\u00fd\u00fb\u0001"+
-		"\u0000\u0000\u0000\u00fd\u00fe\u0001\u0000\u0000\u0000\u00fe8\u0001\u0000"+
-		"\u0000\u0000\u00ff\u0100\u0005t\u0000\u0000\u0100\u0101\u0005r\u0000\u0000"+
-		"\u0101\u0102\u0005u\u0000\u0000\u0102\u0109\u0005e\u0000\u0000\u0103\u0104"+
-		"\u0005f\u0000\u0000\u0104\u0105\u0005a\u0000\u0000\u0105\u0106\u0005l"+
-		"\u0000\u0000\u0106\u0107\u0005s\u0000\u0000\u0107\u0109\u0005e\u0000\u0000"+
-		"\u0108\u00ff\u0001\u0000\u0000\u0000\u0108\u0103\u0001\u0000\u0000\u0000"+
-		"\u0109:\u0001\u0000\u0000\u0000\u010a\u010b\u0007\u0002\u0000\u0000\u010b"+
+		"\u0000\u0000\u0000\u00fa\u00fb\u0005t\u0000\u0000\u00fb\u00fc\u0005r\u0000"+
+		"\u0000\u00fc\u00fd\u0005u\u0000\u0000\u00fd\u0104\u0005e\u0000\u0000\u00fe"+
+		"\u00ff\u0005f\u0000\u0000\u00ff\u0100\u0005a\u0000\u0000\u0100\u0101\u0005"+
+		"l\u0000\u0000\u0101\u0102\u0005s\u0000\u0000\u0102\u0104\u0005e\u0000"+
+		"\u0000\u0103\u00fa\u0001\u0000\u0000\u0000\u0103\u00fe\u0001\u0000\u0000"+
+		"\u0000\u01048\u0001\u0000\u0000\u0000\u0105\u0106\u0007\u0003\u0000\u0000"+
+		"\u0106:\u0001\u0000\u0000\u0000\u0107\u0109\u0007\u0003\u0000\u0000\u0108"+
+		"\u0107\u0001\u0000\u0000\u0000\u0109\u010a\u0001\u0000\u0000\u0000\u010a"+
+		"\u0108\u0001\u0000\u0000\u0000\u010a\u010b\u0001\u0000\u0000\u0000\u010b"+
 		"<\u0001\u0000\u0000\u0000\u010c\u010e\u0007\u0004\u0000\u0000\u010d\u010c"+
 		"\u0001\u0000\u0000\u0000\u010e\u010f\u0001\u0000\u0000\u0000\u010f\u010d"+
 		"\u0001\u0000\u0000\u0000\u010f\u0110\u0001\u0000\u0000\u0000\u0110\u0111"+
 		"\u0001\u0000\u0000\u0000\u0111\u0112\u0006\u001e\u0000\u0000\u0112>\u0001"+
-		"\u0000\u0000\u0000\b\u0000\u00cb\u00e6\u00f1\u00f8\u00fd\u0108\u010f\u0001"+
+		"\u0000\u0000\u0000\b\u0000\u00cb\u00e6\u00f1\u00f8\u0103\u010a\u010f\u0001"+
 		"\u0006\u0000\u0000";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());

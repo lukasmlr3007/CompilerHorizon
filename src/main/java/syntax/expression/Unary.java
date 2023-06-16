@@ -27,11 +27,6 @@ public class Unary extends Expression implements CodeVisitor {
     }
 
     @Override
-    public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor) {
-
-    }
-
-    @Override
     public void accept(MethodBytecodeVisitor visitor) {
         visitor.visit(this);
     }

@@ -1,12 +1,11 @@
 package syntax.expression;
 
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
+import bytecode.MethodBytecodeVisitor;
 
 /**
- * keine Ahnung
+ * abstrake übergeordnete Klasse
  */
 public abstract class PartExpression extends Expression {
 
-    public abstract void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor);
+    public abstract void accept(MethodBytecodeVisitor visitor);
 }

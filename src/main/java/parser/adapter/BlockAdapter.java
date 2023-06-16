@@ -15,6 +15,6 @@ public class BlockAdapter {
         if(blockContext.statement() != null){
             blockContext.statement().forEach(statementContext -> statements.add(StatementAdapter.adapt(statementContext)));
         }
-        return new Block(statements);
+        return new Block(statements, null); //TODO: Wozu ist das localVarsInBlock gedacht?
     }
 }

@@ -5,8 +5,6 @@ import bytecode.MethodBytecodeVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
 import syntax.common.BaseType;
@@ -14,7 +12,6 @@ import syntax.statement.Block;
 import syntax.common.AccessModifier;
 import syntax.common.Type;
 
-import java.util.HashMap;
 import java.util.List;
 
 import static org.objectweb.asm.Opcodes.*;
@@ -43,26 +40,6 @@ public class MethodDecl implements CodeVisitor {
         return visitor.check(this);
     }
 
-    public void generateBytecode(ClassWriter classWriter) { //parameter übergeben und klasse übergeben
-        HashMap<Integer, String> parameterMap = new HashMap<Integer, String>();
-        int index = 0;
-        for (ParameterDecl parameter: parameters) {
-            parameterMap.put(index, parameter.getIdentifier());
-            index++;
-        }
-
-        int accessModifierOpcode = accessModifierToOpcode(this.accessModifier);
-        String returnTypeDescriptor = returnTypeToDescriptor(this.returnType);
-        MethodVisitor methodVisitor = classWriter.visitMethod(accessModifierOpcode, identifier, returnTypeDescriptor, null, null);
-        methodVisitor.visitCode();
-        block.generateBytecode(classWriter, methodVisitor);
-        //in block.generateBytecode methodVisitor.visitInsn(RETURN);
-        methodVisitor.visitMaxs(0, 1);
-        methodVisitor.visitEnd();
-
-        //map mit parametern löschen
-    }
-
     @Override
     public void accept(MethodBytecodeVisitor visitor) {
         visitor.visit(this);
@@ -80,17 +57,31 @@ public class MethodDecl implements CodeVisitor {
         }
     }
 
-    public String returnTypeToDescriptor(Type returnType) {
-        if (returnType == BaseType.VOID) {
-            return "V()";
-        } else if (returnType == BaseType.INT) {
-            return "I()";
-        } else if (returnType == BaseType.CHAR) {
-            return "C()";
-        } else if (returnType == BaseType.BOOLEAN) {
-            return "B()";
+    public String returnAndParameterTypeToDescriptor(List<ParameterDecl> parameters, Type returnType) {
+        String descriptor = "(";
+        if (parameters.size() > 0){
+            for (ParameterDecl parameter : parameters){
+                descriptor = descriptor + typeToString(parameter.getType());
+            }
+        }
+        descriptor = descriptor + ")";
+
+        descriptor = descriptor + typeToString(returnType);
+
+        return descriptor;
+    }
+
+    public String typeToString(Type type){
+        if (type == BaseType.VOID) {
+            return "V";
+        } else if (type == BaseType.INT) {
+            return "I";
+        } else if (type == BaseType.CHAR) {
+            return "C";
+        } else if (type == BaseType.BOOLEAN) {
+            return "Z";
         } else {
-            return returnType.getIdentifier();
+            return "L" + type.getIdentifier();
         }
     }
 }

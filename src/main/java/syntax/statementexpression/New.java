@@ -7,8 +7,6 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
 import syntax.expression.Expression;
 
 import java.util.List;
@@ -24,7 +22,7 @@ import java.util.List;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class New extends StatementExpression implements CodeVisitor {
-    private List<Expression> paramterList;
+    private List<Expression> parameterList;
     private String identifier;
 
     public TypeCheckResult accept(ISemanticVisitor visitor) {
@@ -32,12 +30,8 @@ public class New extends StatementExpression implements CodeVisitor {
     }
 
     @Override
-    public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor) {
-
-    }
-
-    @Override
     public void accept(MethodBytecodeVisitor visitor) {
         visitor.visit(this);
     }
+
 }

@@ -18,6 +18,10 @@ public class PartExpressionAdapter {
             return new This();
         } else if (partExpressionContext.statementExpression() != null) {
             return StatementExpressionAdapter.adapt(partExpressionContext.statementExpression());
+        } else if (partExpressionContext.instanceVariable() != null) {
+            return InstVarAdapter.adapt(partExpressionContext.instanceVariable());
+        } else if (partExpressionContext.expression() != null) {
+            return (PartExpression) ExpressionAdapter.adapt(partExpressionContext.expression());
         }
         return null;
     }

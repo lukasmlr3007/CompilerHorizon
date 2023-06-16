@@ -5,18 +5,13 @@ import bytecode.MethodBytecodeVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
-import syntax.common.AccessModifier;
 import syntax.common.BaseType;
 import syntax.common.Type;
 import syntax.statement.Block;
 
 import java.util.List;
-
-import static org.objectweb.asm.Opcodes.*;
 
 @Data
 @AllArgsConstructor
@@ -25,30 +20,10 @@ public class ConstructorDecl implements CodeVisitor {
 
     // private AccessModifier accessModifier; TODO add public/private constructor
     private List<ParameterDecl> parameters;
-    //private Type type;
     private Block block;
 
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
-    }
-
-    public void generateBytecode(ClassWriter classWriter, String ownerClassName) {
-        String descriptor = "(" + allParametersToString() + ")V";
-        System.out.println(descriptor);
-
-        MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC, "<init>", descriptor, null, null);
-        methodVisitor.visitCode();
-        methodVisitor.visitVarInsn(ALOAD, 0);
-        methodVisitor.visitMethodInsn(INVOKESPECIAL, "java/lang/Object", "<init>", "()V", false);
-        block.generateBytecode(classWriter, methodVisitor);
-        //methodVisitor.visitVarInsn(ALOAD, 0);
-        //methodVisitor.visitInsn(ICONST_2);
-        //methodVisitor.visitFieldInsn(PUTFIELD, "TestClass", "number", "I");
-        methodVisitor.visitInsn(RETURN);
-        methodVisitor.visitMaxs(2, 1);
-        methodVisitor.visitEnd();
-
-
     }
 
     @Override
@@ -56,25 +31,28 @@ public class ConstructorDecl implements CodeVisitor {
         visitor.visit(this);
     }
 
-    public String allParametersToString(){
-        String params = "";
-        for (ParameterDecl parameter : parameters){
-            params = params + parameterTypeToDescriptor(parameter.getType());
+    public String returnAndParameterTypeToDescriptor(List<ParameterDecl> parameters) {
+        String descriptor = "(";
+        if (parameters.size() > 0){
+            for (ParameterDecl parameter : parameters){
+                descriptor = descriptor + typeToString(parameter.getType());
+            }
         }
-        return params;
+        descriptor = descriptor + ")V";
+        return descriptor;
     }
 
-    public String parameterTypeToDescriptor(Type parameterType){
-        if (parameterType == BaseType.VOID){
+    public String typeToString(Type type){
+        if (type == BaseType.VOID) {
             return "V";
-        } else if (parameterType == BaseType.INT){
+        } else if (type == BaseType.INT) {
             return "I";
-        } else if (parameterType == BaseType.CHAR){
+        } else if (type == BaseType.CHAR) {
             return "C";
-        } else if (parameterType == BaseType.BOOLEAN){
-            return "B";
+        } else if (type == BaseType.BOOLEAN) {
+            return "Z";
         } else {
-            return parameterType.getIdentifier();
+            return "L" + type.getIdentifier();
         }
     }
 }

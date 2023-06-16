@@ -38,20 +38,6 @@ public class Block extends Statement implements CodeVisitor {
         return visitor.check(this);
     }
 
-    public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor){
-        //localVarsInBlock = parameterMap;
-        for (Statement statement : statementList){
-            if (statement.getClass() == LocalVarDecl.class){
-                //localVarsInBlock.put()
-            }
-            System.out.println("Stack Lokale Variablen:");
-            System.out.println(localVarsInBlock);
-            statement.generateBytecode(classWriter, methodVisitor);
-        }
-        //Lokale Variablen aus dem Block wieder löschen, da man sie wo anders ja nicht verwenden kann
-        localVarsInBlock.clear();
-    }
-
     @Override
     public void accept(MethodBytecodeVisitor visitor) {
         visitor.visit(this);

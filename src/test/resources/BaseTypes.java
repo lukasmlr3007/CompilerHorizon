@@ -1,6 +1,6 @@
 class BaseTypes {
 
-    private int a;
-    private boolean b;
-    public char c;
+    private int aa;
+    private boolean bb;
+    public char cc;
 }

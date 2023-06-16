@@ -1,10 +1,10 @@
 class ReferenceTypes {
-    private A a;
-    public B b;
+    private Atype aa;
+    public Btype bb;
 }
 
-class A {
-    private B b;
+class Atype {
+    private Btype bb;
 }
 
-class B { }
+class Btype { }

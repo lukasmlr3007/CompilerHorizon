@@ -7,9 +7,8 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
-import syntax.expression.Expression;
+import syntax.common.BaseType;
+import syntax.common.Type;
 
 /**
  * TODO
@@ -25,12 +24,19 @@ public class LocalOrFieldVar extends PartExpression implements CodeVisitor {
     }
 
     @Override
-    public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor) {
-
-    }
-
-    @Override
     public void accept(MethodBytecodeVisitor visitor) {
         visitor.visit(this);
     }
+    public String fieldTypeToDescriptor(Type fieldType){
+        if (fieldType == BaseType.INT){
+            return "I";
+        } else if (fieldType == BaseType.CHAR){
+            return "C";
+        } else if (fieldType == BaseType.BOOLEAN){
+            return "Z";
+        } else {
+            return "L" + fieldType.getIdentifier();
+        }
+    }
+
 }

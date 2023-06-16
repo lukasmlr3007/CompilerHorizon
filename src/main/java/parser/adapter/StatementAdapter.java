@@ -22,7 +22,7 @@ public class StatementAdapter {
             return WhileStatementAdapter.adapt(statementContext.whileStatement());
         } else if (statementContext.ifElseStatement() != null) {
             return IfElseStatementAdapter.adapt(statementContext.ifElseStatement());
-        } else if (statementContext.statementExpression() != null) {  //TODO StatementExpression weiter fortführen
+        } else if (statementContext.statementExpression() != null) {
             return new StatementStmtExpr(StatementExpressionAdapter.adapt(statementContext.statementExpression()));
         }
         return null;

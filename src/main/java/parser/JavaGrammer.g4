@@ -2,13 +2,16 @@ grammar JavaGrammer;
 
 //Grammatik:
 program: classdecl+;
-classdecl: Class Identifier OpenCurlyBracket constructor* fielddecl* ClosedCurlyBracket;
+classdecl: Class Identifier OpenCurlyBracket constructor* fielddecl* methoddecl* ClosedCurlyBracket;
+constructor: Identifier OpenRoundBracket parameters? ClosedRoundBracket block;
 fielddecl: Static? AccessModifier type Identifier Semicolon;
 parameters: parameterdecl(Comma parameterdecl)*;
 parameterdecl: type Identifier;
 parameterValues: partExpression(Comma partExpression)*;
 //parameterValdecl: partExpression;
+methoddecl: AccessModifier Static? type Identifier OpenRoundBracket parameters? ClosedRoundBracket block;
 block: OpenCurlyBracket statement* ClosedCurlyBracket;
+//TODO: Prüfen, ob jede einzelne Statement-Variante klappt:
 statement: block | localVarDecl | whileStatement | ifElseStatement | statementExpression | returnStatement;
 localVarDecl: type Identifier Semicolon;
 whileStatement: While OpenRoundBracket expression ClosedRoundBracket block;
@@ -16,25 +19,21 @@ ifElseStatement: If OpenRoundBracket expression ClosedRoundBracket block Else bl
 statementExpression: assign | methodCall | myNew ;
 assign: instanceVariable Assign expression Semicolon;
 methodCall: reciever extraMethod+ Semicolon;
-reciever: (This | Identifier | instanceVariable); //myNew
-extraMethod: Point Identifier OpenRoundBracket parameterValues ClosedRoundBracket;
-myNew: New Identifier OpenRoundBracket parameterValues ClosedRoundBracket;
+reciever: This | Identifier | instanceVariable; //myNew
+extraMethod: Point Identifier OpenRoundBracket parameterValues? ClosedRoundBracket;
+myNew: New Identifier OpenRoundBracket parameterValues? ClosedRoundBracket Semicolon;
 returnStatement: Return (expression)? Semicolon;
-// expressions später
+
+//TODO: Überprüfen
 expression: partExpression | binaryExpression;
 partExpression: literals | Identifier | This | statementExpression | instanceVariable | OpenRoundBracket expression ClosedRoundBracket;
 binaryExpression: additiveExpression | logicalExpression | relationalExpression;
-
 additiveExpression: partExpression AdditiveOperator expression;
 relationalExpression: partExpression RelationalOperator expression;
 logicalExpression: partExpression LogicOperator expression;
 literals: IntValue | BoolValue | CharValue;
 instanceVariable: This Point Identifier | (This Point)? (Identifier Point)+ Identifier;
 
-constructor: Identifier OpenRoundBracket parameters? ClosedRoundBracket block;
-
-//TODO Methodendeklaration fehlt komplett
-//TODO Wertzuweisung zu Variablen funktioniert nicht
 
 type: Int | Bool | Char | Void | Identifier;
 sysout: 'System.out.println' OpenRoundBracket expression ClosedRoundBracket Semicolon;
@@ -65,8 +64,8 @@ Return: 'return';
 LogicOperator: '&&' | '||';
 RelationalOperator: '<' | '>' | '<=' | '>=' | '==' | '!=';
 AdditiveOperator: '+' | '-' | '*' | '/';
-Identifier: [a-zA-Z]+;
 IntValue: [0-9]+;
 BoolValue: 'true' | 'false';
 CharValue: [a-zA-Z];
+Identifier: [a-zA-Z]+;
 WS: [ \t\n\r]+ -> skip;

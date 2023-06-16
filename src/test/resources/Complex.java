@@ -1,7 +1,7 @@
 class Calculator {
     private boolean add;
-    private int a;
-    private int b;
+    private int aa;
+    private int bb;
     private int result;
 
     Calculator () {
@@ -12,15 +12,15 @@ class Calculator {
 
     public void setValues() {
         this.add = true;
-        this.a = 3;
-        this.b = 2;
+        this.aa = 3;
+        this.bb = 2;
     }
 
     private void calculate() {
         if (this.add == true) {
-            this.result = this.a + this.b;
+            this.result = this.aa + this.bb;
         } else {
-            this.result = this.a * this.b;
+            this.result = this.aa * this.bb;
         }
     }
 
@@ -32,8 +32,8 @@ class Calculator {
 class Spam {
     private int amount;
 
-    Spam(int a) {
-        this.amount = a;
+    Spam(int aa) {
+        this.amount = aa;
         while (this.amount > 0) {
             System.out.println("SPAM");
             this.amount = this.amount - 1;

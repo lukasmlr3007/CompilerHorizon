@@ -20,10 +20,6 @@ public class NullLiteral extends PartExpression implements CodeVisitor {
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
     }
-    @Override
-    public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor) {
-
-    }
 
     @Override
     public void accept(MethodBytecodeVisitor visitor) {

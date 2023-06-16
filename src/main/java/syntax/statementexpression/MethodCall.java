@@ -7,8 +7,8 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
+import syntax.common.BaseType;
+import syntax.common.Type;
 import syntax.expression.Expression;
 import syntax.expression.PartExpression;
 import syntax.structure.ParameterDecl;
@@ -28,7 +28,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MethodCall extends StatementExpression implements CodeVisitor {
     String identifier;
-    Expression receiver;
+    Expression receiver; //expression hat type
     List<PartExpression> parameterList;
 
     public TypeCheckResult accept(ISemanticVisitor visitor) {
@@ -36,12 +36,36 @@ public class MethodCall extends StatementExpression implements CodeVisitor {
     }
 
     @Override
-    public void generateBytecode(ClassWriter classWriter, MethodVisitor methodVisitor) {
-
-    }
-
-    @Override
     public void accept(MethodBytecodeVisitor visitor) {
         visitor.visit(this);
+    }
+
+    public String returnAndParameterTypeToDescriptor() {
+        String descriptor = "(";
+        if (parameterList.size() > 0){
+            for (PartExpression parameter : parameterList){
+                descriptor = descriptor + typeToString(parameter.getType());
+            }
+        }
+
+        descriptor = descriptor + ")";
+
+        descriptor = descriptor + typeToString(this.receiver.getType());
+
+        return descriptor;
+    }
+
+    public String typeToString(Type type){
+        if (type == BaseType.VOID) {
+            return "V";
+        } else if (type == BaseType.INT) {
+            return "I";
+        } else if (type == BaseType.CHAR) {
+            return "C";
+        } else if (type == BaseType.BOOLEAN) {
+            return "Z";
+        } else {
+            return "L" + type.getIdentifier();
+        }
     }
 }
