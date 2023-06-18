@@ -78,7 +78,7 @@ public class SemanticChecker implements ISemanticVisitor {
         if (classDecl.getMethodDeclList() != null) { // nullcheck
             for (MethodDecl methodDecl : classDecl.getMethodDeclList()) {
                 boolean isMethodValid = methodDecl.accept(this).isValid();
-                // if (isMethodValid) currentMethods.add(methodDecl.getIdentifier());
+                // TODO if (isMethodValid) currentMethods.add(methodDecl.getIdentifier());
                 isValid = isValid && isMethodValid;
             }
         }
