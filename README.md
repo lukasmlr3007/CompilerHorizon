@@ -9,3 +9,5 @@ Was nicht geht:
 - Alle Identifier müssen min. 2 Zeichen lang sein
 - Methoden brauchen einen Access Modifier
 - Um auf Variablen in einer Klasse zuzugriefen, muss this. davor stehen
+
+-> wurde in Doku übernommen
