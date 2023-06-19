@@ -18,16 +18,6 @@ public interface JavaGrammerListener extends ParseTreeListener {
 	 */
 	void exitProgram(JavaGrammerParser.ProgramContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JavaGrammerParser#constructor}.
-	 * @param ctx the parse tree
-	 */
-	void enterConstructor(JavaGrammerParser.ConstructorContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JavaGrammerParser#constructor}.
-	 * @param ctx the parse tree
-	 */
-	void exitConstructor(JavaGrammerParser.ConstructorContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link JavaGrammerParser#classdecl}.
 	 * @param ctx the parse tree
 	 */
@@ -37,6 +27,16 @@ public interface JavaGrammerListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitClassdecl(JavaGrammerParser.ClassdeclContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JavaGrammerParser#myconstructor}.
+	 * @param ctx the parse tree
+	 */
+	void enterMyconstructor(JavaGrammerParser.MyconstructorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JavaGrammerParser#myconstructor}.
+	 * @param ctx the parse tree
+	 */
+	void exitMyconstructor(JavaGrammerParser.MyconstructorContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JavaGrammerParser#fielddecl}.
 	 * @param ctx the parse tree

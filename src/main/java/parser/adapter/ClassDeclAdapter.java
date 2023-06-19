@@ -1,10 +1,7 @@
 package parser.adapter;
 
 import parser.JavaGrammerParser;
-import syntax.structure.ClassDecl;
-import syntax.structure.ConstructorDecl;
-import syntax.structure.FieldDecl;
-import syntax.structure.MethodDecl;
+import syntax.structure.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,10 +20,15 @@ public class ClassDeclAdapter {
             classdeclContext.methoddecl().forEach(methoddeclContext -> methods.add(MethodDeclAdapter.adapt(methoddeclContext)));
         }
         List<ConstructorDecl> constructos = new ArrayList<>();
-        if(classdeclContext.constructor() != null) {
-            classdeclContext.constructor().forEach(constructorContext -> constructos.add(ConstructorAdapter.adapt(constructorContext)));
+        if(classdeclContext.myconstructor() != null) {
+            classdeclContext.myconstructor().forEach(constructorContext -> constructos.add(ConstructorAdapter.adapt(constructorContext)));
         }
-        return new ClassDecl(fields, methods, constructos, classdeclContext.Identifier().getText());
+        MyMain mymain = null;
+        if (classdeclContext.main() != null) {
+            mymain = MainAdapter.adapt(classdeclContext.main());
+        }
+
+        return new ClassDecl(fields, methods, constructos, classdeclContext.Identifier().getText(), mymain);
     }
 
 }

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ConstructorAdapter {
 
-    public static ConstructorDecl adapt(JavaGrammerParser.ConstructorContext constructorContext) {
+    public static ConstructorDecl adapt(JavaGrammerParser.MyconstructorContext constructorContext) {
         List<ParameterDecl> parameters = new ArrayList<>();
         if (constructorContext.parameters() != null){
             constructorContext.parameters().parameterdecl().forEach(parameterdeclContext -> parameters.add(ParameterDeclAdapter.adapt(parameterdeclContext)));

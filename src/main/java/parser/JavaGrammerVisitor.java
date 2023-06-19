@@ -17,17 +17,17 @@ public interface JavaGrammerVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProgram(JavaGrammerParser.ProgramContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JavaGrammerParser#constructor}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitConstructor(JavaGrammerParser.ConstructorContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link JavaGrammerParser#classdecl}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitClassdecl(JavaGrammerParser.ClassdeclContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JavaGrammerParser#myconstructor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMyconstructor(JavaGrammerParser.MyconstructorContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JavaGrammerParser#fielddecl}.
 	 * @param ctx the parse tree

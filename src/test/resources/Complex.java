@@ -4,10 +4,10 @@ class Calculator {
     private int bb;
     private int result;
 
-    Calculator () {
-      setValues();
-      calculate();
-      printResult();
+    public Calculator () {
+      this.setValues();
+      this.calculate();
+      this.printResult();
     }
 
     public void setValues() {
@@ -25,17 +25,17 @@ class Calculator {
     }
 
     private void printResult() {
-        System.out.println("Das Ergebnis ist: " + this.result);
+        System.out.println(true);
     }
 }
 
 class Spam {
     private int amount;
 
-    Spam(int aa) {
+    public Spam(int aa) {
         this.amount = aa;
         while (this.amount > 0) {
-            System.out.println("SPAM");
+            System.out.println(c);
             this.amount = this.amount - 1;
         }
     }

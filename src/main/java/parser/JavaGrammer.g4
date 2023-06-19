@@ -2,8 +2,8 @@ grammar JavaGrammer;
 
 //Grammatik:
 program: classdecl+;
-constructor: Identifier OpenRoundBracket parameters? ClosedRoundBracket block;
-classdecl: Class Identifier OpenCurlyBracket constructor* fielddecl* methoddecl* ClosedCurlyBracket;
+classdecl: Class main? Identifier OpenCurlyBracket (myconstructor | fielddecl | methoddecl)* ClosedCurlyBracket;
+myconstructor: AccessModifier Identifier OpenRoundBracket parameters? ClosedRoundBracket block;
 fielddecl: Static? AccessModifier type Identifier Semicolon;
 parameters: parameterdecl(Comma parameterdecl)*;
 parameterdecl: type Identifier;
@@ -12,7 +12,7 @@ parameterValues: partExpression(Comma partExpression)*;
 methoddecl: AccessModifier Static? type Identifier OpenRoundBracket parameters? ClosedRoundBracket block;
 block: OpenCurlyBracket statement* ClosedCurlyBracket;
 //TODO: Prüfen, ob jede einzelne Statement-Variante klappt:
-statement: block | localVarDecl | whileStatement | ifElseStatement | statementExpression | returnStatement;
+statement: block | localVarDecl | whileStatement | ifElseStatement | statementExpression | returnStatement | sysout;
 localVarDecl: type Identifier Semicolon;
 whileStatement: While OpenRoundBracket expression ClosedRoundBracket block;
 ifElseStatement: If OpenRoundBracket expression ClosedRoundBracket block Else block;
