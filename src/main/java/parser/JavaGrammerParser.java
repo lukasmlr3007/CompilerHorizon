@@ -1,4 +1,4 @@
-// Generated from C:/Users/bauma/IdeaProjects/CompilerHorizon/src/main/java/parser\JavaGrammer.g4 by ANTLR 4.12.0
+// Generated from C:/Users/max20/Documents/Materialien_DHBW/4_Semester/Compilerbau/CompilerHorizon/src/main/java/parser\JavaGrammer.g4 by ANTLR 4.12.0
 package parser;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -24,7 +24,7 @@ public class JavaGrammerParser extends Parser {
 		AdditiveOperator=26, IntValue=27, BoolValue=28, CharValue=29, Identifier=30, 
 		WS=31;
 	public static final int
-		RULE_constructor = 0, RULE_program = 1, RULE_classdecl = 2, RULE_fielddecl = 3, 
+		RULE_program = 0, RULE_constructor = 1, RULE_classdecl = 2, RULE_fielddecl = 3, 
 		RULE_parameters = 4, RULE_parameterdecl = 5, RULE_parameterValues = 6, 
 		RULE_methoddecl = 7, RULE_block = 8, RULE_statement = 9, RULE_localVarDecl = 10, 
 		RULE_whileStatement = 11, RULE_ifElseStatement = 12, RULE_statementExpression = 13, 
@@ -35,7 +35,7 @@ public class JavaGrammerParser extends Parser {
 		RULE_type = 28, RULE_sysout = 29, RULE_main = 30;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"constructor", "program", "classdecl", "fielddecl", "parameters", "parameterdecl", 
+			"program", "constructor", "classdecl", "fielddecl", "parameters", "parameterdecl", 
 			"parameterValues", "methoddecl", "block", "statement", "localVarDecl", 
 			"whileStatement", "ifElseStatement", "statementExpression", "assign", 
 			"methodCall", "reciever", "extraMethod", "myNew", "returnStatement", 
@@ -116,6 +116,67 @@ public class JavaGrammerParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
+	public static class ProgramContext extends ParserRuleContext {
+		public List<ClassdeclContext> classdecl() {
+			return getRuleContexts(ClassdeclContext.class);
+		}
+		public ClassdeclContext classdecl(int i) {
+			return getRuleContext(ClassdeclContext.class,i);
+		}
+		public ProgramContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_program; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof JavaGrammerListener ) ((JavaGrammerListener)listener).enterProgram(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof JavaGrammerListener ) ((JavaGrammerListener)listener).exitProgram(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof JavaGrammerVisitor ) return ((JavaGrammerVisitor<? extends T>)visitor).visitProgram(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final ProgramContext program() throws RecognitionException {
+		ProgramContext _localctx = new ProgramContext(_ctx, getState());
+		enterRule(_localctx, 0, RULE_program);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(63); 
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			do {
+				{
+				{
+				setState(62);
+				classdecl();
+				}
+				}
+				setState(65); 
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			} while ( _la==Class );
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
 	public static class ConstructorContext extends ParserRuleContext {
 		public TerminalNode Identifier() { return getToken(JavaGrammerParser.Identifier, 0); }
 		public TerminalNode OpenRoundBracket() { return getToken(JavaGrammerParser.OpenRoundBracket, 0); }
@@ -147,90 +208,29 @@ public class JavaGrammerParser extends Parser {
 
 	public final ConstructorContext constructor() throws RecognitionException {
 		ConstructorContext _localctx = new ConstructorContext(_ctx, getState());
-		enterRule(_localctx, 0, RULE_constructor);
+		enterRule(_localctx, 2, RULE_constructor);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(62);
+			setState(67);
 			match(Identifier);
-			setState(63);
+			setState(68);
 			match(OpenRoundBracket);
-			setState(65);
+			setState(70);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 1073742784L) != 0)) {
 				{
-				setState(64);
+				setState(69);
 				parameters();
 				}
 			}
 
-			setState(67);
+			setState(72);
 			match(ClosedRoundBracket);
-			setState(68);
+			setState(73);
 			block();
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class ProgramContext extends ParserRuleContext {
-		public List<ClassdeclContext> classdecl() {
-			return getRuleContexts(ClassdeclContext.class);
-		}
-		public ClassdeclContext classdecl(int i) {
-			return getRuleContext(ClassdeclContext.class,i);
-		}
-		public ProgramContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_program; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof JavaGrammerListener ) ((JavaGrammerListener)listener).enterProgram(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof JavaGrammerListener ) ((JavaGrammerListener)listener).exitProgram(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof JavaGrammerVisitor ) return ((JavaGrammerVisitor<? extends T>)visitor).visitProgram(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final ProgramContext program() throws RecognitionException {
-		ProgramContext _localctx = new ProgramContext(_ctx, getState());
-		enterRule(_localctx, 2, RULE_program);
-		int _la;
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(71); 
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			do {
-				{
-				{
-				setState(70);
-				classdecl();
-				}
-				}
-				setState(73); 
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-			} while ( _la==Class );
 			}
 		}
 		catch (RecognitionException re) {
@@ -2224,20 +2224,20 @@ public class JavaGrammerParser extends Parser {
 		"\u0015\u0002\u0016\u0007\u0016\u0002\u0017\u0007\u0017\u0002\u0018\u0007"+
 		"\u0018\u0002\u0019\u0007\u0019\u0002\u001a\u0007\u001a\u0002\u001b\u0007"+
 		"\u001b\u0002\u001c\u0007\u001c\u0002\u001d\u0007\u001d\u0002\u001e\u0007"+
-		"\u001e\u0001\u0000\u0001\u0000\u0001\u0000\u0003\u0000B\b\u0000\u0001"+
-		"\u0000\u0001\u0000\u0001\u0000\u0001\u0001\u0004\u0001H\b\u0001\u000b"+
-		"\u0001\f\u0001I\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0005"+
-		"\u0002P\b\u0002\n\u0002\f\u0002S\t\u0002\u0001\u0002\u0005\u0002V\b\u0002"+
-		"\n\u0002\f\u0002Y\t\u0002\u0001\u0002\u0005\u0002\\\b\u0002\n\u0002\f"+
-		"\u0002_\t\u0002\u0001\u0002\u0001\u0002\u0001\u0003\u0003\u0003d\b\u0003"+
-		"\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0004"+
-		"\u0001\u0004\u0001\u0004\u0005\u0004n\b\u0004\n\u0004\f\u0004q\t\u0004"+
-		"\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0006\u0001\u0006\u0001\u0006"+
-		"\u0005\u0006y\b\u0006\n\u0006\f\u0006|\t\u0006\u0001\u0007\u0001\u0007"+
-		"\u0003\u0007\u0080\b\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007"+
-		"\u0003\u0007\u0086\b\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001\b"+
-		"\u0001\b\u0005\b\u008d\b\b\n\b\f\b\u0090\t\b\u0001\b\u0001\b\u0001\t\u0001"+
-		"\t\u0001\t\u0001\t\u0001\t\u0001\t\u0003\t\u009a\b\t\u0001\n\u0001\n\u0001"+
+		"\u001e\u0001\u0000\u0004\u0000@\b\u0000\u000b\u0000\f\u0000A\u0001\u0001"+
+		"\u0001\u0001\u0001\u0001\u0003\u0001G\b\u0001\u0001\u0001\u0001\u0001"+
+		"\u0001\u0001\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0005\u0002"+
+		"P\b\u0002\n\u0002\f\u0002S\t\u0002\u0001\u0002\u0005\u0002V\b\u0002\n"+
+		"\u0002\f\u0002Y\t\u0002\u0001\u0002\u0005\u0002\\\b\u0002\n\u0002\f\u0002"+
+		"_\t\u0002\u0001\u0002\u0001\u0002\u0001\u0003\u0003\u0003d\b\u0003\u0001"+
+		"\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0004\u0001"+
+		"\u0004\u0001\u0004\u0005\u0004n\b\u0004\n\u0004\f\u0004q\t\u0004\u0001"+
+		"\u0005\u0001\u0005\u0001\u0005\u0001\u0006\u0001\u0006\u0001\u0006\u0005"+
+		"\u0006y\b\u0006\n\u0006\f\u0006|\t\u0006\u0001\u0007\u0001\u0007\u0003"+
+		"\u0007\u0080\b\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0003"+
+		"\u0007\u0086\b\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001\b\u0001"+
+		"\b\u0005\b\u008d\b\b\n\b\f\b\u0090\t\b\u0001\b\u0001\b\u0001\t\u0001\t"+
+		"\u0001\t\u0001\t\u0001\t\u0001\t\u0003\t\u009a\b\t\u0001\n\u0001\n\u0001"+
 		"\n\u0001\n\u0001\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001\u000b"+
 		"\u0001\u000b\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001"+
 		"\f\u0001\r\u0001\r\u0001\r\u0003\r\u00b1\b\r\u0001\u000e\u0001\u000e\u0001"+
@@ -2260,8 +2260,8 @@ public class JavaGrammerParser extends Parser {
 		"\u0001\u001d\u0001\u001d\u0001\u001e\u0001\u001e\u0001\u001e\u0001\u001e"+
 		"\u0000\u0000\u001f\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014"+
 		"\u0016\u0018\u001a\u001c\u001e \"$&(*,.02468:<\u0000\u0002\u0001\u0000"+
-		"\u001b\u001d\u0002\u0000\u0006\t\u001e\u001e\u011c\u0000>\u0001\u0000"+
-		"\u0000\u0000\u0002G\u0001\u0000\u0000\u0000\u0004K\u0001\u0000\u0000\u0000"+
+		"\u001b\u001d\u0002\u0000\u0006\t\u001e\u001e\u011c\u0000?\u0001\u0000"+
+		"\u0000\u0000\u0002C\u0001\u0000\u0000\u0000\u0004K\u0001\u0000\u0000\u0000"+
 		"\u0006c\u0001\u0000\u0000\u0000\bj\u0001\u0000\u0000\u0000\nr\u0001\u0000"+
 		"\u0000\u0000\fu\u0001\u0000\u0000\u0000\u000e}\u0001\u0000\u0000\u0000"+
 		"\u0010\u008a\u0001\u0000\u0000\u0000\u0012\u0099\u0001\u0000\u0000\u0000"+
@@ -2274,14 +2274,14 @@ public class JavaGrammerParser extends Parser {
 		".\u00ef\u0001\u0000\u0000\u00000\u00f3\u0001\u0000\u0000\u00002\u00f7"+
 		"\u0001\u0000\u0000\u00004\u00fb\u0001\u0000\u0000\u00006\u010b\u0001\u0000"+
 		"\u0000\u00008\u010d\u0001\u0000\u0000\u0000:\u010f\u0001\u0000\u0000\u0000"+
-		"<\u0115\u0001\u0000\u0000\u0000>?\u0005\u001e\u0000\u0000?A\u0005\u0012"+
-		"\u0000\u0000@B\u0003\b\u0004\u0000A@\u0001\u0000\u0000\u0000AB\u0001\u0000"+
-		"\u0000\u0000BC\u0001\u0000\u0000\u0000CD\u0005\u0013\u0000\u0000DE\u0003"+
-		"\u0010\b\u0000E\u0001\u0001\u0000\u0000\u0000FH\u0003\u0004\u0002\u0000"+
-		"GF\u0001\u0000\u0000\u0000HI\u0001\u0000\u0000\u0000IG\u0001\u0000\u0000"+
-		"\u0000IJ\u0001\u0000\u0000\u0000J\u0003\u0001\u0000\u0000\u0000KL\u0005"+
+		"<\u0115\u0001\u0000\u0000\u0000>@\u0003\u0004\u0002\u0000?>\u0001\u0000"+
+		"\u0000\u0000@A\u0001\u0000\u0000\u0000A?\u0001\u0000\u0000\u0000AB\u0001"+
+		"\u0000\u0000\u0000B\u0001\u0001\u0000\u0000\u0000CD\u0005\u001e\u0000"+
+		"\u0000DF\u0005\u0012\u0000\u0000EG\u0003\b\u0004\u0000FE\u0001\u0000\u0000"+
+		"\u0000FG\u0001\u0000\u0000\u0000GH\u0001\u0000\u0000\u0000HI\u0005\u0013"+
+		"\u0000\u0000IJ\u0003\u0010\b\u0000J\u0003\u0001\u0000\u0000\u0000KL\u0005"+
 		"\u0003\u0000\u0000LM\u0005\u001e\u0000\u0000MQ\u0005\u0010\u0000\u0000"+
-		"NP\u0003\u0000\u0000\u0000ON\u0001\u0000\u0000\u0000PS\u0001\u0000\u0000"+
+		"NP\u0003\u0002\u0001\u0000ON\u0001\u0000\u0000\u0000PS\u0001\u0000\u0000"+
 		"\u0000QO\u0001\u0000\u0000\u0000QR\u0001\u0000\u0000\u0000RW\u0001\u0000"+
 		"\u0000\u0000SQ\u0001\u0000\u0000\u0000TV\u0003\u0006\u0003\u0000UT\u0001"+
 		"\u0000\u0000\u0000VY\u0001\u0000\u0000\u0000WU\u0001\u0000\u0000\u0000"+
@@ -2386,7 +2386,7 @@ public class JavaGrammerParser extends Parser {
 		"\u0000\u0000\u0111\u0112\u0003(\u0014\u0000\u0112\u0113\u0005\u0013\u0000"+
 		"\u0000\u0113\u0114\u0005\u0014\u0000\u0000\u0114;\u0001\u0000\u0000\u0000"+
 		"\u0115\u0116\u0005\u0002\u0000\u0000\u0116\u0117\u0003\u0010\b\u0000\u0117"+
-		"=\u0001\u0000\u0000\u0000\u0018AIQW]coz\u007f\u0085\u008e\u0099\u00b0"+
+		"=\u0001\u0000\u0000\u0000\u0018AFQW]coz\u007f\u0085\u008e\u0099\u00b0"+
 		"\u00bb\u00c2\u00c8\u00d0\u00d7\u00dd\u00e8\u00ed\u0102\u0108\u010b";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());

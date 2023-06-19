@@ -1,4 +1,4 @@
-// Generated from C:/Users/bauma/IdeaProjects/CompilerHorizon/src/main/java/parser\JavaGrammer.g4 by ANTLR 4.12.0
+// Generated from C:/Users/max20/Documents/Materialien_DHBW/4_Semester/Compilerbau/CompilerHorizon/src/main/java/parser\JavaGrammer.g4 by ANTLR 4.12.0
 package parser;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -7,16 +7,6 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  * {@link JavaGrammerParser}.
  */
 public interface JavaGrammerListener extends ParseTreeListener {
-	/**
-	 * Enter a parse tree produced by {@link JavaGrammerParser#constructor}.
-	 * @param ctx the parse tree
-	 */
-	void enterConstructor(JavaGrammerParser.ConstructorContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JavaGrammerParser#constructor}.
-	 * @param ctx the parse tree
-	 */
-	void exitConstructor(JavaGrammerParser.ConstructorContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JavaGrammerParser#program}.
 	 * @param ctx the parse tree
@@ -27,6 +17,16 @@ public interface JavaGrammerListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitProgram(JavaGrammerParser.ProgramContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JavaGrammerParser#constructor}.
+	 * @param ctx the parse tree
+	 */
+	void enterConstructor(JavaGrammerParser.ConstructorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JavaGrammerParser#constructor}.
+	 * @param ctx the parse tree
+	 */
+	void exitConstructor(JavaGrammerParser.ConstructorContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JavaGrammerParser#classdecl}.
 	 * @param ctx the parse tree

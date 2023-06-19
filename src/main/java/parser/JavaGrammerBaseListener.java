@@ -1,4 +1,4 @@
-// Generated from C:/Users/bauma/IdeaProjects/CompilerHorizon/src/main/java/parser\JavaGrammer.g4 by ANTLR 4.12.0
+// Generated from C:/Users/max20/Documents/Materialien_DHBW/4_Semester/Compilerbau/CompilerHorizon/src/main/java/parser\JavaGrammer.g4 by ANTLR 4.12.0
 package parser;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -17,18 +17,6 @@ public class JavaGrammerBaseListener implements JavaGrammerListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConstructor(JavaGrammerParser.ConstructorContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitConstructor(JavaGrammerParser.ConstructorContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterProgram(JavaGrammerParser.ProgramContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -36,6 +24,18 @@ public class JavaGrammerBaseListener implements JavaGrammerListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitProgram(JavaGrammerParser.ProgramContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterConstructor(JavaGrammerParser.ConstructorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitConstructor(JavaGrammerParser.ConstructorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

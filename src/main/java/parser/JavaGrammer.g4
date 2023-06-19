@@ -2,8 +2,8 @@ grammar JavaGrammer;
 
 //Grammatik:
 program: classdecl+;
-classdecl: Class Identifier OpenCurlyBracket constructor* fielddecl* methoddecl* ClosedCurlyBracket;
 constructor: Identifier OpenRoundBracket parameters? ClosedRoundBracket block;
+classdecl: Class Identifier OpenCurlyBracket constructor* fielddecl* methoddecl* ClosedCurlyBracket;
 fielddecl: Static? AccessModifier type Identifier Semicolon;
 parameters: parameterdecl(Comma parameterdecl)*;
 parameterdecl: type Identifier;

@@ -1,4 +1,4 @@
-// Generated from C:/Users/bauma/IdeaProjects/CompilerHorizon/src/main/java/parser\JavaGrammer.g4 by ANTLR 4.12.0
+// Generated from C:/Users/max20/Documents/Materialien_DHBW/4_Semester/Compilerbau/CompilerHorizon/src/main/java/parser\JavaGrammer.g4 by ANTLR 4.12.0
 package parser;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -11,17 +11,17 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface JavaGrammerVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link JavaGrammerParser#constructor}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitConstructor(JavaGrammerParser.ConstructorContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link JavaGrammerParser#program}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitProgram(JavaGrammerParser.ProgramContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JavaGrammerParser#constructor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConstructor(JavaGrammerParser.ConstructorContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JavaGrammerParser#classdecl}.
 	 * @param ctx the parse tree
