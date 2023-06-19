@@ -66,5 +66,11 @@ public interface ISemanticVisitor {
 
     TypeCheckResult check(BoolLiteral toCheck);
 
-    TypeCheckResult check(BinaryExpression toCheck);
+    // TypeCheckResult check(BinaryExpression toCheck);
+
+    TypeCheckResult check(AdditiveExpression toCheck);
+
+    TypeCheckResult check(LogicalExpression toCheck);
+
+    TypeCheckResult check(RelationalExpression toCheck);
 }

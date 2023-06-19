@@ -21,4 +21,12 @@ public class ProgramContext {
             classes.put(clazz.getIdentifier(), new ClassContext(clazz));
         }
     }
+
+    public boolean hasClassContext(String identifier) {
+        return classes.containsKey(identifier);
+    }
+
+    public ClassContext getClassContext(String identifier) {
+        return classes.get(identifier);
+    }
 }

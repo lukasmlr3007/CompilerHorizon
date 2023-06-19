@@ -17,8 +17,8 @@ public class Main {
         System.out.println("Syntax Tree: " + syntaxTree);
 
         SemanticChecker semantikCheck = new SemanticChecker();
-        //TypeCheckResult typeCheckResult = semantikCheck.check(syntaxTree);
-        //System.out.println((typeCheckResult.isValid() ? "Semantik ist korrekt" : "Semantik ist inkorrekt"));
+        TypeCheckResult typeCheckResult = semantikCheck.check(syntaxTree);
+        System.out.println((typeCheckResult.isValid() ? "Semantik ist korrekt" : "Semantik ist inkorrekt"));
 
         ProgramBytecode programBytecode = new ProgramBytecode();
         programBytecode.visit(syntaxTree);

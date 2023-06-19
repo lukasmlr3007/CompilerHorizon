@@ -20,7 +20,7 @@ import java.util.List;
  * Ruft eine Methode mit dem Namen identifier und den Parametern der parameterList auf und gibt das
  * Ergebnis der Methode an den receiver zurück.
  * <pre>
- *     identifier(parameterList)
+ *     receiver.identifier(parameterList)
  * </pre>
  */
 @Data
