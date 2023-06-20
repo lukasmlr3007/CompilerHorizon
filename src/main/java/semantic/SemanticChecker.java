@@ -46,7 +46,7 @@ public class SemanticChecker implements ISemanticVisitor {
 
     @Override
     public TypeCheckResult check(InstVar instVar) {
-        return null;
+        return null; // TODO implement instvar
     }
 
     @Override
@@ -56,7 +56,7 @@ public class SemanticChecker implements ISemanticVisitor {
 
     @Override
     public TypeCheckResult check(LocalOrFieldVar localOrFieldVar) {
-        return null;
+        return null; // TODO implement localorfieldvar
     }
 
     @Override
@@ -66,7 +66,7 @@ public class SemanticChecker implements ISemanticVisitor {
 
     @Override
     public TypeCheckResult check(NullLiteral nullExpr) {
-        return null;
+        return null; // TODO implement nullliteral
     }
 
     @Override
@@ -76,20 +76,18 @@ public class SemanticChecker implements ISemanticVisitor {
 
     @Override
     public TypeCheckResult check(StatementExpressionExpression stmtExprExpr) {
-        return null;
+        return null; // ignore
     }
 
     @Override
     public TypeCheckResult check(This thisExpr) {
-        return null;
+        thisExpr.setType(currentClass.getType());
+        return new TypeCheckResult(true, thisExpr.getType());
     }
 
     @Override
     public TypeCheckResult check(Unary unaryExpr) {
-
-        boolean isValid = true;
-
-        return new TypeCheckResult(isValid, null);
+        return null; // ignore
     }
 
     // statements
@@ -384,6 +382,8 @@ public class SemanticChecker implements ISemanticVisitor {
         for (ClassDecl classDecl : program.getClassDeclarations()) {
             isValid = isValid && classDecl.accept(this).isValid();
         }
-        return new TypeCheckResult(isValid, null);
+
+        // TODO hier fehlt noch was
+        return new TypeCheckResult(isValid, BaseType.VOID);
     }
 }

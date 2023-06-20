@@ -1,5 +1,6 @@
 package bytecode;
 
+import syntax.common.Sysout;
 import syntax.expression.*;
 import syntax.statement.*;
 import syntax.statementexpression.Assign;
@@ -8,7 +9,7 @@ import syntax.statementexpression.New;
 import syntax.statementexpression.StatementStmtExpr;
 import syntax.structure.ConstructorDecl;
 import syntax.structure.MethodDecl;
-import syntax.structure.ParameterDecl;
+import syntax.structure.MyMain;
 
 public interface MethodBytecodeVisitor {
     void visit(AdditiveExpression additiveExpression);
@@ -58,4 +59,8 @@ public interface MethodBytecodeVisitor {
     void visit(ConstructorDecl constructorDecl);
 
     void visit(MethodDecl methodDecl);
+
+    void visit(MyMain myMain);
+
+    void visit(Sysout sysout);
 }

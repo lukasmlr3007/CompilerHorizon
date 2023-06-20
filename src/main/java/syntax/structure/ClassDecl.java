@@ -5,13 +5,11 @@ import bytecode.CodeVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.objectweb.asm.*;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
+import syntax.common.Type;
 
 import java.util.List;
-
-import static org.objectweb.asm.Opcodes.*;
 
 /**
  * Klassen-Deklaration <br>
@@ -29,7 +27,18 @@ public class ClassDecl implements CodeVisitor {
     private List<FieldDecl> fieldDeclList;
     private List<MethodDecl> methodDeclList;
     private List<ConstructorDecl> constructorDeclList;
+    private MyMain mymain;
     private String identifier;
+    private Type type;
+
+    public ClassDecl(List<FieldDecl> fieldDeclList, List<MethodDecl> methodDeclList, List<ConstructorDecl> constructorDeclList, String identifier, MyMain myMain) {
+        this.identifier = identifier;
+        this.mymain = myMain;
+        this.fieldDeclList = fieldDeclList;
+        this.methodDeclList = methodDeclList;
+        this.constructorDeclList = constructorDeclList;
+        this.type = null;
+    }
 
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
