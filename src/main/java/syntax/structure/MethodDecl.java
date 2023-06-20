@@ -29,6 +29,7 @@ import static org.objectweb.asm.Opcodes.*;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class MethodDecl implements CodeVisitor {
+
     private Type returnType;
     private String identifier;
     private List<ParameterDecl> parameters;
@@ -36,6 +37,7 @@ public class MethodDecl implements CodeVisitor {
     private AccessModifier accessModifier;
     private boolean staticModifier;
 
+    @Override
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
     }

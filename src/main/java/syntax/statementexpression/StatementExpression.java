@@ -2,10 +2,9 @@ package syntax.statementexpression;
 
 import bytecode.MethodBytecodeVisitor;
 import lombok.Data;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
+import semantic.ISemanticVisitor;
+import semantic.TypeCheckResult;
 import syntax.expression.PartExpression;
-import syntax.statement.Statement;
 
 /**
  * Statement-Expression <br>
@@ -13,6 +12,8 @@ import syntax.statement.Statement;
  */
 @Data
 public abstract class StatementExpression extends PartExpression {
+
+    public abstract TypeCheckResult accept(ISemanticVisitor visitor);
 
     public abstract void accept(MethodBytecodeVisitor visitor);
 }

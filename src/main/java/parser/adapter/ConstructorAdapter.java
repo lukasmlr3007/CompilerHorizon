@@ -18,7 +18,7 @@ public class ConstructorAdapter {
         }
 
         Block block = BlockAdapter.adapt(constructorContext.block());
-        return new ConstructorDecl(parameters, block);
+        return new ConstructorDecl(parameters, block, null);
     }
 
 }

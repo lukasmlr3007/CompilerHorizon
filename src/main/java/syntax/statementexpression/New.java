@@ -22,9 +22,11 @@ import java.util.List;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class New extends StatementExpression implements CodeVisitor {
+
     private List<Expression> parameterList;
     private String identifier;
 
+    @Override
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
     }

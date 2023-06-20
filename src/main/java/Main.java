@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
 
         //String input = "class FirstTest { }";
-        String input = "class TestClass { int number; public TestClass(int nummer, boolean wert, char zeichen) { System.out.println(nummer)} }";
+        String input = "class TestClass { public int number; public TestClass(int nummer, boolean wert, char zeichen) { System.out.println(nummer)} }";
         //String input = "class FirstTest {FirstTest(int zahl, char zeichen){}  private int meinint; this.meinint = 3} class SecondTest {}";
         //String input = "class FirstTest { public static void methodeNeu(int zahlparam){} }";
 

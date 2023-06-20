@@ -5,9 +5,9 @@ import bytecode.ProgramBytecodeVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import semantic.ISemanticVisitor;
+import semantic.TypeCheckResult;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -20,6 +20,11 @@ import java.util.List;
 public class Program implements CodeVisitor {
 
     private List<ClassDecl> classDeclarations;
+
+    @Override
+    public TypeCheckResult accept(ISemanticVisitor visitor) {
+        return visitor.check(this);
+    }
 
     @Override
     public void accept(ProgramBytecodeVisitor visitor) {

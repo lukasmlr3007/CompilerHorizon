@@ -5,8 +5,6 @@ import bytecode.MethodBytecodeVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
 
@@ -21,7 +19,7 @@ public class AdditiveExpression extends BinaryExpression implements CodeVisitor 
     PartExpression expressionLeft;
     Expression expressionRight;
 
-
+    @Override
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
     }

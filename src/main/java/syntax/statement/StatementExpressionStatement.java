@@ -16,8 +16,10 @@ import syntax.statementexpression.StatementExpression;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class StatementExpressionStatement extends Statement implements CodeVisitor {
+
     private StatementExpression statementExpression;
 
+    @Override
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
     }

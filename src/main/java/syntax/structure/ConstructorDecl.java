@@ -18,10 +18,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ConstructorDecl implements CodeVisitor {
 
-    // private AccessModifier accessModifier; TODO add public/private constructor
     private List<ParameterDecl> parameters;
     private Block block;
+    private Type type;
 
+    @Override
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
     }

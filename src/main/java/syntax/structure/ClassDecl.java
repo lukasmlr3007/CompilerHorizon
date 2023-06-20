@@ -24,22 +24,15 @@ import java.util.List;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class ClassDecl implements CodeVisitor {
+
+    private String identifier;
     private List<FieldDecl> fieldDeclList;
     private List<MethodDecl> methodDeclList;
     private List<ConstructorDecl> constructorDeclList;
     private MyMain mymain;
-    private String identifier;
     private Type type;
 
-    public ClassDecl(List<FieldDecl> fieldDeclList, List<MethodDecl> methodDeclList, List<ConstructorDecl> constructorDeclList, String identifier, MyMain myMain) {
-        this.identifier = identifier;
-        this.mymain = myMain;
-        this.fieldDeclList = fieldDeclList;
-        this.methodDeclList = methodDeclList;
-        this.constructorDeclList = constructorDeclList;
-        this.type = null;
-    }
-
+    @Override
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
     }

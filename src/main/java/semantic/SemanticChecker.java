@@ -198,7 +198,7 @@ public class SemanticChecker implements ISemanticVisitor {
 
         boolean isValid = true;
 
-        TypeCheckResult resultExpr = whileStmt.getExpression().accept(this);
+        TypeCheckResult resultExpr = whileStmt.getCondition().accept(this);
 
         if (!resultExpr.getType().equals(BaseType.BOOLEAN)) {
             errors.add(new TypeMismatchException("While-Statement expected condition of type " + BaseType.BOOLEAN + " but got " + resultExpr.getType()));
@@ -343,6 +343,7 @@ public class SemanticChecker implements ISemanticVisitor {
                 isValid = isValid && isConstructorValid;
             }
         }
+        classDecl.setType(new ReferenceType(classDecl.getIdentifier()));
         return new TypeCheckResult(isValid, new ReferenceType(classDecl.getIdentifier()));
     }
 

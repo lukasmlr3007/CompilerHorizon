@@ -310,12 +310,12 @@ public class MethodBytecode implements MethodBytecodeVisitor {
         Label labelEnd = new Label();
 
         methodVisitor.visitLabel(labelLoop);
-        whileStatement.getExpression().accept(this);
+        whileStatement.getCondition().accept(this);
         methodVisitor.visitJumpInsn(Opcodes.IFEQ, labelEnd);
 
         whileStatement.getBlock().accept(this);
 
-        if (!(whileStatement.getExpression().getType() instanceof BaseType) || whileStatement.getExpression().getType().getIdentifier() != "void") {
+        if (!(whileStatement.getCondition().getType() instanceof BaseType) || whileStatement.getCondition().getType().getIdentifier() != "void") {
             methodVisitor.visitInsn(Opcodes.POP);
         }
 

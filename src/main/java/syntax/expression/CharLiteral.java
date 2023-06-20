@@ -6,8 +6,6 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
 import syntax.common.BaseType;
 
 /**
@@ -24,6 +22,7 @@ public class CharLiteral extends PartExpression implements CodeVisitor {
         setType(BaseType.CHAR);
     }
 
+    @Override
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
     }

@@ -24,10 +24,12 @@ import static org.objectweb.asm.Opcodes.*;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class FieldDecl implements CodeVisitor {
+
     private String identifier;
     private AccessModifier accessModifier;
     private Type type;
 
+    @Override
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
     }

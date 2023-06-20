@@ -7,8 +7,6 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
 import syntax.statementexpression.StatementExpression;
 
 /**
@@ -20,6 +18,7 @@ import syntax.statementexpression.StatementExpression;
 public class StatementExpressionExpression extends Expression implements CodeVisitor {
     private StatementExpression statementExpression;
 
+    @Override
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
     }

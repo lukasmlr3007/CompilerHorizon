@@ -2,22 +2,19 @@ package syntax.statementexpression;
 
 import bytecode.CodeVisitor;
 import bytecode.MethodBytecodeVisitor;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
 import syntax.statement.Statement;
 
 @Data
+@AllArgsConstructor
 @RequiredArgsConstructor
 public class StatementStmtExpr extends Statement implements CodeVisitor {
-    private StatementExpression statementExpression;
 
-    public StatementStmtExpr(StatementExpression se) {
-        this.statementExpression = se;
-    }
+    private StatementExpression statementExpression;
 
     @Override
     public TypeCheckResult accept(ISemanticVisitor visitor) {

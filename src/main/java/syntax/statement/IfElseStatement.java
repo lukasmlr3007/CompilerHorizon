@@ -7,8 +7,6 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
 import syntax.expression.Expression;
 
 /**
@@ -22,10 +20,12 @@ import syntax.expression.Expression;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class IfElseStatement extends Statement implements CodeVisitor {
+
     Expression condition;
     Block ifBlock;
     Block elseBlock;
 
+    @Override
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
     }

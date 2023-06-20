@@ -3,12 +3,9 @@ package syntax.expression;
 import bytecode.CodeVisitor;
 import bytecode.MethodBytecodeVisitor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
 import syntax.common.BaseType;
 
 /**
@@ -29,6 +26,7 @@ public class BoolLiteral extends PartExpression implements CodeVisitor {
         return value;
     }
 
+    @Override
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
     }

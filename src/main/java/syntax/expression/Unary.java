@@ -7,8 +7,6 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
 import syntax.common.Operator;
 
 /**
@@ -22,6 +20,7 @@ public class Unary extends Expression implements CodeVisitor {
     Operator operator;
     Expression expression;
 
+    @Override
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
     }

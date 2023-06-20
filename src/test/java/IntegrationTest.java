@@ -1,3 +1,4 @@
+import bytecode.ProgramBytecode;
 import org.junit.jupiter.api.Test;
 import parser.ParserAPI;
 import semantic.SemanticChecker;
@@ -19,9 +20,11 @@ public class IntegrationTest {
         Program program = parser.getResult();
         TypeCheckResult typeCheckResult = semantic.check(program);
 
-        // program.generateBytecode();
+        ProgramBytecode programBytecode = new ProgramBytecode();
+        programBytecode.visit(program);
 
         assertTrue(typeCheckResult.isValid());
+        assertEquals(0, semantic.getErrors().size());
     }
 
     @Test
@@ -35,10 +38,12 @@ public class IntegrationTest {
         System.out.println(program);
         TypeCheckResult typeCheckResult = semantic.check(program);
 
-        // program.generateBytecode();
+        ProgramBytecode programBytecode = new ProgramBytecode();
+        programBytecode.visit(program);
 
         assertEquals(3, program.getClassDeclarations().size());
         assertTrue(typeCheckResult.isValid());
+        assertEquals(0, semantic.getErrors().size());
     }
 
     @Test
@@ -51,10 +56,12 @@ public class IntegrationTest {
         Program program = parser.getResult();
         TypeCheckResult typeCheckResult = semantic.check(program);
 
-        // program.generateBytecode();
+        ProgramBytecode programBytecode = new ProgramBytecode();
+        programBytecode.visit(program);
 
         assertEquals(2, program.getClassDeclarations().get(0).getConstructorDeclList().size());
         assertTrue(typeCheckResult.isValid());
+        assertEquals(0, semantic.getErrors().size());
     }
 
     @Test
@@ -67,10 +74,12 @@ public class IntegrationTest {
         Program program = parser.getResult();
         TypeCheckResult typeCheckResult = semantic.check(program);
 
-        // program.generateBytecode();
+        ProgramBytecode programBytecode = new ProgramBytecode();
+        programBytecode.visit(program);
 
         assertEquals(3, program.getClassDeclarations().get(0).getFieldDeclList().size());
         assertTrue(typeCheckResult.isValid());
+        assertEquals(0, semantic.getErrors().size());
     }
 
     @Test
@@ -83,9 +92,11 @@ public class IntegrationTest {
         Program program = parser.getResult();
         TypeCheckResult typeCheckResult = semantic.check(program);
 
-        // program.generateBytecode();
+        ProgramBytecode programBytecode = new ProgramBytecode();
+        programBytecode.visit(program);
 
         assertTrue(typeCheckResult.isValid());
+        assertEquals(0, semantic.getErrors().size());
     }
 
     @Test
@@ -96,12 +107,14 @@ public class IntegrationTest {
         SemanticChecker semantic = new SemanticChecker();
 
         Program program = parser.getResult();
-        // TypeCheckResult typeCheckResult = semantic.check(program);
+        TypeCheckResult typeCheckResult = semantic.check(program);
 
-        // program.generateBytecode();
+        ProgramBytecode programBytecode = new ProgramBytecode();
+        programBytecode.visit(program);
 
-        // TODO assertEquals(4, program.getClassDeclarations().get(0).getMethodDeclList().size());
-        assertTrue(true); //typeCheckResult.isValid());
+        assertEquals(5, program.getClassDeclarations().get(0).getMethodDeclList().size());
+        assertTrue(typeCheckResult.isValid());
+        assertEquals(0, semantic.getErrors().size());
     }
 
     @Test
@@ -112,11 +125,13 @@ public class IntegrationTest {
         SemanticChecker semantic = new SemanticChecker();
 
         Program program = parser.getResult();
-        System.out.println(program);
         TypeCheckResult typeCheckResult = semantic.check(program);
+        System.out.println(program);
 
-        // program.generateBytecode();
+        ProgramBytecode programBytecode = new ProgramBytecode();
+        programBytecode.visit(program);
 
         assertTrue(typeCheckResult.isValid());
+        assertEquals(0, semantic.getErrors().size());
     }
 }

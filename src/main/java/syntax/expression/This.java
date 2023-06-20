@@ -4,11 +4,8 @@ import bytecode.CodeVisitor;
 import bytecode.MethodBytecodeVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.objectweb.asm.Opcodes;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
 
 /**
  * This <br>
@@ -18,6 +15,7 @@ import org.objectweb.asm.MethodVisitor;
 @AllArgsConstructor
 public class This extends PartExpression implements CodeVisitor {
 
+    @Override
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
     }

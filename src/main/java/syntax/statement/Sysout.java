@@ -1,21 +1,21 @@
 package syntax.statement;
 
 import bytecode.MethodBytecodeVisitor;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
 import syntax.expression.Expression;
-import syntax.statement.Statement;
 
 @Data
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class Sysout extends Statement {
 
-    Expression expression;
+    private Expression expression;
 
-    public Sysout(Expression expr) {
-        this.expression = expression;
-    }
-
+    @Override
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
     }

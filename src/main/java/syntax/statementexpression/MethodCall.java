@@ -11,7 +11,6 @@ import syntax.common.BaseType;
 import syntax.common.Type;
 import syntax.expression.Expression;
 import syntax.expression.PartExpression;
-import syntax.structure.ParameterDecl;
 
 import java.util.List;
 
@@ -27,10 +26,12 @@ import java.util.List;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class MethodCall extends StatementExpression implements CodeVisitor {
+
     String identifier;
-    Expression receiver; //expression hat type
+    Expression receiver;
     List<PartExpression> parameterList;
 
+    @Override
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
     }

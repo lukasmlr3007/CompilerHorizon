@@ -7,12 +7,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
-import syntax.common.Type;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
 import syntax.expression.Expression;
-
-import static org.objectweb.asm.Opcodes.RETURN;
 
 /**
  * Return <br>
@@ -25,8 +20,10 @@ import static org.objectweb.asm.Opcodes.RETURN;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class ReturnStatement extends Statement implements CodeVisitor {
+
     Expression expression;
 
+    @Override
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
     }

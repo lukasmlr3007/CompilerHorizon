@@ -5,8 +5,6 @@ import bytecode.MethodBytecodeVisitor;
 import lombok.Data;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
 import syntax.common.Type;
 import syntax.statementexpression.Assign;
 import syntax.statementexpression.MethodCall;

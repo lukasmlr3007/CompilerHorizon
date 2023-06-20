@@ -19,6 +19,7 @@ import syntax.common.Type;
 public class LocalOrFieldVar extends PartExpression implements CodeVisitor {
     String identifier;
 
+    @Override
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
     }
@@ -38,5 +39,4 @@ public class LocalOrFieldVar extends PartExpression implements CodeVisitor {
             return "L" + fieldType.getIdentifier();
         }
     }
-
 }

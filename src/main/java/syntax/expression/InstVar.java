@@ -26,6 +26,7 @@ public class InstVar extends PartExpression implements CodeVisitor {
     String identifier;
     boolean myStatic = false;
 
+    @Override
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
     }

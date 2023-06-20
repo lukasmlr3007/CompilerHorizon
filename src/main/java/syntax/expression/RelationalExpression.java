@@ -7,8 +7,6 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
 
 /**
  * keine Ahnung
@@ -21,6 +19,7 @@ public class RelationalExpression extends BinaryExpression implements CodeVisito
     PartExpression expressionLeft;
     Expression expressionRight;
 
+    @Override
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
     }

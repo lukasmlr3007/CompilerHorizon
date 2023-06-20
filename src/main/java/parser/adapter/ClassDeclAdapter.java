@@ -19,16 +19,16 @@ public class ClassDeclAdapter {
         if (classdeclContext.methoddecl() != null){
             classdeclContext.methoddecl().forEach(methoddeclContext -> methods.add(MethodDeclAdapter.adapt(methoddeclContext)));
         }
-        List<ConstructorDecl> constructos = new ArrayList<>();
+        List<ConstructorDecl> constructors = new ArrayList<>();
         if(classdeclContext.myconstructor() != null) {
-            classdeclContext.myconstructor().forEach(constructorContext -> constructos.add(ConstructorAdapter.adapt(constructorContext)));
+            classdeclContext.myconstructor().forEach(constructorContext -> constructors.add(ConstructorAdapter.adapt(constructorContext)));
         }
         MyMain mymain = null;
         if (classdeclContext.main() != null) {
             mymain = MainAdapter.adapt(classdeclContext.main());
         }
 
-        return new ClassDecl(fields, methods, constructos, classdeclContext.Identifier().getText(), mymain);
+        return new ClassDecl(classdeclContext.Identifier().getText(), fields, methods, constructors, mymain, null);
     }
 
 }
