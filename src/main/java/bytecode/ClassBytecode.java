@@ -35,6 +35,9 @@ public class ClassBytecode implements ClassBytecodeVisitor {
             myclass.getMethodDeclList().forEach(method -> method.accept(new MethodBytecode(myclass.getIdentifier(), classWriter)));
         }
 
+        if (myclass.getMymain() != null){
+            myclass.getMymain().accept(this);
+        }
 
         classWriter.visitEnd();
     }
