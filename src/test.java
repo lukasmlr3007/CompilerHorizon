@@ -4,11 +4,7 @@ class TestClass {
     public TestClass(int nummer, boolean wert, char zeichen) {
     }
 
-    public int rechnen(int nummer, char zeichen, boolean wert){
-        return 5;
-    }
+    public static void main(String[] args) {
 
-    public void machen(boolean eins, int zwei){
-        rechnen(5, 'a', true);
     }
 }
