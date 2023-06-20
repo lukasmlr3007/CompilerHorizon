@@ -74,4 +74,8 @@ public class TypeHelper {
         }
         return null;
     }
+
+    public static boolean isBoolean(Type type) {
+        return type instanceof BaseType && type.getIdentifier().equals("boolean");
+    }
 }

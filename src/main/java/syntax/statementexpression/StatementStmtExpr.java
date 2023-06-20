@@ -21,7 +21,7 @@ public class StatementStmtExpr extends Statement implements CodeVisitor {
 
     @Override
     public TypeCheckResult accept(ISemanticVisitor visitor) {
-        return null;
+        return visitor.check(this);
     }
 
     @Override

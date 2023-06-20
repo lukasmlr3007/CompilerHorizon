@@ -4,8 +4,7 @@ import bytecode.MethodBytecodeVisitor;
 import lombok.Data;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
+import syntax.common.Type;
 
 /**
  * Statement <br>
@@ -13,6 +12,8 @@ import org.objectweb.asm.MethodVisitor;
  */
 @Data
 public abstract class Statement {
+
+    private Type type;
 
     public abstract TypeCheckResult accept(ISemanticVisitor visitor);
 

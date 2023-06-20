@@ -1,6 +1,6 @@
 package bytecode;
 
-import syntax.common.Sysout;
+import syntax.statement.Sysout;
 import syntax.expression.*;
 import syntax.statement.*;
 import syntax.statementexpression.Assign;

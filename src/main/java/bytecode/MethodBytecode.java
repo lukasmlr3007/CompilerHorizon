@@ -7,7 +7,7 @@ import org.objectweb.asm.Opcodes;
 import syntax.common.BaseType;
 import syntax.common.Operator;
 import syntax.common.ReferenceType;
-import syntax.common.Sysout;
+import syntax.statement.Sysout;
 import syntax.expression.*;
 import syntax.statement.*;
 import syntax.statementexpression.*;
@@ -431,7 +431,7 @@ public class MethodBytecode implements MethodBytecodeVisitor {
     @Override
     public void visit(Sysout sysout) {
         methodVisitor.visitFieldInsn(Opcodes.GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
-        sysout.getExpr().accept(this);
+        sysout.getExpression().accept(this);
         methodVisitor.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
     }
 

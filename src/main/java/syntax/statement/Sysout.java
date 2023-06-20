@@ -1,4 +1,4 @@
-package syntax.common;
+package syntax.statement;
 
 import bytecode.MethodBytecodeVisitor;
 import lombok.Data;
@@ -9,15 +9,15 @@ import syntax.statement.Statement;
 
 @Data
 public class Sysout extends Statement {
-    Expression expr;
+
+    Expression expression;
 
     public Sysout(Expression expr) {
-        this.expr = expr;
+        this.expression = expression;
     }
 
-    @Override
     public TypeCheckResult accept(ISemanticVisitor visitor) {
-        return null;
+        return visitor.check(this);
     }
 
     @Override

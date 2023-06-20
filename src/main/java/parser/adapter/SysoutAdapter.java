@@ -1,7 +1,7 @@
 package parser.adapter;
 
 import parser.JavaGrammerParser;
-import syntax.common.Sysout;
+import syntax.statement.Sysout;
 import syntax.expression.Expression;
 import syntax.statement.Statement;
 

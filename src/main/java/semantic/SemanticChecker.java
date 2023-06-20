@@ -1,5 +1,6 @@
 package semantic;
 
+import lombok.Getter;
 import semantic.context.ClassContext;
 import semantic.context.MethodContext;
 import semantic.context.ProgramContext;
@@ -14,24 +15,28 @@ import syntax.statement.*;
 import syntax.statementexpression.Assign;
 import syntax.statementexpression.MethodCall;
 import syntax.statementexpression.New;
+import syntax.statementexpression.StatementStmtExpr;
 import syntax.structure.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public class SemanticChecker implements ISemanticVisitor {
 
     private ProgramContext context;
 
     private ClassDecl currentClass;
 
-    private List<Exception> errors = new ArrayList<>();
+    private MethodDecl currentMethod;
+
+    private final List<Exception> errors = new ArrayList<>();
 
     // expressions
 
     @Override
     public TypeCheckResult check(AdditiveExpression additiveExpr) {
-        return null; // TODO add additive expression
+        return new TypeCheckResult(true, BaseType.BOOLEAN); // TODO add additive expression
     }
 
     @Override
@@ -61,17 +66,17 @@ public class SemanticChecker implements ISemanticVisitor {
 
     @Override
     public TypeCheckResult check(LogicalExpression logicalExpr) {
-        return null; // TODO add logical expression
+        return new TypeCheckResult(true, BaseType.BOOLEAN); // TODO add logical expression
     }
 
     @Override
     public TypeCheckResult check(NullLiteral nullExpr) {
-        return null; // TODO implement nullliteral
+        return new TypeCheckResult(true, null);
     }
 
     @Override
     public TypeCheckResult check(RelationalExpression relationalExpr) {
-        return null; // TODO add relational expression
+        return new TypeCheckResult(true, BaseType.BOOLEAN); // TODO add relational expression
     }
 
     @Override
@@ -101,46 +106,129 @@ public class SemanticChecker implements ISemanticVisitor {
     public TypeCheckResult check(Block block) {
 
         boolean isValid = true;
+        Type returnType = null;
 
         if (block.getStatementList() == null) return new TypeCheckResult(true, BaseType.VOID);
 
         for (Statement statement : block.getStatementList()) {
-            isValid = isValid && statement.accept(this).isValid();
+            TypeCheckResult result = statement.accept(this);
+            isValid = isValid && result.isValid();
+
+            if (statement instanceof ReturnStatement) {
+                if (returnType == null) returnType = result.getType();
+                else if (!returnType.equals(result.getType())) {
+                    errors.add(new TypeMismatchException("Return types mismatch! " + returnType + " != " + result.getType()));
+                    isValid = false;
+                }
+            }
         }
-        // TODO hier fehlt noch was
-        return new TypeCheckResult(isValid, BaseType.VOID);
+
+        if (returnType == null) returnType = BaseType.VOID;
+
+        return new TypeCheckResult(isValid, returnType);
     }
 
     @Override
     public TypeCheckResult check(IfElseStatement ifElseStmt) {
-        return null;
+
+        boolean isValid = true;
+        TypeCheckResult result = ifElseStmt.getCondition().accept(this);
+        isValid = ifElseStmt.getCondition().accept(this).isValid();
+
+        if (!TypeHelper.isBoolean(result.getType())) {
+            errors.add(new TypeMismatchException("If-Statement expected condition of type " + BaseType.BOOLEAN + " but got " + result.getType()));
+            isValid = false;
+        }
+
+        isValid = isValid && ifElseStmt.getIfBlock().accept(this).isValid()
+                && ifElseStmt.getElseBlock().accept(this).isValid();
+
+        return new TypeCheckResult(isValid, ifElseStmt.getType());
     }
 
     @Override
     public TypeCheckResult check(LocalVarDecl localVarDecl) {
-        return null;
+
+        boolean isValid = true;
+
+        if (TypeHelper.doesTypeExist(localVarDecl.getType(), context)) {
+            errors.add(new TypeUnknownException("Type " + localVarDecl.getType() + " not found"));
+            isValid = false;
+        }
+
+        return new TypeCheckResult(isValid, localVarDecl.getType());
     }
 
     @Override
     public TypeCheckResult check(ReturnStatement returnStmt) {
-        return null;
+
+        boolean isValid = true;
+
+        TypeCheckResult result = returnStmt.getExpression().accept(this);
+        returnStmt.setType(result.getType());
+        isValid = isValid && result.isValid();
+
+        if (!currentMethod.getReturnType().equals(result.getType())) {
+            errors.add(new TypeMismatchException("Return types mismatch! Expected " + currentMethod.getReturnType() + " but got " + result.getType() + "!"));
+            isValid = false;
+        }
+
+        return new TypeCheckResult(isValid, returnStmt.getType());
     }
 
     @Override
     public TypeCheckResult check(StatementExpressionStatement stmtExprStmt) {
-        return null;
+        return null; // ignore
+    }
+
+    @Override
+    public TypeCheckResult check(Sysout sysout) {
+
+        boolean isValid = true;
+        if (sysout.getExpression() != null) {
+            TypeCheckResult result = sysout.getExpression().accept(this);
+            isValid = isValid && result.isValid();
+        }
+
+        return new TypeCheckResult(isValid, BaseType.VOID);
     }
 
     @Override
     public TypeCheckResult check(WhileStatement whileStmt) {
-        return null;
+
+        boolean isValid = true;
+
+        TypeCheckResult resultExpr = whileStmt.getExpression().accept(this);
+
+        if (!resultExpr.getType().equals(BaseType.BOOLEAN)) {
+            errors.add(new TypeMismatchException("While-Statement expected condition of type " + BaseType.BOOLEAN + " but got " + resultExpr.getType()));
+            isValid = false;
+        }
+        else {
+            TypeCheckResult resultBlock = whileStmt.getBlock().accept(this);
+            whileStmt.setType(resultBlock.getType());
+            isValid = isValid && resultExpr.isValid() && resultBlock.isValid();
+        }
+
+        return new TypeCheckResult(isValid, whileStmt.getType());
     }
 
     // statement expressions
 
     @Override
     public TypeCheckResult check(Assign assign) {
-        return null; // TODO implement assign
+
+        boolean isValid = true;
+        TypeCheckResult resultLeft = assign.getAssignLeft().accept(this);
+        TypeCheckResult resultRight = assign.getAssignRight().accept(this);
+        isValid = isValid && resultLeft.isValid() && resultRight.isValid();
+
+        if (!resultLeft.getType().equals(resultRight.getType())) {
+            errors.add(new TypeMismatchException("Assign expected type " + resultLeft.getType() + " but got " + resultRight.getType()));
+            isValid = false;
+        }
+
+        return new TypeCheckResult(isValid, BaseType.VOID);
     }
 
     /**
@@ -190,12 +278,23 @@ public class SemanticChecker implements ISemanticVisitor {
 
         ClassContext classContext = context.getClassContext(newClassType.getIdentifier());
 
-
+        if (classContext != null) {
+            if (!classContext.hasConstructor(newStmtExpr.getParameterList())) {
+                errors.add(new TypeUnknownException("Constructor for class " + newClassType.toString() + " with parameters " + newStmtExpr.getParameterList() + " not found"));
+                isValid = false;
+            }
+        }
+        else {
+            errors.add(new TypeUnknownException("Type " + newClassType.toString() + " is unknown!"));
+            isValid = false;
+        }
 
         return new TypeCheckResult(isValid, newClassType);
     }
 
-    // TODO add statement stmt expr?
+    public TypeCheckResult check(StatementStmtExpr statementStmtExpr) {
+        return new TypeCheckResult(true, null); // TODO implement statementstmtexpr
+    }
 
     // structures
 
@@ -209,7 +308,7 @@ public class SemanticChecker implements ISemanticVisitor {
 
         boolean isValid = true;
 
-        // TODO add class context
+        // TODO implement class context check
         currentClass = classDecl;
 
         // check field declarations
@@ -257,7 +356,7 @@ public class SemanticChecker implements ISemanticVisitor {
 
         boolean isValid = true;
 
-        // TODO add constructor context
+        // TODO implement context check
 
         // check constructor parameters
         if (constructorDecl.getParameters() != null) {
@@ -283,18 +382,10 @@ public class SemanticChecker implements ISemanticVisitor {
     public TypeCheckResult check(FieldDecl fieldDecl) {
 
         boolean isValid = true;
-        /*
-        if (currentFields.contains(fieldDecl.getIdentifier())) {
-            errors.add(new AlreadyDefinedException(
-                "Variable " + fieldDecl.getIdentifier() + " is already defined!"
-            ));
-            isValid = false;
-        }
-        else {
-            currentFields.add(fieldDecl.getIdentifier());
-        }
+
+        // TODO implement check if field is already declared in class
+
         isValid = isValid && TypeHelper.doesTypeExist(fieldDecl.getType(), context);
-        */
 
         return new TypeCheckResult(isValid, fieldDecl.getType());
     }
@@ -308,6 +399,7 @@ public class SemanticChecker implements ISemanticVisitor {
     public TypeCheckResult check(MethodDecl methodDecl) {
 
         boolean isValid = true;
+        currentMethod = methodDecl;
 
         // checks, if two methods with same name & parameter length are identical
         for (MethodDecl classMethod : currentClass.getMethodDeclList()) {
@@ -347,6 +439,15 @@ public class SemanticChecker implements ISemanticVisitor {
             isValid = false;
         }
         return new TypeCheckResult(isValid, returnType);
+    }
+
+    @Override
+    public TypeCheckResult check(MyMain myMain) {
+
+        boolean isValid = true;
+        isValid = isValid && myMain.getBlock().accept(this).isValid();
+
+        return new TypeCheckResult(true, BaseType.VOID);
     }
 
     /**

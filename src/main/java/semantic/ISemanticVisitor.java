@@ -1,16 +1,18 @@
 package semantic;
 
+import syntax.statement.Sysout;
 import syntax.expression.*;
 import syntax.statement.*;
 import syntax.statementexpression.Assign;
 import syntax.statementexpression.MethodCall;
 import syntax.statementexpression.New;
+import syntax.statementexpression.StatementStmtExpr;
 import syntax.structure.*;
 
 public interface ISemanticVisitor {
 
-    // TODO blockinit, blockvoid, blocklocalvardecl
-    //  for-Schleife, ExpressionPart
+    // blockinit, blockvoid, blocklocalvardecl
+    // for-Schleife?
 
     TypeCheckResult check(Program toCheck);
 
@@ -33,8 +35,6 @@ public interface ISemanticVisitor {
     TypeCheckResult check(LocalVarDecl toCheck);
 
     TypeCheckResult check(ReturnStatement toCheck);
-
-    // TODO for-schleife hinzufügen? TypeCheckResult check(ForStatement toCheck);
 
     TypeCheckResult check(IfElseStatement toCheck);
 
@@ -73,4 +73,10 @@ public interface ISemanticVisitor {
     TypeCheckResult check(LogicalExpression toCheck);
 
     TypeCheckResult check(RelationalExpression toCheck);
+
+    TypeCheckResult check(StatementStmtExpr toCheck);
+
+    TypeCheckResult check(MyMain toCheck);
+
+    TypeCheckResult check(Sysout toCheck);
 }
