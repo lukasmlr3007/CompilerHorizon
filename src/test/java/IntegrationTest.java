@@ -1,3 +1,4 @@
+import Helper.TestHelper;
 import org.junit.jupiter.api.Test;
 import parser.ParserAPI;
 import semantic.SemanticChecker;

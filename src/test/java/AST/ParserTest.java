@@ -1,10 +1,12 @@
+package AST;
+
+import Helper.TestHelper;
 import org.junit.jupiter.api.Test;
 import parser.ParserAPI;
 import syntax.structure.ClassDecl;
 import syntax.structure.Program;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
