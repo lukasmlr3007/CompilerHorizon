@@ -33,7 +33,7 @@ public class ConstructorDecl implements CodeVisitor {
 
     public String returnAndParameterTypeToDescriptor(List<ParameterDecl> parameters) {
         String descriptor = "(";
-        if (parameters.size() > 0){
+        if (parameters != null && parameters.size() > 0){
             for (ParameterDecl parameter : parameters){
                 descriptor = descriptor + typeToString(parameter.getType());
             }

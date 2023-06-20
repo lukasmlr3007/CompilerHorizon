@@ -292,7 +292,8 @@ public class SemanticChecker implements ISemanticVisitor {
 
     @Override
     public TypeCheckResult check(This thisExpr) {
-        return null;
+        thisExpr.setType(currentClass.getType());
+        return new TypeCheckResult(true, thisExpr.getType());
     }
 
     @Override

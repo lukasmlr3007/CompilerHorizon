@@ -30,6 +30,15 @@ public class ClassDecl implements CodeVisitor {
     private List<MethodDecl> methodDeclList;
     private List<ConstructorDecl> constructorDeclList;
     private String identifier;
+    private syntax.common.Type type;
+
+    public ClassDecl(List<FieldDecl> fieldDeclList, List<MethodDecl> methodDeclList, List<ConstructorDecl> constructorDeclList, String identifier) {
+        this.identifier = identifier;
+        this.fieldDeclList = fieldDeclList;
+        this.methodDeclList = methodDeclList;
+        this.constructorDeclList = constructorDeclList;
+        this.type = null;
+    }
 
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);
