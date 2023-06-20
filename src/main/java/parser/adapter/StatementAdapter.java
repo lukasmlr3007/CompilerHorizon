@@ -24,6 +24,8 @@ public class StatementAdapter {
             return IfElseStatementAdapter.adapt(statementContext.ifElseStatement());
         } else if (statementContext.statementExpression() != null) {
             return new StatementStmtExpr(StatementExpressionAdapter.adapt(statementContext.statementExpression()));
+        } else if (statementContext.sysout() != null) {
+            return SysoutAdapter.adapt(statementContext.sysout());
         }
         return null;
     }
