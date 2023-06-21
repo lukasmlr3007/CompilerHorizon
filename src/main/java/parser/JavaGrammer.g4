@@ -15,7 +15,7 @@ localVarDecl: type Identifier Semicolon;
 whileStatement: While OpenRoundBracket expression ClosedRoundBracket block;
 ifElseStatement: If OpenRoundBracket expression ClosedRoundBracket block Else block;
 statementExpression: assign | methodCall | myNew ;
-assign: instanceVariable Assign expression;
+assign: instanceVariable Assign expression Semicolon;
 methodCall: reciever extraMethod+ Semicolon;
 reciever: This | Identifier | instanceVariable; //myNew
 extraMethod: Point Identifier OpenRoundBracket parameterValues? ClosedRoundBracket;
