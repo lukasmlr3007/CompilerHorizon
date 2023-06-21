@@ -1,6 +1,7 @@
 package semantic.context;
 
 import lombok.Data;
+import syntax.common.AccessModifier;
 import syntax.common.Type;
 import syntax.structure.MethodDecl;
 import syntax.structure.ParameterDecl;
@@ -17,15 +18,13 @@ public class MethodContext {
 
     private Type returnType;
 
-    private HashMap<String, Type> methodVariables;
+    private AccessModifier accessModifier;
 
     public MethodContext(MethodDecl methodDecl) {
 
         identifier = methodDecl.getIdentifier();
         parameters = methodDecl.getParameters();
         returnType = methodDecl.getReturnType();
-        methodVariables = new HashMap<>();
-
-        // add method variables dynamically / on runtime
+        accessModifier = methodDecl.getAccessModifier();
     }
 }

@@ -4,9 +4,8 @@ import lombok.Getter;
 import semantic.context.ClassContext;
 import semantic.context.MethodContext;
 import semantic.context.ProgramContext;
-import semantic.exception.AlreadyDefinedException;
-import semantic.exception.TypeMismatchException;
-import semantic.exception.TypeUnknownException;
+import semantic.exception.*;
+import syntax.common.AccessModifier;
 import syntax.common.BaseType;
 import syntax.common.ReferenceType;
 import syntax.common.Type;
@@ -40,8 +39,17 @@ public class SemanticChecker implements ISemanticVisitor {
 
     @Override
     public TypeCheckResult check(AdditiveExpression additiveExpr) {
-        return new TypeCheckResult(true, BaseType.BOOLEAN); // TODO add additive expression
-    }
+
+        boolean isValid = true;
+
+        TypeCheckResult leftResult = additiveExpr.getExpressionLeft().accept(this);
+        TypeCheckResult rightResult = additiveExpr.getExpressionRight().accept(this);
+
+        // TODO add additive expression check
+
+        isValid = isValid && leftResult.isValid() && rightResult.isValid();
+
+        return new TypeCheckResult(isValid, leftResult.getType());    }
 
     @Override
     public TypeCheckResult check(BoolLiteral boolLiteral) {
@@ -55,7 +63,32 @@ public class SemanticChecker implements ISemanticVisitor {
 
     @Override
     public TypeCheckResult check(InstVar instVar) {
-        return new TypeCheckResult(true, null); // TODO implement instvar
+
+        boolean isValid = true;
+        TypeCheckResult result = instVar.getExpression().accept(this);
+        Type type = result.getType();
+
+        if (type instanceof BaseType) {
+            errors.add(new TypeMismatchException("Type " + type.getIdentifier() + " is a BaseType and has no instance variables!"));
+            isValid = false;
+        }
+
+        if (type instanceof ReferenceType) {
+            ClassContext classContext = context.getClassContext(type.getIdentifier());
+            if (!classContext.hasVariable(instVar.getIdentifier())) {
+                errors.add(new TypeMismatchException("Type " + type.getIdentifier() + " has no instance variable " + instVar.getIdentifier() + "!"));
+                isValid = false;
+            }
+            /*else if (classContext.getVariable(instVar.getIdentifier()).get == AccessModifier.PRIVATE) { TODO implement private field check
+                errors.add(new NotVisibleException("Method " + methodCall.getIdentifier() + " has a PRIVATE access modifier!"));
+                isValid = false;
+            }*/
+            else {
+                instVar.setType(classContext.getVariable(instVar.getIdentifier()));
+            }
+        }
+
+        return new TypeCheckResult(isValid, instVar.getType());
     }
 
     @Override
@@ -65,12 +98,38 @@ public class SemanticChecker implements ISemanticVisitor {
 
     @Override
     public TypeCheckResult check(LocalOrFieldVar localOrFieldVar) {
-        return new TypeCheckResult(true, null); // TODO implement localorfieldvar
+
+        boolean isValid = true;
+
+        ClassContext classContext = context.getClassContext(currentClass.getIdentifier());
+
+        if (classContext.hasVariable(localOrFieldVar.getIdentifier())) {
+            localOrFieldVar.setType(classContext.getVariable(localOrFieldVar.getIdentifier()));
+        }
+        else if (TypeHelper.hasTypeOfVariable(localOrFieldVar.getIdentifier(), currentLocalScope)) {
+            localOrFieldVar.setType(TypeHelper.getTypeOfVariable(localOrFieldVar.getIdentifier(), currentLocalScope));
+        }
+        else {
+            errors.add(new FieldNotFoundException("Variable " + localOrFieldVar.getIdentifier() + " not found!"));
+            isValid = false;
+        }
+
+        return new TypeCheckResult(isValid, localOrFieldVar.getType());
     }
 
     @Override
     public TypeCheckResult check(LogicalExpression logicalExpr) {
-        return new TypeCheckResult(true, BaseType.BOOLEAN); // TODO add logical expression
+
+        boolean isValid = true;
+
+        TypeCheckResult leftResult = logicalExpr.getExpressionLeft().accept(this);
+        TypeCheckResult rightResult = logicalExpr.getExpressionRight().accept(this);
+
+        // TODO add logical expression check
+
+        isValid = isValid && leftResult.isValid() && rightResult.isValid();
+
+        return new TypeCheckResult(isValid, leftResult.getType());
     }
 
     @Override
@@ -80,7 +139,17 @@ public class SemanticChecker implements ISemanticVisitor {
 
     @Override
     public TypeCheckResult check(RelationalExpression relationalExpr) {
-        return new TypeCheckResult(true, BaseType.BOOLEAN); // TODO add relational expression
+
+        boolean isValid = true;
+
+        TypeCheckResult leftResult = relationalExpr.getExpressionLeft().accept(this);
+        TypeCheckResult rightResult = relationalExpr.getExpressionRight().accept(this);
+
+        // TODO add relational expression check
+
+        isValid = isValid && leftResult.isValid() && rightResult.isValid();
+
+        return new TypeCheckResult(isValid, leftResult.getType());
     }
 
     @Override
@@ -260,6 +329,10 @@ public class SemanticChecker implements ISemanticVisitor {
             errors.add(new TypeUnknownException("Method " + methodCall.getIdentifier() + " not found in type " + receiver.getType().toString()));
             isValid = false;
         }
+        else if (methodContext.getAccessModifier() == AccessModifier.PRIVATE) {
+            errors.add(new NotVisibleException("Method " + methodCall.getIdentifier() + " has a PRIVATE access modifier!"));
+            isValid = false;
+        }
         else {
             returnType = methodContext.getReturnType();
         }
@@ -271,36 +344,36 @@ public class SemanticChecker implements ISemanticVisitor {
     public TypeCheckResult check(New newStmtExpr) {
 
         boolean isValid = true;
-        Type newClassType = newStmtExpr.getType();
+        Type type = new ReferenceType(newStmtExpr.getIdentifier());
 
         // check if class exists in program context
-        if (!TypeHelper.doesTypeExist(newClassType, context)) {
-            errors.add(new TypeUnknownException("Class " + newClassType.toString() + " not found in program context"));
+        if (!TypeHelper.doesTypeExist(type, context)) {
+            errors.add(new TypeUnknownException("Class " + newStmtExpr.getIdentifier() + " not found in program context"));
             isValid = false;
         }
+        newStmtExpr.setType(type);
 
         for (Expression parameter : newStmtExpr.getParameterList()) {
             isValid = isValid && parameter.accept(this).isValid();
         }
 
-        ClassContext classContext = context.getClassContext(newClassType.getIdentifier());
+        ClassContext classContext = context.getClassContext(type.getIdentifier());
 
         if (classContext != null) {
             if (!classContext.hasConstructor(newStmtExpr.getParameterList())) {
-                errors.add(new TypeUnknownException("Constructor for class " + newClassType.toString() + " with parameters " + newStmtExpr.getParameterList() + " not found"));
+                errors.add(new TypeUnknownException("Constructor for class " + type.toString() + " with parameters " + newStmtExpr.getParameterList() + " not found"));
                 isValid = false;
             }
         }
         else {
-            errors.add(new TypeUnknownException("Type " + newClassType.toString() + " is unknown!"));
+            errors.add(new TypeUnknownException("Type " + type.toString() + " is unknown!"));
             isValid = false;
         }
 
-        return new TypeCheckResult(isValid, newClassType);
+        return new TypeCheckResult(isValid, type);
     }
 
     public TypeCheckResult check(StatementStmtExpr statementStmtExpr) {
-        //return new TypeCheckResult(true, null);
         return statementStmtExpr.getStatementExpression().accept(this);
     }
 
@@ -316,36 +389,49 @@ public class SemanticChecker implements ISemanticVisitor {
 
         boolean isValid = true;
 
-        // TODO implement class context check
         classDecl.setType(new ReferenceType(classDecl.getIdentifier()));
         currentClass = classDecl;
 
         // check field declarations
-        // currentFields.clear();
-        if (classDecl.getFieldDeclList() != null) { // nullcheck
+        if (classDecl.getFieldDeclList() != null) {
+            HashMap<String, Type> fieldMap = new HashMap<>();
             for (FieldDecl fieldDecl : classDecl.getFieldDeclList()) {
-                boolean isFieldValid = fieldDecl.accept(this).isValid();
-                // if (isFieldValid) currentFields.add(fieldDecl.getIdentifier());
-                isValid = isValid && isFieldValid;
+                TypeCheckResult result = fieldDecl.accept(this);
+                if (fieldMap.containsKey(fieldDecl.getIdentifier())) {
+                    errors.add(new AlreadyDefinedException("Field " + fieldDecl.getIdentifier() + " already defined in class " + classDecl.getIdentifier()));
+                    isValid = false;
+                }
+                fieldMap.put(fieldDecl.getIdentifier(), result.getType());
+                isValid = isValid && result.isValid();
             }
         }
 
         // check method declarations
-        if (classDecl.getMethodDeclList() != null) { // nullcheck
+        if (classDecl.getMethodDeclList() != null) {
+            List<MethodDecl> methodDeclList = new ArrayList<>();
             for (MethodDecl methodDecl : classDecl.getMethodDeclList()) {
-                boolean isMethodValid = methodDecl.accept(this).isValid();
-                // TODO if (isMethodValid) currentMethods.add(methodDecl.getIdentifier());
-                isValid = isValid && isMethodValid;
+                TypeCheckResult result = methodDecl.accept(this);
+
+                for (MethodDecl methodDecl2 : methodDeclList) {
+                    if (methodDecl2.getIdentifier().equals(methodDecl.getIdentifier())) {
+                        if (TypeHelper.isSameParameters(methodDecl.getParameters(), methodDecl2.getParameters())) {
+                            errors.add(new AlreadyDefinedException("Method " + methodDecl.getIdentifier() + " already defined in class " + classDecl.getIdentifier()));
+                            isValid = false;
+                        }
+                    }
+                }
+                methodDeclList.add(methodDecl);
+                isValid = isValid && result.isValid();
             }
         }
 
         // check constructor declarations
-        if (classDecl.getConstructorDeclList() != null) { // nullcheck
+        if (classDecl.getConstructorDeclList() != null) {
             if (classDecl.getConstructorDeclList().isEmpty()) {
                 // add new constructor if not set
                 ConstructorDecl newConstructorDecl = new ConstructorDecl();
                 isValid = isValid && newConstructorDecl.accept(this).isValid();
-                classDecl.getConstructorDeclList().add(newConstructorDecl);
+                classDecl.getConstructorDeclList().add(newConstructorDecl); // TODO setze ich constructors?!
             }
             else for (ConstructorDecl constructorDecl : classDecl.getConstructorDeclList()) {
                 boolean isConstructorValid = constructorDecl.accept(this).isValid();

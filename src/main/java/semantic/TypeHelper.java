@@ -13,7 +13,9 @@ import syntax.structure.MethodDecl;
 import syntax.structure.ParameterDecl;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Stack;
 
 public class TypeHelper {
 
@@ -75,7 +77,35 @@ public class TypeHelper {
         return null;
     }
 
+    public static boolean hasTypeOfVariable(String identifier, Stack<HashMap<String, Type>> currentLocalScope) {
+
+        for (HashMap<String, Type> localScope : currentLocalScope) {
+            if (localScope.containsKey(identifier)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static Type getTypeOfVariable(String identifier, Stack<HashMap<String, Type>> currentLocalScope) {
+
+        for (HashMap<String, Type> localScope : currentLocalScope) {
+            if (localScope.containsKey(identifier)) {
+                return localScope.get(identifier);
+            }
+        }
+        return null;
+    }
+
     public static boolean isBoolean(Type type) {
         return type instanceof BaseType && type.getIdentifier().equals("boolean");
+    }
+
+    public static boolean isSameParameters(List<ParameterDecl> parameters, List<ParameterDecl> parameters1) {
+        if (parameters.size() != parameters1.size()) return false;
+        for (int i = 0; i < parameters.size(); i++) {
+            if (!parameters.get(i).getType().equals(parameters1.get(i).getType())) return false;
+        }
+        return true;
     }
 }

@@ -118,6 +118,7 @@ public class TastTests {
         try {
             String input = TestHelper.getFileInput("TAST/FieldAccessModifierTest.java");
             ParserAPI parser = new ParserAPI(input);
+            System.out.println(parser.getResult());
 
             actualAST = parser.getResult();
             typeCheckResult = semantikCheck.check(actualAST);

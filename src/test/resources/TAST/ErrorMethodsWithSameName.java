@@ -1,11 +1,11 @@
 class ErrorMethodsWithSameName {
 
-    public void testtt() {
+    public void test() {
 
 
     }
 
-    public boolean atest() {
+    public boolean test() {
         return true;
     }
 
