@@ -124,7 +124,7 @@ public class AstTests {
     }
 
     @Test
-    @DisplayName("Constructor with Assign Field in Constructor")
+    @DisplayName("Class with If Else in Constructor")
     void ifElseTest_OK() {
         String input = TestHelper.getFileInput("AST/ConstructorWithAssign.java");
         ParserAPI parserAPI = new ParserAPI(input);
