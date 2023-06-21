@@ -17,7 +17,11 @@ class Calculator {
     }
 
     private void calculate() {
-
+       if (this.add) {
+            this.result = this.aa + this.bb;
+        } else {
+            this.result = this.aa - this.bb;
+        }
     }
 
     private void printResult() {

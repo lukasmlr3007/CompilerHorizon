@@ -107,10 +107,7 @@ public class IntegrationTest {
         SemanticChecker semantic = new SemanticChecker();
 
         Program program = parser.getResult();
-        System.out.println(program);
-
         TypeCheckResult typeCheckResult = semantic.check(program);
-        System.out.println(program);
 
         ProgramBytecode programBytecode = new ProgramBytecode();
         programBytecode.visit(program);
@@ -127,10 +124,7 @@ public class IntegrationTest {
         SemanticChecker semantic = new SemanticChecker();
 
         Program program = parser.getResult();
-        System.out.println(program);
-
         TypeCheckResult typeCheckResult = semantic.check(program);
-        System.out.println(program);
 
         ProgramBytecode programBytecode = new ProgramBytecode();
         programBytecode.visit(program);
