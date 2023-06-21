@@ -1,5 +1,5 @@
 class Constructors {
-    Constructors() { }
+    public Constructors() { }
 
-    Constructors(int bb) { }
+    public Constructors(int bb) { }
 }
