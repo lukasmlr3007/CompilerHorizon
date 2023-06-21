@@ -18,7 +18,7 @@ class AnotherClass {
     private int ac;
 
     public AnotherClass() {
-        this.ac = 5
+        this.ac = 5;
     }
 
 }
