@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class ProgramBytecode implements ProgramBytecodeVisitor {
+    byte[] bytecode;
     @Override
     public void visit(Program program) {
         List<ClassDecl> classDeclarations = program.getClassDeclarations();
@@ -15,7 +16,7 @@ public class ProgramBytecode implements ProgramBytecodeVisitor {
             ClassBytecode classGen = new ClassBytecode();
             myclass.accept(classGen);
             //Write to class File
-            byte[] bytecode = classGen.getBytecode();
+            bytecode = classGen.getBytecode();
             try (FileOutputStream fos = new FileOutputStream("./src/main/java/output/" + myclass.getIdentifier() + ".class")) {
                 fos.write(bytecode);
             } catch (IOException e) {
