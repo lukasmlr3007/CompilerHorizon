@@ -28,7 +28,7 @@ public class ClassDeclAdapter {
             mymain = MainAdapter.adapt(classdeclContext.main());
         }
 
-        return new ClassDecl(classdeclContext.Identifier().getText(), fields, methods, constructors, mymain, null);
+        return new ClassDecl(fields, methods, constructors, classdeclContext.Identifier().getText(), mymain, null);
     }
 
 }

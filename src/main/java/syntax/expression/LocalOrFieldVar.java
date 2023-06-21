@@ -11,12 +11,14 @@ import syntax.common.BaseType;
 import syntax.common.Type;
 
 /**
- * TODO
+ * LocalOrFieldVar <br>
+ * Datentyp für lokale Variablen oder Felder
  */
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class LocalOrFieldVar extends PartExpression implements CodeVisitor {
+
     String identifier;
 
     @Override
@@ -28,6 +30,7 @@ public class LocalOrFieldVar extends PartExpression implements CodeVisitor {
     public void accept(MethodBytecodeVisitor visitor) {
         visitor.visit(this);
     }
+
     public String fieldTypeToDescriptor(Type fieldType){
         if (fieldType == BaseType.INT){
             return "I";

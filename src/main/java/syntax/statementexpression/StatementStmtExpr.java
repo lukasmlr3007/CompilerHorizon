@@ -16,6 +16,8 @@ public class StatementStmtExpr extends Statement implements CodeVisitor {
 
     private StatementExpression statementExpression;
 
+    public void test() { setType(null); }
+
     @Override
     public TypeCheckResult accept(ISemanticVisitor visitor) {
         return visitor.check(this);

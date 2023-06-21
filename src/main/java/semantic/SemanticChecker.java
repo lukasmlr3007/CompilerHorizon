@@ -19,12 +19,16 @@ import syntax.statementexpression.StatementStmtExpr;
 import syntax.structure.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Stack;
 
 @Getter
 public class SemanticChecker implements ISemanticVisitor {
 
     private ProgramContext context;
+
+    private Stack<HashMap<String, Type>> currentLocalScope;
 
     private ClassDecl currentClass;
 
@@ -51,7 +55,7 @@ public class SemanticChecker implements ISemanticVisitor {
 
     @Override
     public TypeCheckResult check(InstVar instVar) {
-        return null; // TODO implement instvar
+        return new TypeCheckResult(true, null); // TODO implement instvar
     }
 
     @Override
@@ -61,7 +65,7 @@ public class SemanticChecker implements ISemanticVisitor {
 
     @Override
     public TypeCheckResult check(LocalOrFieldVar localOrFieldVar) {
-        return null; // TODO implement localorfieldvar
+        return new TypeCheckResult(true, null); // TODO implement localorfieldvar
     }
 
     @Override
@@ -110,6 +114,8 @@ public class SemanticChecker implements ISemanticVisitor {
 
         if (block.getStatementList() == null) return new TypeCheckResult(true, BaseType.VOID);
 
+        currentLocalScope.push(new HashMap<>());
+
         for (Statement statement : block.getStatementList()) {
             TypeCheckResult result = statement.accept(this);
             isValid = isValid && result.isValid();
@@ -124,6 +130,7 @@ public class SemanticChecker implements ISemanticVisitor {
         }
 
         if (returnType == null) returnType = BaseType.VOID;
+        currentLocalScope.pop();
 
         return new TypeCheckResult(isValid, returnType);
     }
@@ -293,7 +300,8 @@ public class SemanticChecker implements ISemanticVisitor {
     }
 
     public TypeCheckResult check(StatementStmtExpr statementStmtExpr) {
-        return new TypeCheckResult(true, null); // TODO implement statementstmtexpr
+        //return new TypeCheckResult(true, null);
+        return statementStmtExpr.getStatementExpression().accept(this);
     }
 
     // structures
@@ -309,6 +317,7 @@ public class SemanticChecker implements ISemanticVisitor {
         boolean isValid = true;
 
         // TODO implement class context check
+        classDecl.setType(new ReferenceType(classDecl.getIdentifier()));
         currentClass = classDecl;
 
         // check field declarations
@@ -477,9 +486,10 @@ public class SemanticChecker implements ISemanticVisitor {
 
         boolean isValid = true;
 
-        // set program context
+        // initialize program variables
         context = new ProgramContext();
         context.setProgram(program);
+        currentLocalScope = new Stack<>();
 
         for (ClassDecl classDecl : program.getClassDeclarations()) {
             isValid = isValid && classDecl.accept(this).isValid();

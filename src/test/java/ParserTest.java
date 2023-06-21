@@ -17,7 +17,7 @@ public class ParserTest {
         String input = TestHelper.getFileInput("EmptyClass.java");
         ParserAPI parser = new ParserAPI(input);
 
-        ClassDecl classDecl = new ClassDecl(new ArrayList<>(), null, new ArrayList<>(), "Empty", null);
+        ClassDecl classDecl = new ClassDecl(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), "Empty", null, null);
         List<ClassDecl> cl = new ArrayList<>();
         cl.add(classDecl);
         Program expected = new Program(cl);

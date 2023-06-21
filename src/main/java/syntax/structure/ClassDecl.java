@@ -25,10 +25,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ClassDecl implements CodeVisitor {
 
-    private String identifier;
     private List<FieldDecl> fieldDeclList;
     private List<MethodDecl> methodDeclList;
     private List<ConstructorDecl> constructorDeclList;
+    private String identifier;
     private MyMain mymain;
     private Type type;
 
