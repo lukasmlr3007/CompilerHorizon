@@ -1,3 +1,5 @@
+package Helper;
+
 import syntax.structure.Program;
 
 import java.io.InputStream;

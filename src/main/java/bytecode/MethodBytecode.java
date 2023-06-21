@@ -15,6 +15,8 @@ import syntax.structure.ConstructorDecl;
 import syntax.structure.MethodDecl;
 import syntax.structure.MyMain;
 
+import java.util.Objects;
+
 import static org.objectweb.asm.Opcodes.INVOKESPECIAL;
 import static org.objectweb.asm.Opcodes.INVOKEVIRTUAL;
 
@@ -239,7 +241,7 @@ public class MethodBytecode implements MethodBytecodeVisitor {
             block.getStatementList().forEach(statement -> {
                 statement.accept(this);
                 if (statement instanceof StatementExpressionStatement) {
-                    if (!(((StatementExpressionStatement) statement).getStatementExpression().getType() instanceof BaseType) || ((StatementExpressionStatement) statement).getStatementExpression().getType().getIdentifier() != "void") {
+                    if (!(((StatementExpressionStatement) statement).getStatementExpression().getType() instanceof BaseType) || !Objects.equals(((StatementExpressionStatement) statement).getStatementExpression().getType().getIdentifier(), "void")) {
                         methodVisitor.visitInsn(Opcodes.POP);
                     }
                 }
@@ -273,7 +275,6 @@ public class MethodBytecode implements MethodBytecodeVisitor {
         } else {
             methodVisitor.visitVarInsn(Opcodes.ASTORE, localVariables.push(localVarDecl.getIdentifier()));
         }
-        localVariables.push(localVarDecl.getIdentifier());
     }
 
     @Override
