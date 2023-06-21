@@ -21,7 +21,7 @@ public class ProgramBytecode implements ProgramBytecodeVisitor {
             myclass.accept(classGen);
             //Write to class File
             bytecode = classGen.getBytecode();
-            try (FileOutputStream fos = new FileOutputStream("./src/main/java/output/" + myclass.getIdentifier() + ".class")) {
+            try (FileOutputStream fos = new FileOutputStream(myclass.getIdentifier() + ".class")) {
                 fos.write(bytecode);
             } catch (IOException e) {
                 throw new RuntimeException(e);
