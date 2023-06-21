@@ -165,11 +165,11 @@ public class TestData {
         Assign assign2 = new Assign();
         InstVar instVar2 = new InstVar();
         instVar2.setExpression(new This());
-        instVar2.setIdentifier("aa");
+        instVar2.setIdentifier("bb");
         instVar2.setMyStatic(false);
         assign2.setAssignLeft(instVar2);
         LocalOrFieldVar localOrFieldVar2 = new LocalOrFieldVar();
-        localOrFieldVar2.setIdentifier("aan");
+        localOrFieldVar2.setIdentifier("bbn");
         assign2.setAssignRight(localOrFieldVar2);
         StatementStmtExpr stm2 = new StatementStmtExpr();
         stm2.setStatementExpression(assign2);

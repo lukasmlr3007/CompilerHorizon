@@ -4,6 +4,7 @@ import Helper.MyClassLoader;
 import Helper.TestData;
 import Helper.TestHelper;
 import bytecode.ProgramBytecode;
+import lombok.var;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import syntax.structure.ClassDecl;
 import syntax.structure.Program;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class CodeGenTests {
 
     @Test
-    @DisplayName("Empty Class")
+    @DisplayName("Control Test, Instantiate Empty generated Class")
     void emptyClass_OK() {
 
         MyClassLoader myClassLoader = new MyClassLoader("AST/Empty.java");
@@ -46,6 +48,7 @@ public class CodeGenTests {
     }
 
     @Test
+    @DisplayName("Instantiate Empty Class")
     void testt() {
 
         MyClassLoader myClassLoader = new MyClassLoader(TestData.getEmptyClassWithConstructor("MyClass"));
@@ -68,7 +71,8 @@ public class CodeGenTests {
 
 
     @Test
-    void testsss() {
+    @DisplayName("Instantiate with custom Constructor")
+    void canInstantiateObjectWithConstructor() {
 
         MyClassLoader myClassLoader = new MyClassLoader(TestData.getEmptyClassWithConstructorAndParameter("MyClass"));
 
@@ -90,7 +94,8 @@ public class CodeGenTests {
 
 
     @Test
-    void testss() {
+    @DisplayName("set FieldValue in Constructor with Parameters")
+    void setFieldValue_OK() {
 
         MyClassLoader myClassLoader = new MyClassLoader(TestData.getConstructorWithThisAssign("ConstructorWithThisAssign"));
 
@@ -99,11 +104,23 @@ public class CodeGenTests {
         try {
             Constructor<?>[] c = myclass.getDeclaredConstructors();
 
-            Object o = myclass.getDeclaredConstructor(int.class, int.class).newInstance(1,1);
+            Object o = myclass.getDeclaredConstructor(int.class, int.class).newInstance(1,2222);
+
+            Field fieldAa = myclass.getDeclaredField("aa");
+            Field fieldBb = myclass.getDeclaredField("bb");
+
+            fieldAa.setAccessible(true);
+            fieldBb.setAccessible(true);
+
+            assertEquals(1 ,fieldAa.get(o));
+            assertEquals(2222, fieldBb.get(o));
+
+            assertEquals(2 ,fieldAa.getModifiers());
+            assertEquals(int.class, fieldAa.getType());
 
             assertEquals(o.getClass().getName(), "ConstructorWithThisAssign");
 
-        } catch (InvocationTargetException | InstantiationException | RuntimeException | NoSuchMethodException | IllegalAccessException e) {
+        } catch (InvocationTargetException | InstantiationException | RuntimeException | NoSuchMethodException | NoSuchFieldException | IllegalAccessException e) {
 
             fail(e.getMessage());
 
