@@ -28,6 +28,7 @@ public class FieldDecl implements CodeVisitor {
     private String identifier;
     private AccessModifier accessModifier;
     private Type type;
+    private boolean isStatic;
 
     @Override
     public TypeCheckResult accept(ISemanticVisitor visitor) {

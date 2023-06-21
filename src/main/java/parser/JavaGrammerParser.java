@@ -1,4 +1,4 @@
-// Generated from C:/Users/bauma/IdeaProjects/CompilerHorizon/src/main/java/parser\JavaGrammer.g4 by ANTLR 4.12.0
+// Generated from C:/Users/max20/Documents/Materialien_DHBW/4_Semester/Compilerbau/CompilerHorizon/src/main/java/parser\JavaGrammer.g4 by ANTLR 4.12.0
 package parser;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -248,7 +248,7 @@ public class JavaGrammerParser extends Parser {
 			setState(78);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==Static || _la==AccessModifier) {
+			while (_la==AccessModifier) {
 				{
 				setState(76);
 				_errHandler.sync(this);
@@ -398,18 +398,18 @@ public class JavaGrammerParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(93);
+			setState(92);
+			match(AccessModifier);
+			setState(94);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==Static) {
 				{
-				setState(92);
+				setState(93);
 				match(Static);
 				}
 			}
 
-			setState(95);
-			match(AccessModifier);
 			setState(96);
 			type();
 			setState(97);
@@ -2239,7 +2239,7 @@ public class JavaGrammerParser extends Parser {
 		"\u0001\u0001\u0001\u0001\u0005\u0001M\b\u0001\n\u0001\f\u0001P\t\u0001"+
 		"\u0001\u0001\u0001\u0001\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002"+
 		"\u0003\u0002X\b\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0003"+
-		"\u0003\u0003^\b\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003"+
+		"\u0001\u0003\u0003\u0003_\b\u0003\u0001\u0003\u0001\u0003\u0001\u0003"+
 		"\u0001\u0003\u0001\u0004\u0001\u0004\u0001\u0004\u0005\u0004h\b\u0004"+
 		"\n\u0004\f\u0004k\t\u0004\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0006"+
 		"\u0001\u0006\u0001\u0006\u0005\u0006s\b\u0006\n\u0006\f\u0006v\t\u0006"+
@@ -2271,7 +2271,7 @@ public class JavaGrammerParser extends Parser {
 		"\u0010\u0012\u0014\u0016\u0018\u001a\u001c\u001e \"$&(*,.02468:<\u0000"+
 		"\u0002\u0001\u0000\u001b\u001d\u0002\u0000\u0006\t\u001e\u001e\u0118\u0000"+
 		"?\u0001\u0000\u0000\u0000\u0002C\u0001\u0000\u0000\u0000\u0004S\u0001"+
-		"\u0000\u0000\u0000\u0006]\u0001\u0000\u0000\u0000\bd\u0001\u0000\u0000"+
+		"\u0000\u0000\u0000\u0006\\\u0001\u0000\u0000\u0000\bd\u0001\u0000\u0000"+
 		"\u0000\nl\u0001\u0000\u0000\u0000\fo\u0001\u0000\u0000\u0000\u000ew\u0001"+
 		"\u0000\u0000\u0000\u0010\u0084\u0001\u0000\u0000\u0000\u0012\u0094\u0001"+
 		"\u0000\u0000\u0000\u0014\u0096\u0001\u0000\u0000\u0000\u0016\u009a\u0001"+
@@ -2297,8 +2297,8 @@ public class JavaGrammerParser extends Parser {
 		"\u0000UW\u0005\u0012\u0000\u0000VX\u0003\b\u0004\u0000WV\u0001\u0000\u0000"+
 		"\u0000WX\u0001\u0000\u0000\u0000XY\u0001\u0000\u0000\u0000YZ\u0005\u0013"+
 		"\u0000\u0000Z[\u0003\u0010\b\u0000[\u0005\u0001\u0000\u0000\u0000\\^\u0005"+
-		"\u0004\u0000\u0000]\\\u0001\u0000\u0000\u0000]^\u0001\u0000\u0000\u0000"+
-		"^_\u0001\u0000\u0000\u0000_`\u0005\u000f\u0000\u0000`a\u00038\u001c\u0000"+
+		"\u000f\u0000\u0000]_\u0005\u0004\u0000\u0000^]\u0001\u0000\u0000\u0000"+
+		"^_\u0001\u0000\u0000\u0000_`\u0001\u0000\u0000\u0000`a\u00038\u001c\u0000"+
 		"ab\u0005\u001e\u0000\u0000bc\u0005\u0014\u0000\u0000c\u0007\u0001\u0000"+
 		"\u0000\u0000di\u0003\n\u0005\u0000ef\u0005\u0015\u0000\u0000fh\u0003\n"+
 		"\u0005\u0000ge\u0001\u0000\u0000\u0000hk\u0001\u0000\u0000\u0000ig\u0001"+
@@ -2393,7 +2393,7 @@ public class JavaGrammerParser extends Parser {
 		"\u0000\u0000\u010b\u010c\u0003(\u0014\u0000\u010c\u010d\u0005\u0013\u0000"+
 		"\u0000\u010d\u010e\u0005\u0014\u0000\u0000\u010e;\u0001\u0000\u0000\u0000"+
 		"\u010f\u0110\u0005\u0002\u0000\u0000\u0110\u0111\u0003\u0010\b\u0000\u0111"+
-		"=\u0001\u0000\u0000\u0000\u0018AELNW]ity\u007f\u0088\u0094\u00ab\u00b5"+
+		"=\u0001\u0000\u0000\u0000\u0018AELNW^ity\u007f\u0088\u0094\u00ab\u00b5"+
 		"\u00bc\u00c2\u00ca\u00d1\u00d7\u00e2\u00e7\u00fc\u0102\u0105";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());

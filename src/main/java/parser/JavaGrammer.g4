@@ -4,7 +4,7 @@ grammar JavaGrammer;
 program: classdecl+;
 classdecl: Class main? Identifier OpenCurlyBracket (myconstructor | fielddecl | methoddecl)* ClosedCurlyBracket;
 myconstructor: AccessModifier Identifier OpenRoundBracket parameters? ClosedRoundBracket block;
-fielddecl: Static? AccessModifier type Identifier Semicolon;
+fielddecl: AccessModifier Static? type Identifier Semicolon;
 parameters: parameterdecl(Comma parameterdecl)*;
 parameterdecl: type Identifier;
 parameterValues: partExpression(Comma partExpression)*;
