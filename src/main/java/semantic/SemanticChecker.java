@@ -68,25 +68,27 @@ public class SemanticChecker implements ISemanticVisitor {
 
         boolean isValid = true;
         TypeCheckResult result = instVar.getExpression().accept(this);
-        Type type = result.getType();
+        Type expressionType = result.getType();
 
-        if (type instanceof BaseType) {
-            errors.add(new TypeMismatchException("Type " + type.getIdentifier() + " is a BaseType and has no instance variables!"));
+        if (expressionType instanceof BaseType) {
+            errors.add(new TypeMismatchException("Type " + expressionType.getIdentifier() + " is a BaseType and has no instance variables!"));
             isValid = false;
         }
 
-        if (type instanceof ReferenceType) {
-            ClassContext classContext = context.getClassContext(type.getIdentifier());
-            if (!classContext.hasVariable(instVar.getIdentifier())) {
-                errors.add(new TypeMismatchException("Type " + type.getIdentifier() + " has no instance variable " + instVar.getIdentifier() + "!"));
-                isValid = false;
-            }
-            else if (!currentClass.getIdentifier().equals(classContext.getIdentifier()) &&
+        if (expressionType instanceof ReferenceType) {
+            ClassContext classContext = context.getClassContext(expressionType.getIdentifier());
+
+            if (!currentClass.getIdentifier().equals(classContext.getIdentifier()) &&
                     classContext.getVariable(instVar.getIdentifier()).getAccessModifier() == AccessModifier.PRIVATE) {
                 errors.add(new NotVisibleException("Instance variable " + instVar.getIdentifier() + " has a PRIVATE access modifier!"));
                 isValid = false;
+            } else if (classContext.getVariable(instVar.getIdentifier()) != null) {
+                instVar.setType(classContext.getVariable(instVar.getIdentifier()).getType());
             }
-            instVar.setType(classContext.getVariable(instVar.getIdentifier()).getType());
+            else {
+                errors.add(new TypeMismatchException("Type " + expressionType.getIdentifier() + " has no instance variable " + instVar.getIdentifier() + "!"));
+                isValid = false;
+            }
         }
         return new TypeCheckResult(isValid, instVar.getType());
     }
@@ -236,6 +238,8 @@ public class SemanticChecker implements ISemanticVisitor {
             errors.add(new TypeUnknownException("Type " + localVarDecl.getType() + " not found"));
             isValid = false;
         }
+
+        currentLocalScope.peek().put(localVarDecl.getIdentifier(), localVarDecl.getType());
 
         return new TypeCheckResult(isValid, localVarDecl.getType());
     }
