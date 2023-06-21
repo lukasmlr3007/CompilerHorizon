@@ -14,7 +14,7 @@ public class ClassContext {
 
     private String identifier;
 
-    private HashMap<String, Type> classVariables;
+    private HashMap<String, FieldDecl> classVariables;
 
     private HashMap<String, List<MethodContext>> classMethods;
 
@@ -28,7 +28,7 @@ public class ClassContext {
         classConstructors = new ArrayList<>();
 
         for (FieldDecl field : clazz.getFieldDeclList()) {
-            classVariables.put(field.getIdentifier(), field.getType());
+            classVariables.put(field.getIdentifier(), field);
         }
 
         for (MethodDecl method : clazz.getMethodDeclList()) {
@@ -55,7 +55,7 @@ public class ClassContext {
         return classVariables.containsKey(identifier);
     }
 
-    public Type getVariable(String identifier) {
+    public FieldDecl getVariable(String identifier) {
         return classVariables.get(identifier);
     }
 

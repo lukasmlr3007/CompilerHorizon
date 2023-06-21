@@ -79,15 +79,13 @@ public class SemanticChecker implements ISemanticVisitor {
                 errors.add(new TypeMismatchException("Type " + type.getIdentifier() + " has no instance variable " + instVar.getIdentifier() + "!"));
                 isValid = false;
             }
-            /*else if (classContext.getVariable(instVar.getIdentifier()).get == AccessModifier.PRIVATE) { TODO implement private field check
-                errors.add(new NotVisibleException("Method " + methodCall.getIdentifier() + " has a PRIVATE access modifier!"));
+            else if (!currentClass.getIdentifier().equals(classContext.getIdentifier()) &&
+                    classContext.getVariable(instVar.getIdentifier()).getAccessModifier() == AccessModifier.PRIVATE) {
+                errors.add(new NotVisibleException("Instance variable " + instVar.getIdentifier() + " has a PRIVATE access modifier!"));
                 isValid = false;
-            }*/
-            else {
-                instVar.setType(classContext.getVariable(instVar.getIdentifier()));
             }
+            instVar.setType(classContext.getVariable(instVar.getIdentifier()).getType());
         }
-
         return new TypeCheckResult(isValid, instVar.getType());
     }
 
@@ -104,7 +102,7 @@ public class SemanticChecker implements ISemanticVisitor {
         ClassContext classContext = context.getClassContext(currentClass.getIdentifier());
 
         if (classContext.hasVariable(localOrFieldVar.getIdentifier())) {
-            localOrFieldVar.setType(classContext.getVariable(localOrFieldVar.getIdentifier()));
+            localOrFieldVar.setType(classContext.getVariable(localOrFieldVar.getIdentifier()).getType());
         }
         else if (TypeHelper.hasTypeOfVariable(localOrFieldVar.getIdentifier(), currentLocalScope)) {
             localOrFieldVar.setType(TypeHelper.getTypeOfVariable(localOrFieldVar.getIdentifier(), currentLocalScope));
@@ -199,6 +197,8 @@ public class SemanticChecker implements ISemanticVisitor {
         }
 
         if (returnType == null) returnType = BaseType.VOID;
+
+        block.setType(returnType);
         currentLocalScope.pop();
 
         return new TypeCheckResult(isValid, returnType);
@@ -466,7 +466,9 @@ public class SemanticChecker implements ISemanticVisitor {
             isValid = isValid && result.isValid();
         }
         currentLocalScope.pop();
-        return new TypeCheckResult(isValid, BaseType.VOID);
+
+        constructorDecl.setType(currentClass.getType());
+        return new TypeCheckResult(isValid, constructorDecl.getType());
     }
 
 
@@ -581,11 +583,14 @@ public class SemanticChecker implements ISemanticVisitor {
         context.setProgram(program);
         currentLocalScope = new Stack<>();
 
-        for (ClassDecl classDecl : program.getClassDeclarations()) {
-            isValid = isValid && classDecl.accept(this).isValid();
+        List<ClassDecl> classDeclList = program.getClassDeclarations();
+        for (ClassDecl classDecl : classDeclList) {
+            boolean isClassValid = classDecl.accept(this).isValid();
+            isValid = isValid && isClassValid;
         }
 
-        // TODO hier fehlt noch was
+        for (Exception error : errors) System.out.println(error.toString());
+
         return new TypeCheckResult(isValid, BaseType.VOID);
     }
 }

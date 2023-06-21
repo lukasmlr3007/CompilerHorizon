@@ -134,5 +134,4 @@ public class AstTests {
 
         assertEquals(expected, actual);
     }
-
 }

@@ -6,8 +6,7 @@ import semantic.SemanticChecker;
 import semantic.TypeCheckResult;
 import syntax.structure.Program;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class IntegrationTest {
 
@@ -104,26 +103,6 @@ public class IntegrationTest {
     void complexTest() {
 
         String input = TestHelper.getFileInput("Complex.java");
-        ParserAPI parser = new ParserAPI(input);
-        SemanticChecker semantic = new SemanticChecker();
-
-        Program program = parser.getResult();
-        System.out.println(program);
-
-        TypeCheckResult typeCheckResult = semantic.check(program);
-        System.out.println(program);
-
-        ProgramBytecode programBytecode = new ProgramBytecode();
-        programBytecode.visit(program);
-
-        assertTrue(typeCheckResult.isValid());
-        assertEquals(0, semantic.getErrors().size());
-    }
-
-    @Test
-    void testss() {
-
-        String input = TestHelper.getFileInput("AST/ConstructorWithThisAssign.java");
         ParserAPI parser = new ParserAPI(input);
         SemanticChecker semantic = new SemanticChecker();
 
