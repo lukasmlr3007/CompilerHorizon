@@ -1,13 +1,9 @@
 class ConstructorWithThisAssign {
-
     private int aa;
     private int bb;
+    public ConstructorWithThisAssign(int aa, int bb) {
 
-    public ConstructorWithThisAssign(int aan, int bbn) {
-
-        this.aa = aan
-        this.bb = bbn
-
+        this.aa = aa;
+        this.bb = bb;
     }
-
 }
