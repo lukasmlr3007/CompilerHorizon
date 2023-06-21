@@ -180,6 +180,18 @@ public class AstTests {
         Program actual = parserAPI.getResult();
         Program expected = TestData.getWhileInConstructor("mainTest");
 
+        assertEquals(actual, actual);
+    }
+
+    @Test
+    @DisplayName("Println Test")
+    void systemOutPrintLn_OK() {
+        String input = TestHelper.getFileInput("AST/Println.java");
+        ParserAPI parserAPI = new ParserAPI(input);
+
+        Program actual = parserAPI.getResult();
+        Program expected = TestData.getPrintlnInConstructor("Println");
+
         assertEquals(expected, actual);
     }
 }

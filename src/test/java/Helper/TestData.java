@@ -4,10 +4,7 @@ import syntax.common.AccessModifier;
 import syntax.common.BaseType;
 import syntax.common.Operator;
 import syntax.expression.*;
-import syntax.statement.Block;
-import syntax.statement.IfElseStatement;
-import syntax.statement.ReturnStatement;
-import syntax.statement.WhileStatement;
+import syntax.statement.*;
 import syntax.statementexpression.Assign;
 import syntax.statementexpression.MethodCall;
 import syntax.statementexpression.StatementExpression;
@@ -416,5 +413,25 @@ public class TestData {
 
         return new Program(cl);
 
+    }
+
+    public static Program getPrintlnInConstructor(String identifier) {
+
+        Block block = new Block();
+        Sysout sysout = new Sysout();
+        LocalOrFieldVar localOrFieldVar = new LocalOrFieldVar();
+        localOrFieldVar.setIdentifier("test");
+        sysout.setExpression(localOrFieldVar);
+        block.setStatementList(List.of(sysout));
+
+        ArrayList<ConstructorDecl> constructors = new ArrayList<>();
+        ConstructorDecl constructorDecl = new ConstructorDecl(new ArrayList<>(), block , null);
+        constructors.add(constructorDecl);
+
+        ClassDecl classDecl = new ClassDecl(new ArrayList<>(), new ArrayList<>(), constructors, identifier, null, null);
+        List<ClassDecl> cl = new ArrayList<>();
+        cl.add(classDecl);
+
+        return new Program(cl);
     }
 }
