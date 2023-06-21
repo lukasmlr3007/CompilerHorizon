@@ -88,7 +88,7 @@ public class AstTests {
     }
 
     @Test
-    @DisplayName("Class with int Method getting Called in Constructor")
+    @DisplayName("Class with int Method getting Called in Constructor and Assign")
     void getAstForClassWithFields_OK() {
         String input = TestHelper.getFileInput("AST/SimpleMethodCallAndUsage.java");
         ParserAPI parser = new ParserAPI(input);

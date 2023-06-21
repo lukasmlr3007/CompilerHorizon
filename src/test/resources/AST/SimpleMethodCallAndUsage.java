@@ -3,7 +3,7 @@ class SimpleMethodCallAndUsage {
     public int myValue;
 
     public SimpleMethodCallAndUsage() {
-        this.myValue = this.calledMethod();;
+        this.myValue = this.calledMethod();
     }
 
     public int calledMethod() {
