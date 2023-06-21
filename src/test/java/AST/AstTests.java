@@ -194,4 +194,16 @@ public class AstTests {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    @DisplayName("DataType Test")
+    void systemOsutPrintLn_OK() {
+        String input = TestHelper.getFileInput("AST/DataTypeTest.java");
+        ParserAPI parserAPI = new ParserAPI(input);
+
+        Program actual = parserAPI.getResult();
+        Program expected = TestData.getClassWithDifferentDataTypes("DataTypeTest");
+
+        assertEquals(expected, actual);
+    }
 }

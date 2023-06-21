@@ -434,4 +434,79 @@ public class TestData {
 
         return new Program(cl);
     }
+
+    public static Program getClassWithDifferentDataTypes(String identifier) {
+
+        Vector<ConstructorDecl> constructors = new Vector<>();
+
+        Block block = new Block();
+
+        StatementStmtExpr stm2 = new StatementStmtExpr();
+        Assign assign2 = new Assign();
+        InstVar instVar2 = new InstVar();
+        instVar2.setExpression(new This());
+        instVar2.setIdentifier("myBoolean");
+        instVar2.setMyStatic(false);
+        assign2.setAssignLeft(instVar2);
+        BoolLiteral boolLiteral = new BoolLiteral();
+        boolLiteral.setValue(false);
+        assign2.setAssignRight(boolLiteral);
+        stm2.setStatementExpression(assign2);
+
+        StatementStmtExpr stm3 = new StatementStmtExpr();
+        Assign assign3 = new Assign();
+        InstVar instVar3 = new InstVar();
+        instVar3.setExpression(new This());
+        instVar3.setIdentifier("myInt");
+        instVar3.setMyStatic(false);
+        assign3.setAssignLeft(instVar3);
+        IntegerLiteral integerLiteral = new IntegerLiteral();
+        integerLiteral.setValue(1);
+        assign3.setAssignRight(integerLiteral);
+        stm3.setStatementExpression(assign3);
+
+        StatementStmtExpr stm1 = new StatementStmtExpr();
+        Assign assign = new Assign();
+        InstVar instVar = new InstVar();
+        instVar.setExpression(new This());
+        instVar.setIdentifier("myChar");
+        instVar.setMyStatic(false);
+        assign.setAssignLeft(instVar);
+        CharLiteral charLiteral = new CharLiteral();
+        charLiteral.setValue('c');
+        assign.setAssignRight(charLiteral);
+        stm1.setStatementExpression(assign);
+
+        block.setStatementList(List.of(stm2, stm3, stm1));
+
+        List<ParameterDecl> parameters = new ArrayList<>();
+        ConstructorDecl constructorDecl = new ConstructorDecl(parameters, block, null);
+
+        constructors.add(constructorDecl);
+
+        ClassDecl classDecl = new ClassDecl(new ArrayList<>(), new ArrayList<>(), constructors, identifier, null, null);
+        List<ClassDecl> cl = new ArrayList<>();
+        cl.add(classDecl);
+
+        FieldDecl fieldDecl = new FieldDecl();
+        fieldDecl.setIdentifier("myChar");
+        fieldDecl.setAccessModifier(AccessModifier.PUBLIC);
+        fieldDecl.setType(BaseType.CHAR);
+        classDecl.getFieldDeclList().add(fieldDecl);
+
+        FieldDecl fieldDecl2 = new FieldDecl();
+        fieldDecl2.setIdentifier("myInt");
+        fieldDecl2.setAccessModifier(AccessModifier.PUBLIC);
+        fieldDecl2.setType(BaseType.INT);
+        classDecl.getFieldDeclList().add(fieldDecl2);
+
+        FieldDecl fieldDecl3 = new FieldDecl();
+        fieldDecl3.setIdentifier("myBoolean");
+        fieldDecl3.setAccessModifier(AccessModifier.PUBLIC);
+        fieldDecl3.setType(BaseType.BOOLEAN);
+        classDecl.getFieldDeclList().add(fieldDecl3);
+
+        return new Program(cl);
+
+    }
 }
