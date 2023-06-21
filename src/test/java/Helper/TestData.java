@@ -141,7 +141,6 @@ public class TestData {
         cl.add(classDecl);
 
         return new Program(cl);
-
     }
 
     public static Program getConstructorWithThisAssign(String identifier) {
