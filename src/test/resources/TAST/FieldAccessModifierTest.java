@@ -4,6 +4,8 @@ class FieldAccessModifierTest {
 
     public FieldAccessModifierTest() {
 
+        this.anotherClass = new AnotherClass();
+
         int aaaa = this.anotherClass.ac;
 
     }

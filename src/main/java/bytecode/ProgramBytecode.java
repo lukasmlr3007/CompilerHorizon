@@ -1,5 +1,6 @@
 package bytecode;
 
+import lombok.Getter;
 import syntax.structure.ClassDecl;
 import syntax.structure.Program;
 
@@ -7,8 +8,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+@Getter
 public class ProgramBytecode implements ProgramBytecodeVisitor {
-    byte[] bytecode;
+
+    private byte[] bytecode;
+
     @Override
     public void visit(Program program) {
         List<ClassDecl> classDeclarations = program.getClassDeclarations();

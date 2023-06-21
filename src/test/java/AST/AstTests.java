@@ -99,7 +99,40 @@ public class AstTests {
         assertEquals(expected, actual);
     }
 
+    @Test
+    @DisplayName("Constructor with This Assign in Constructor and Parameter")
+    void assignFields_OK() {
+        String input = TestHelper.getFileInput("AST/ConstructorWithThisAssign.java");
+        ParserAPI parserAPI = new ParserAPI(input);
 
+        Program actual = parserAPI.getResult();
+        Program expected = TestData.getConstructorWithThisAssign("ConstructorWithThisAssign");
 
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Constructor with Assign Field in Constructor")
+    void assignFieldsStatic_OK() {
+        String input = TestHelper.getFileInput("AST/ConstructorWithAssign.java");
+        ParserAPI parserAPI = new ParserAPI(input);
+
+        Program actual = parserAPI.getResult();
+        Program expected = TestData.getConstructorWithAssign("ConstructorWithAssign");
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Constructor with Assign Field in Constructor")
+    void ifElseTest_OK() {
+        String input = TestHelper.getFileInput("AST/ConstructorWithAssign.java");
+        ParserAPI parserAPI = new ParserAPI(input);
+
+        Program actual = parserAPI.getResult();
+        Program expected = TestData.getConstructorWithAssign("ConstructorWithAssign");
+
+        assertEquals(expected, actual);
+    }
 
 }
