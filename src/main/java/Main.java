@@ -4,21 +4,42 @@ import semantic.SemanticChecker;
 import semantic.TypeCheckResult;
 import syntax.structure.Program;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 public class Main {
 
     public static void main(String[] args) {
+        if (args.length == 0) {
+            System.out.println("Bitte geben Sie den Pfad zur Datei als absoluten Pfad an.");
+            return;
+        }
 
-        String input = "class FirstTest { public static void methodeNeu(){ this.myValue = this.memcll(); } }";
+        String filePath = args[0];
 
-        ParserAPI parserAPI = new ParserAPI(input);
-        Program syntaxTree = parserAPI.getResult();
-        System.out.println("Syntax Tree: " + syntaxTree);
+        try {
+            String fileContent = readFileAsString(filePath);
+            System.out.println("Datei erfolgreich eingelesen");
 
-        SemanticChecker semantikCheck = new SemanticChecker();
-        TypeCheckResult typeCheckResult = semantikCheck.check(syntaxTree);
-        System.out.println((typeCheckResult.isValid() ? "Semantik ist korrekt" : "Semantik ist inkorrekt"));
+            ParserAPI parserAPI = new ParserAPI(fileContent);
+            Program syntaxTree = parserAPI.getResult();
+            System.out.println("Syntax Tree: " + syntaxTree);
 
-        ProgramBytecode programBytecode = new ProgramBytecode();
-        programBytecode.visit(syntaxTree);
+            SemanticChecker semantikCheck = new SemanticChecker();
+            TypeCheckResult typeCheckResult = semantikCheck.check(syntaxTree);
+            System.out.println((typeCheckResult.isValid() ? "Semantik ist korrekt" : "Semantik ist inkorrekt"));
+
+            ProgramBytecode programBytecode = new ProgramBytecode();
+            programBytecode.visit(syntaxTree);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String readFileAsString(String filePath) throws IOException {
+        byte[] encodedBytes = Files.readAllBytes(Paths.get(filePath));
+        return new String(encodedBytes);
     }
 }
