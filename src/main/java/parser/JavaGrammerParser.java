@@ -49,7 +49,7 @@ public class JavaGrammerParser extends Parser {
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'System.out.println'", "'public static void main(String[] args)'", 
-			"'class'", "'static'", "'='", "'int'", "'boolean'", "'char'", "'void'", 
+			"'class'", "'static'", "'='", "'int'", "'bool'", "'char'", "'void'", 
 			"'while'", "'if'", "'else'", "'new'", "'this'", null, "'{'", "'}'", "'('", 
 			"')'", "';'", "','", "'.'", "'return'"
 		};

@@ -6,7 +6,7 @@ null
 'static'
 '='
 'int'
-'boolean'
+'bool'
 'char'
 'void'
 'while'

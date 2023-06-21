@@ -10,6 +10,7 @@ public class LiteralAdapter {
         } else if (literalsContext.CharValue() != null) {
             return new CharLiteral(literalsContext.CharValue().getSymbol().getText().charAt(0));
         } else if (literalsContext.BoolValue() != null) {
+            String s = literalsContext.BoolValue().getSymbol().getText();
             return new BoolLiteral((literalsContext.BoolValue().getSymbol().getText().equalsIgnoreCase("true")));
         }
         return null;

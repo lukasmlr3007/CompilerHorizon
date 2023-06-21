@@ -118,7 +118,6 @@ public class TastTests {
     @DisplayName("AccessModifierTest Fields")
     void tryAccessingPrivateFieldInAnotherClass_EXCEPTION() {
 
-        // TODO fix
         Program actualAST = null;
         TypeCheckResult typeCheckResult = null;
 

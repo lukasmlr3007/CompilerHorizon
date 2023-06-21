@@ -35,7 +35,7 @@ WS=31
 'static'=4
 '='=5
 'int'=6
-'boolean'=7
+'bool'=7
 'char'=8
 'void'=9
 'while'=10

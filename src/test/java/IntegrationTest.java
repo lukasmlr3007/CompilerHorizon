@@ -100,6 +100,26 @@ public class IntegrationTest {
     }
 
     @Test
+    void expressionTest() {
+
+        String input = TestHelper.getFileInput("Expressions.java");
+        ParserAPI parser = new ParserAPI(input);
+        SemanticChecker semantic = new SemanticChecker();
+
+        Program program = parser.getResult();
+        System.out.println(program);
+
+        TypeCheckResult typeCheckResult = semantic.check(program);
+        System.out.println(program);
+
+        ProgramBytecode programBytecode = new ProgramBytecode();
+        programBytecode.visit(program);
+
+        assertTrue(typeCheckResult.isValid());
+        assertEquals(0, semantic.getErrors().size());
+    }
+
+    @Test
     void complexTest() {
 
         String input = TestHelper.getFileInput("Complex.java");

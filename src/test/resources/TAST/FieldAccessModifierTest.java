@@ -7,7 +7,7 @@ class FieldAccessModifierTest {
 
         this.anotherClass = new AnotherClass();
 
-        this.aaaa = this.anotherClass.ac
+        this.aaaa = this.anotherClass.ac;
 
     }
 

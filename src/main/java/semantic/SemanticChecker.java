@@ -329,7 +329,8 @@ public class SemanticChecker implements ISemanticVisitor {
             errors.add(new TypeUnknownException("Method " + methodCall.getIdentifier() + " not found in type " + receiver.getType().toString()));
             isValid = false;
         }
-        else if (methodContext.getAccessModifier() == AccessModifier.PRIVATE) {
+        else if (!context.getClassContext(currentClass.getIdentifier()).hasMethod(methodCall.getIdentifier()) &&
+                methodContext.getAccessModifier() == AccessModifier.PRIVATE) {
             errors.add(new NotVisibleException("Method " + methodCall.getIdentifier() + " has a PRIVATE access modifier!"));
             isValid = false;
         }

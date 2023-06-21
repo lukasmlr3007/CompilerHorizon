@@ -17,7 +17,8 @@ public enum BaseType implements Type {
     VOID("void"),
     INT("int"),
     CHAR("char"),
-    BOOLEAN("boolean");
+    BOOLEAN("boolean"),
+    BOOL("boolean");
 
     private String identifier;
     @Override
