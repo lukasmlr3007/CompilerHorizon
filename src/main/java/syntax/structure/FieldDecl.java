@@ -5,6 +5,7 @@ import bytecode.CodeVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.objectweb.asm.Opcodes;
 import semantic.ISemanticVisitor;
 import semantic.TypeCheckResult;
 import syntax.common.AccessModifier;
@@ -28,6 +29,7 @@ public class FieldDecl implements CodeVisitor {
     private String identifier;
     private AccessModifier accessModifier;
     private Type type;
+    private boolean isStatic;
 
     @Override
     public TypeCheckResult accept(ISemanticVisitor visitor) {
@@ -39,6 +41,10 @@ public class FieldDecl implements CodeVisitor {
         visitor.visit(this);
     }
 
+    public boolean getIsStatic(){
+        return this.isStatic;
+    }
+
     public int accessModifierToOpcode(AccessModifier accessModifier) {
         if (accessModifier == AccessModifier.PUBLIC) {
             return ACC_PUBLIC;
@@ -46,6 +52,14 @@ public class FieldDecl implements CodeVisitor {
             return ACC_PRIVATE;
         } else if (accessModifier == AccessModifier.PROTECTED) {
             return ACC_PROTECTED;
+        } else {
+            return 0;
+        }
+    }
+
+    public int staticToOpcode(boolean staticValue){
+        if (staticValue){
+            return Opcodes.ACC_STATIC;
         } else {
             return 0;
         }

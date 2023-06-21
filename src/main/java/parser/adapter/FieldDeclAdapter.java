@@ -17,6 +17,7 @@ public class FieldDeclAdapter {
         } catch (Exception e) {
             type = new ReferenceType(fielddeclContext.type().getText());
         }
-        return new FieldDecl(fielddeclContext.Identifier().getText(), am, type);
+        boolean isStatic = fielddeclContext.Static() != null;
+        return new FieldDecl(fielddeclContext.Identifier().getText(), am, type, isStatic);
     }
 }

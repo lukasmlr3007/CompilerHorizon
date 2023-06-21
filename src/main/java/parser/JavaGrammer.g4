@@ -4,7 +4,7 @@ grammar JavaGrammer;
 program: classdecl+;
 classdecl: Class main? Identifier OpenCurlyBracket (myconstructor | fielddecl | methoddecl)* ClosedCurlyBracket;
 myconstructor: AccessModifier Identifier OpenRoundBracket parameters? ClosedRoundBracket block;
-fielddecl: Static? AccessModifier type Identifier Semicolon;
+fielddecl: AccessModifier Static? type Identifier Semicolon;
 parameters: parameterdecl(Comma parameterdecl)*;
 parameterdecl: type Identifier;
 parameterValues: partExpression(Comma partExpression)*;
@@ -15,7 +15,7 @@ localVarDecl: type Identifier Semicolon;
 whileStatement: While OpenRoundBracket expression ClosedRoundBracket block;
 ifElseStatement: If OpenRoundBracket expression ClosedRoundBracket block Else block;
 statementExpression: assign | methodCall | myNew ;
-assign: instanceVariable Assign expression;
+assign: instanceVariable Assign expression Semicolon;
 methodCall: reciever extraMethod+ Semicolon;
 reciever: This | Identifier | instanceVariable; //myNew
 extraMethod: Point Identifier OpenRoundBracket parameterValues? ClosedRoundBracket;
