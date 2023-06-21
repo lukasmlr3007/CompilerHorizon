@@ -139,6 +139,7 @@ public class TastTests {
 
             if (typeCheckResult != null) {
                 assertFalse(typeCheckResult.isValid());
+                assertEquals(NotVisibleException.class, semantikCheck.getErrors().get(0).getClass());
             }
         }
     }
