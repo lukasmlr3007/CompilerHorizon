@@ -126,11 +126,11 @@ public class AstTests {
     @Test
     @DisplayName("Class with If Else in Constructor")
     void ifElseTest_OK() {
-        String input = TestHelper.getFileInput("AST/ConstructorWithAssign.java");
+        String input = TestHelper.getFileInput("AST/IfElse.java");
         ParserAPI parserAPI = new ParserAPI(input);
 
         Program actual = parserAPI.getResult();
-        Program expected = TestData.getConstructorWithAssign("ConstructorWithAssign");
+        Program expected = TestData.getIfElseInConstructor("IfElse");
 
         assertEquals(expected, actual);
     }

@@ -2,8 +2,10 @@ package Helper;
 
 import syntax.common.AccessModifier;
 import syntax.common.BaseType;
+import syntax.common.Operator;
 import syntax.expression.*;
 import syntax.statement.Block;
+import syntax.statement.IfElseStatement;
 import syntax.statement.ReturnStatement;
 import syntax.statementexpression.Assign;
 import syntax.statementexpression.MethodCall;
@@ -200,13 +202,15 @@ public class TestData {
 
     public static Program getConstructorWithAssign(String identifier) {
 
+        This mythis = new This();
+
         Vector<ConstructorDecl> constructors = new Vector<>();
 
         Block block = new Block();
         StatementStmtExpr stm1 = new StatementStmtExpr();
         Assign assign = new Assign();
         InstVar instVar = new InstVar();
-        instVar.setExpression(new This());
+        instVar.setExpression(mythis);
         instVar.setIdentifier("aa");
         instVar.setMyStatic(false);
         assign.setAssignLeft(instVar);
@@ -216,7 +220,7 @@ public class TestData {
         stm1.setStatementExpression(assign);
         Assign assign2 = new Assign();
         InstVar instVar2 = new InstVar();
-        instVar2.setExpression(new This());
+        instVar2.setExpression(mythis);
         instVar2.setIdentifier("bb");
         instVar2.setMyStatic(false);
         assign2.setAssignLeft(instVar2);
@@ -247,6 +251,59 @@ public class TestData {
         fieldDecl2.setAccessModifier(AccessModifier.PRIVATE);
         fieldDecl2.setType(BaseType.INT);
         classDecl.getFieldDeclList().add(fieldDecl2);
+
+        return new Program(cl);
+
+    }
+
+    public static Program getIfElseInConstructor(String identifier) {
+
+        Block block = new Block();
+
+        StatementStmtExpr statementStmtExpr = new StatementStmtExpr();
+        Assign assign = new Assign();
+        InstVar instVar = new InstVar();
+        instVar.setExpression(new This());
+        instVar.setIdentifier("ast");
+        instVar.setMyStatic(false);
+        assign.setAssignLeft(instVar);
+        IntegerLiteral integerLiteral = new IntegerLiteral();
+        integerLiteral.setValue(4);
+        assign.setAssignRight(integerLiteral);
+        statementStmtExpr.setStatementExpression(assign);
+
+        IfElseStatement ifElseStatement = new IfElseStatement();
+        RelationalExpression relationalExpression = new RelationalExpression();
+        relationalExpression.setOperator("==");
+        LocalOrFieldVar localOrFieldVar = new LocalOrFieldVar();
+        localOrFieldVar.setIdentifier("ast");
+        relationalExpression.setExpressionLeft(localOrFieldVar);
+        IntegerLiteral integerLiteral1 = new IntegerLiteral();
+        integerLiteral1.setValue(5);
+        relationalExpression.setExpressionRight(integerLiteral1);
+        ifElseStatement.setCondition(relationalExpression);
+        Block block1 = new Block();
+        block1.setStatementList(new ArrayList<>());
+        ifElseStatement.setIfBlock(block1);
+        Block block2 = new Block();
+        block2.setStatementList(new ArrayList<>());
+        ifElseStatement.setElseBlock(block2);
+
+        block.setStatementList(List.of(statementStmtExpr, ifElseStatement));
+
+        ArrayList<ConstructorDecl> constructors = new ArrayList<>();
+        ConstructorDecl constructorDecl = new ConstructorDecl(new ArrayList<>(), block, null);
+        constructors.add(constructorDecl);
+
+        ClassDecl classDecl = new ClassDecl(new ArrayList<>(), new ArrayList<>(), constructors, identifier, null, null);
+        List<ClassDecl> cl = new ArrayList<>();
+        cl.add(classDecl);
+
+        FieldDecl fieldDecl = new FieldDecl();
+        fieldDecl.setIdentifier("ast");
+        fieldDecl.setAccessModifier(AccessModifier.PUBLIC);
+        fieldDecl.setType(BaseType.INT);
+        classDecl.getFieldDeclList().add(fieldDecl);
 
         return new Program(cl);
 

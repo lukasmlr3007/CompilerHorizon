@@ -1,10 +1,12 @@
 class IfElse {
 
+    public int ast;
+
     public IfElse() {
 
-        int a = 4;
+        this.ast = 4
 
-        if (a == 4) {
+        if (ast == 5) {
 
 
         } else {

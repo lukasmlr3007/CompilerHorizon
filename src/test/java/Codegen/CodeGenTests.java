@@ -98,6 +98,8 @@ public class CodeGenTests {
 
         try {
 
+            Constructor<?>[] c = myclass.getDeclaredConstructors();
+
             Object o = myclass.getDeclaredConstructor(int.class, int.class).newInstance(1,1);
 
             assertEquals(o.getClass().getName(), "ConstructorWithThisAssign");

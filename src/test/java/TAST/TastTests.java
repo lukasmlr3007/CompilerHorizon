@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import parser.ParserAPI;
 import semantic.SemanticChecker;
 import semantic.TypeCheckResult;
+import semantic.exception.AlreadyDefinedException;
+import semantic.exception.NotVisibleException;
 import syntax.structure.Program;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -45,6 +47,7 @@ public class TastTests {
             if (typeCheckResult != null) {
 
                 assertFalse(typeCheckResult.isValid());
+                assertEquals(AlreadyDefinedException.class, semantikCheck.getErrors().get(0).getClass());
             }
 
         }
@@ -73,7 +76,9 @@ public class TastTests {
             assertNotNull(typeCheckResult);
 
             if (typeCheckResult != null) {
+
                 assertFalse(typeCheckResult.isValid());
+                assertEquals(AlreadyDefinedException.class,semantikCheck.getErrors().get(0).getClass());
             }
 
         }
@@ -81,7 +86,7 @@ public class TastTests {
 
     @Test
     @DisplayName("AccessModifierTest Methods")
-    void tryAccessingPrivateInAnotherClass_EXCEPTION() {
+    void tryAccessingPrivateInAnotherClass_NotVisibleEXCEPTION() {
 
         Program actualAST = null;
         TypeCheckResult typeCheckResult = null;
@@ -103,6 +108,7 @@ public class TastTests {
 
             if (typeCheckResult != null) {
                 assertFalse(typeCheckResult.isValid());
+                assertEquals(NotVisibleException.class, semantikCheck.getErrors().get(0).getClass());
             }
 
         }
@@ -118,7 +124,6 @@ public class TastTests {
         try {
             String input = TestHelper.getFileInput("TAST/FieldAccessModifierTest.java");
             ParserAPI parser = new ParserAPI(input);
-            System.out.println(parser.getResult());
 
             actualAST = parser.getResult();
             typeCheckResult = semantikCheck.check(actualAST);
