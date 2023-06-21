@@ -22,6 +22,7 @@ public class ClassContext {
 
     public ClassContext(ClassDecl clazz) {
 
+        identifier = clazz.getIdentifier();
         classVariables = new HashMap<>();
         classMethods = new HashMap<>();
         classConstructors = new ArrayList<>();

@@ -451,13 +451,13 @@ public class SemanticChecker implements ISemanticVisitor {
     public TypeCheckResult check(ConstructorDecl constructorDecl) {
 
         boolean isValid = true;
-
-        // TODO implement context check
+        currentLocalScope.push(new HashMap<>());
 
         // check constructor parameters
         if (constructorDecl.getParameters() != null) {
             for (ParameterDecl parameter : constructorDecl.getParameters()) {
                 isValid = isValid && parameter.accept(this).isValid();
+                currentLocalScope.peek().put(parameter.getIdentifier(), parameter.getType());
             }
         }
         // check block
@@ -465,6 +465,7 @@ public class SemanticChecker implements ISemanticVisitor {
             TypeCheckResult result = constructorDecl.getBlock().accept(this);
             isValid = isValid && result.isValid();
         }
+        currentLocalScope.pop();
         return new TypeCheckResult(isValid, BaseType.VOID);
     }
 
@@ -517,9 +518,11 @@ public class SemanticChecker implements ISemanticVisitor {
             }
         }
 
+        currentLocalScope.push(new HashMap<>());
+
         for (ParameterDecl methodParameter : methodDecl.getParameters()) {
             isValid = isValid && methodParameter.accept(this).isValid();
-            // TODO add to method context
+            currentLocalScope.peek().put(methodParameter.getIdentifier(), methodParameter.getType());
         }
 
         TypeCheckResult blockResult = methodDecl.getBlock().accept(this);
@@ -534,6 +537,7 @@ public class SemanticChecker implements ISemanticVisitor {
             errors.add(new TypeMismatchException("Method " + methodDecl.getIdentifier() + " returns the incorrect type!"));
             isValid = false;
         }
+        currentLocalScope.pop();
         return new TypeCheckResult(isValid, returnType);
     }
 

@@ -97,7 +97,6 @@ public class CodeGenTests {
         Class<?> myclass = myClassLoader.findClassByName("ConstructorWithThisAssign");
 
         try {
-
             Constructor<?>[] c = myclass.getDeclaredConstructors();
 
             Object o = myclass.getDeclaredConstructor(int.class, int.class).newInstance(1,1);
