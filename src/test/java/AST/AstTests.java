@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AstTests {
 
     @Test
-    @DisplayName("Empty Class without Constructor")
+    @DisplayName("Empty Class")
     void getAstForEmptyClass_OK() {
         String input = TestHelper.getFileInput("AST/Empty.java");
         ParserAPI parser = new ParserAPI(input);
@@ -76,7 +76,7 @@ public class AstTests {
     }
 
     @Test
-    @DisplayName("Class with void Method")
+    @DisplayName("void Method")
     void classWithVoidMethod_OK() {
         String input = TestHelper.getFileInput("AST/ClassWithVoidMethod.java");
         ParserAPI parser = new ParserAPI(input);
@@ -88,7 +88,7 @@ public class AstTests {
     }
 
     @Test
-    @DisplayName("Class with int Method getting Called in Constructor and Assign")
+    @DisplayName("int Method getting Called in Constructor and Assign")
     void getAstForClassWithFields_OK() {
         String input = TestHelper.getFileInput("AST/SimpleMethodCallAndUsage.java");
         ParserAPI parser = new ParserAPI(input);
@@ -124,13 +124,49 @@ public class AstTests {
     }
 
     @Test
-    @DisplayName("Class with If Else in Constructor")
+    @DisplayName("If Else")
     void ifElseTest_OK() {
         String input = TestHelper.getFileInput("AST/IfElse.java");
         ParserAPI parserAPI = new ParserAPI(input);
 
         Program actual = parserAPI.getResult();
         Program expected = TestData.getIfElseInConstructor("IfElse");
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Static Fields")
+    void staticFieldInClass_OK() {
+        String input = TestHelper.getFileInput("AST/StaticTest.java");
+        ParserAPI parserAPI = new ParserAPI(input);
+
+        Program actual = parserAPI.getResult();
+        Program expected = TestData.getEmptyClassWithStaticField("StaticTest");
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Static Method")
+    void staticMethodInClass_OK() {
+        String input = TestHelper.getFileInput("AST/StaticMethod.java");
+        ParserAPI parserAPI = new ParserAPI(input);
+
+        Program actual = parserAPI.getResult();
+        Program expected = TestData.getEmptyClassWithStaticMethod("StaticMethod");
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("While Test")
+    void while_OK() {
+        String input = TestHelper.getFileInput("AST/WhileTest.java");
+        ParserAPI parserAPI = new ParserAPI(input);
+
+        Program actual = parserAPI.getResult();
+        Program expected = TestData.getWhileInConstructor("WhileTest");
 
         assertEquals(expected, actual);
     }
