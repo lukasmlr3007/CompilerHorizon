@@ -170,4 +170,16 @@ public class AstTests {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    @DisplayName("MainMethodTest")
+    void mainTest_OK() {
+        String input = TestHelper.getFileInput("AST/mainTest.java");
+        ParserAPI parserAPI = new ParserAPI(input);
+
+        Program actual = parserAPI.getResult();
+        Program expected = TestData.getWhileInConstructor("mainTest");
+
+        assertEquals(expected, actual);
+    }
 }
