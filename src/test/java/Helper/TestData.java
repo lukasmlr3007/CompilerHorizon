@@ -65,9 +65,9 @@ public class TestData {
 
         ClassDecl classDecl = new ClassDecl(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), identifier, null, null);
 
-        FieldDecl privateField = new FieldDecl("privateAccess", AccessModifier.PRIVATE, BaseType.INT);
-        FieldDecl publicField = new FieldDecl("publicAccess", AccessModifier.PUBLIC, BaseType.INT);
-        FieldDecl protectedField = new FieldDecl("protectedAccess", AccessModifier.PROTECTED, BaseType.INT);
+        FieldDecl privateField = new FieldDecl("privateAccess", AccessModifier.PRIVATE, BaseType.INT, false);
+        FieldDecl publicField = new FieldDecl("publicAccess", AccessModifier.PUBLIC, BaseType.INT, false);
+        FieldDecl protectedField = new FieldDecl("protectedAccess", AccessModifier.PROTECTED, BaseType.INT, false);
 
         classDecl.getFieldDeclList().addAll(Arrays.asList(privateField, publicField, protectedField));
 

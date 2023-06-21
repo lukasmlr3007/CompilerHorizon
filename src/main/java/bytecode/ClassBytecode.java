@@ -44,6 +44,6 @@ public class ClassBytecode implements ClassBytecodeVisitor {
 
     @Override
     public void visit(FieldDecl field) {
-        classWriter.visitField(field.accessModifierToOpcode(field.getAccessModifier()), field.getIdentifier(), field.fieldTypeToDescriptor(field.getType()), null, null).visitEnd();
+        classWriter.visitField(field.accessModifierToOpcode(field.getAccessModifier()) + field.staticToOpcode(field.getIsStatic()), field.getIdentifier(), field.fieldTypeToDescriptor(field.getType()), null, null).visitEnd();
     }
 }
