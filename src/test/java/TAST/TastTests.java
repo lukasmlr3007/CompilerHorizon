@@ -134,8 +134,6 @@ public class TastTests {
             if (typeCheckResult != null) {
                 assertFalse(typeCheckResult.isValid());
             }
-
         }
     }
-
 }

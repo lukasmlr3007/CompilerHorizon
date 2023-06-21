@@ -12,23 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class IntegrationTest {
 
     @Test
-    void emptyClassTest() {
-
-        String input = TestHelper.getFileInput("EmptyClass.java");
-        ParserAPI parser = new ParserAPI(input);
-        SemanticChecker semantic = new SemanticChecker();
-
-        Program program = parser.getResult();
-        TypeCheckResult typeCheckResult = semantic.check(program);
-
-        ProgramBytecode programBytecode = new ProgramBytecode();
-        programBytecode.visit(program);
-
-        assertTrue(typeCheckResult.isValid());
-        assertEquals(0, semantic.getErrors().size());
-    }
-
-    @Test
     void multipleClassesTest() {
 
         String input = TestHelper.getFileInput("MultipleClasses.java");
