@@ -45,11 +45,13 @@ public class SemanticChecker implements ISemanticVisitor {
         TypeCheckResult leftResult = additiveExpr.getExpressionLeft().accept(this);
         TypeCheckResult rightResult = additiveExpr.getExpressionRight().accept(this);
 
-        // TODO add additive expression check
+        if (leftResult.getType() != BaseType.INT || rightResult.getType() != BaseType.INT) {
+            isValid = false;
+        }
 
         isValid = isValid && leftResult.isValid() && rightResult.isValid();
 
-        return new TypeCheckResult(isValid, leftResult.getType());    }
+        return new TypeCheckResult(isValid, BaseType.INT);    }
 
     @Override
     public TypeCheckResult check(BoolLiteral boolLiteral) {
@@ -123,11 +125,12 @@ public class SemanticChecker implements ISemanticVisitor {
         TypeCheckResult leftResult = logicalExpr.getExpressionLeft().accept(this);
         TypeCheckResult rightResult = logicalExpr.getExpressionRight().accept(this);
 
-        // TODO add logical expression check
-
+        if (leftResult.getType() != BaseType.BOOLEAN || rightResult.getType() != BaseType.BOOLEAN) {
+            isValid = false;
+        }
         isValid = isValid && leftResult.isValid() && rightResult.isValid();
 
-        return new TypeCheckResult(isValid, leftResult.getType());
+        return new TypeCheckResult(isValid, BaseType.BOOLEAN);
     }
 
     @Override
@@ -143,11 +146,13 @@ public class SemanticChecker implements ISemanticVisitor {
         TypeCheckResult leftResult = relationalExpr.getExpressionLeft().accept(this);
         TypeCheckResult rightResult = relationalExpr.getExpressionRight().accept(this);
 
-        // TODO add relational expression check
+        if (leftResult.getType() != BaseType.INT || rightResult.getType() != BaseType.INT) {
+            isValid = false;
+        }
 
         isValid = isValid && leftResult.isValid() && rightResult.isValid();
 
-        return new TypeCheckResult(isValid, leftResult.getType());
+        return new TypeCheckResult(isValid, BaseType.BOOLEAN);
     }
 
     @Override
@@ -431,12 +436,13 @@ public class SemanticChecker implements ISemanticVisitor {
             if (classDecl.getConstructorDeclList().isEmpty()) {
                 // add new constructor if not set
                 ConstructorDecl newConstructorDecl = new ConstructorDecl();
-                isValid = isValid && newConstructorDecl.accept(this).isValid();
+                TypeCheckResult result = newConstructorDecl.accept(this);
+                isValid = isValid && result.isValid();
                 classDecl.getConstructorDeclList().add(newConstructorDecl); // TODO setze ich constructors?!
             }
             else for (ConstructorDecl constructorDecl : classDecl.getConstructorDeclList()) {
-                boolean isConstructorValid = constructorDecl.accept(this).isValid();
-                isValid = isValid && isConstructorValid;
+                TypeCheckResult result = constructorDecl.accept(this);
+                isValid = isValid && result.isValid();
             }
         }
         classDecl.setType(new ReferenceType(classDecl.getIdentifier()));
@@ -457,7 +463,8 @@ public class SemanticChecker implements ISemanticVisitor {
         // check constructor parameters
         if (constructorDecl.getParameters() != null) {
             for (ParameterDecl parameter : constructorDecl.getParameters()) {
-                isValid = isValid && parameter.accept(this).isValid();
+                TypeCheckResult result = parameter.accept(this);
+                isValid = isValid && result.isValid();
                 currentLocalScope.peek().put(parameter.getIdentifier(), parameter.getType());
             }
         }
@@ -485,7 +492,8 @@ public class SemanticChecker implements ISemanticVisitor {
 
         // TODO implement check if field is already declared in class
 
-        isValid = isValid && TypeHelper.doesTypeExist(fieldDecl.getType(), context);
+        boolean doesExist = TypeHelper.doesTypeExist(fieldDecl.getType(), context);
+        isValid = isValid && doesExist;
 
         return new TypeCheckResult(isValid, fieldDecl.getType());
     }
@@ -524,7 +532,8 @@ public class SemanticChecker implements ISemanticVisitor {
         currentLocalScope.push(new HashMap<>());
 
         for (ParameterDecl methodParameter : methodDecl.getParameters()) {
-            isValid = isValid && methodParameter.accept(this).isValid();
+            TypeCheckResult result = methodParameter.accept(this);
+            isValid = isValid && result.isValid();
             currentLocalScope.peek().put(methodParameter.getIdentifier(), methodParameter.getType());
         }
 
@@ -548,7 +557,8 @@ public class SemanticChecker implements ISemanticVisitor {
     public TypeCheckResult check(MyMain myMain) {
 
         boolean isValid = true;
-        isValid = isValid && myMain.getBlock().accept(this).isValid();
+        TypeCheckResult result = myMain.getBlock().accept(this);
+        isValid = isValid && result.isValid();
 
         return new TypeCheckResult(true, BaseType.VOID);
     }
