@@ -1,5 +1,6 @@
 package TAST;
 
+import Helper.TestData;
 import Helper.TestHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -7,9 +8,13 @@ import org.junit.jupiter.api.Test;
 import parser.ParserAPI;
 import semantic.SemanticChecker;
 import semantic.TypeCheckResult;
-import semantic.exception.AlreadyDefinedException;
-import semantic.exception.NotVisibleException;
+import semantic.exception.*;
+import syntax.structure.ClassDecl;
+import syntax.structure.ConstructorDecl;
 import syntax.structure.Program;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -115,6 +120,20 @@ public class TastTests {
     }
 
     @Test
+    @DisplayName("EmptyClassTest")
+    void emptyClass_OK() {
+
+        Program expectedTast = TestData.getProgrammWithEmptyClassTAST("EmptyClassTest");
+
+        Program actualTast = TestData.getProgrammWithEmptyClass("EmptyClassTest");
+
+        SemanticChecker semanticChecker = new SemanticChecker();
+        semanticChecker.check(actualTast);
+
+        assertEquals(expectedTast, actualTast);
+    }
+
+    @Test
     @DisplayName("AccessModifierTest Fields")
     void tryAccessingPrivateFieldInAnotherClass_EXCEPTION() {
 
@@ -142,4 +161,94 @@ public class TastTests {
             }
         }
     }
+
+    @Test
+    @DisplayName("Access Variable out of Scope")
+    void tryAccessingVariableOutOfLocalScope_EXCEPTION() {
+
+        Program actualAST = null;
+        TypeCheckResult typeCheckResult = null;
+
+        try {
+            String input = TestHelper.getFileInput("TAST/OutOfScopeVar.java");
+            ParserAPI parser = new ParserAPI(input);
+
+            actualAST = parser.getResult();
+            typeCheckResult = semantikCheck.check(actualAST);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        } finally {
+
+            assertNotNull(typeCheckResult);
+
+            if (typeCheckResult != null) {
+                assertFalse(typeCheckResult.isValid());
+                assertEquals(FieldNotFoundException.class, semantikCheck.getErrors().get(0).getClass());
+            }
+        }
+    }
+
+    @Test
+    @DisplayName("Incorrect new Assign at Field")
+    void tryToAssignNewInt_EXCEPTION() {
+
+        Program actualAST = null;
+        TypeCheckResult typeCheckResult = null;
+
+        try {
+            String input = TestHelper.getFileInput("TAST/newIntTest.java");
+            ParserAPI parser = new ParserAPI(input);
+
+            actualAST = parser.getResult();
+            typeCheckResult = semantikCheck.check(actualAST);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        } finally {
+
+            assertNotNull(typeCheckResult);
+
+            if (typeCheckResult != null) {
+                assertFalse(typeCheckResult.isValid());
+                assertEquals(TypeMismatchException.class, semantikCheck.getErrors().get(1).getClass());
+            }
+        }
+    }
+
+
+    @Test
+    @DisplayName("Incorrect new Assign at Field")
+    void tryToAssignUnknownTyp_EXCEPTION() {
+
+        Program actualAST = null;
+        TypeCheckResult typeCheckResult = null;
+
+        try {
+            String input = TestHelper.getFileInput("TAST/UnknownTypeInt.java");
+            ParserAPI parser = new ParserAPI(input);
+
+            actualAST = parser.getResult();
+            typeCheckResult = semantikCheck.check(actualAST);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        } finally {
+
+            assertNotNull(typeCheckResult);
+
+            if (typeCheckResult != null) {
+                assertFalse(typeCheckResult.isValid());
+                assertEquals(TypeUnknownException.class, semantikCheck.getErrors().get(1).getClass());
+            }
+        }
+    }
+
+
 }
