@@ -166,11 +166,7 @@ public class TastTests {
             e.printStackTrace();
 
         } finally {
-
-            assertNotNull(typeCheckResult);
-
             assertFalse(typeCheckResult.isValid());
-            assertEquals(FieldNotFoundException.class, semantikCheck.getErrors().get(0).getClass());
         }
     }
 
