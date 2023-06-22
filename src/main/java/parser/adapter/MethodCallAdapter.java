@@ -14,7 +14,7 @@ public class MethodCallAdapter {
         String identifier = methodCallContext.extraMethod(0).Identifier().getSymbol().getText().toString();
         Expression receiver = ReceiverAdapter.adapt(methodCallContext.reciever());
         List<PartExpression> parameterList = new ArrayList<>();
-        if (methodCallContext.extraMethod(0).parameterValues() != null) { //TODO verschachtelung fortführen
+        if (methodCallContext.extraMethod(0).parameterValues() != null) {
             methodCallContext.extraMethod(0).parameterValues().partExpression().forEach(expr -> {
                 parameterList.add(PartExpressionAdapter.adapt(expr));
             });

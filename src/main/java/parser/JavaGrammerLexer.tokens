@@ -29,8 +29,8 @@ BoolValue=28
 CharValue=29
 Identifier=30
 WS=31
-'System.out.println'=1
-'public static void main(String[] args)'=2
+'public static void main(String[] args)'=1
+'System.out.println'=2
 'class'=3
 'static'=4
 '='=5
