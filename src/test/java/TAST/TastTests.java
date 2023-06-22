@@ -9,12 +9,7 @@ import parser.ParserAPI;
 import semantic.SemanticChecker;
 import semantic.TypeCheckResult;
 import semantic.exception.*;
-import syntax.structure.ClassDecl;
-import syntax.structure.ConstructorDecl;
 import syntax.structure.Program;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -120,7 +115,7 @@ public class TastTests {
     }
 
     @Test
-    @DisplayName("EmptyClassTest")
+    @DisplayName("Class Test")
     void emptyClass_OK() {
 
         Program expectedTast = TestData.getProgrammWithEmptyClassTAST("EmptyClassTest");
@@ -222,7 +217,7 @@ public class TastTests {
 
 
     @Test
-    @DisplayName("Incorrect new Assign at Field")
+    @DisplayName("Unknown new Assign at Field")
     void tryToAssignUnknownTyp_EXCEPTION() {
 
         Program actualAST = null;
@@ -250,5 +245,18 @@ public class TastTests {
         }
     }
 
+    @Test
+    @DisplayName("add Typ for ConstructorWithThisAssignTest")
+    void constructorWithThisAssign_OK() {
+
+        Program expectedTast = TestData.getConstructorWithThisAssignTast("CTest");
+
+        Program actualTast = TestData.getConstructorWithThisAssign("CTest");
+
+        SemanticChecker semanticChecker = new SemanticChecker();
+        semanticChecker.check(actualTast);
+
+        assertEquals(expectedTast, actualTast);
+    }
 
 }

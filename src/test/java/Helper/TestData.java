@@ -1,8 +1,6 @@
 package Helper;
 
-import syntax.common.AccessModifier;
-import syntax.common.BaseType;
-import syntax.common.Operator;
+import syntax.common.*;
 import syntax.expression.*;
 import syntax.statement.*;
 import syntax.statementexpression.Assign;
@@ -505,6 +503,81 @@ public class TestData {
         fieldDecl3.setAccessModifier(AccessModifier.PUBLIC);
         fieldDecl3.setType(BaseType.BOOLEAN);
         classDecl.getFieldDeclList().add(fieldDecl3);
+
+        return new Program(cl);
+
+    }
+
+    public static Program getProgrammWithEmptyClassTAST(String identifier) {
+
+        ReferenceType referenceType = new ReferenceType();
+        referenceType.setIdentifier(identifier);
+
+        ArrayList<ConstructorDecl> constructors = new ArrayList<>();
+        ConstructorDecl constructorDecl = new ConstructorDecl(null, null, referenceType);
+        constructors.add(constructorDecl);
+
+        ClassDecl classDecl = new ClassDecl(new ArrayList<>(), new ArrayList<>(), constructors, identifier, null, referenceType);
+        List<ClassDecl> cl = new ArrayList<>();
+        cl.add(classDecl);
+
+        return new Program(cl);
+
+    }
+
+    public static Program getConstructorWithThisAssignTast(String identifier) {
+
+        Vector<ConstructorDecl> constructors = new Vector<>();
+
+        ReferenceType referenceType = new ReferenceType();
+        referenceType.setIdentifier(identifier);
+
+        Block block = new Block();
+        block.setType(referenceType);
+        StatementStmtExpr stm1 = new StatementStmtExpr();
+        Assign assign = new Assign();
+        InstVar instVar = new InstVar();
+        instVar.setExpression(new This());
+        instVar.setIdentifier("aa");
+        instVar.setMyStatic(false);
+        assign.setAssignLeft(instVar);
+        LocalOrFieldVar localOrFieldVar = new LocalOrFieldVar();
+        localOrFieldVar.setIdentifier("aan");
+        assign.setAssignRight(localOrFieldVar);
+        stm1.setStatementExpression(assign);
+        Assign assign2 = new Assign();
+        InstVar instVar2 = new InstVar();
+        instVar2.setExpression(new This());
+        instVar2.setIdentifier("bb");
+        instVar2.setMyStatic(false);
+        assign2.setAssignLeft(instVar2);
+        LocalOrFieldVar localOrFieldVar2 = new LocalOrFieldVar();
+        localOrFieldVar2.setIdentifier("bbn");
+        assign2.setAssignRight(localOrFieldVar2);
+        StatementStmtExpr stm2 = new StatementStmtExpr();
+        stm2.setStatementExpression(assign2);
+        block.setStatementList(List.of(stm1, stm2));
+
+        List<ParameterDecl> parameters = Arrays.asList(new ParameterDecl("aan", BaseType.INT), new ParameterDecl("bbn", BaseType.INT));
+        ConstructorDecl constructorDecl = new ConstructorDecl(parameters, block, referenceType);
+
+        constructors.add(constructorDecl);
+
+        ClassDecl classDecl = new ClassDecl(new ArrayList<>(), new ArrayList<>(), constructors, identifier, null, referenceType);
+        List<ClassDecl> cl = new ArrayList<>();
+        cl.add(classDecl);
+
+        FieldDecl fieldDecl = new FieldDecl();
+        fieldDecl.setIdentifier("aa");
+        fieldDecl.setAccessModifier(AccessModifier.PRIVATE);
+        fieldDecl.setType(BaseType.INT);
+        classDecl.getFieldDeclList().add(fieldDecl);
+
+        FieldDecl fieldDecl2 = new FieldDecl();
+        fieldDecl2.setIdentifier("bb");
+        fieldDecl2.setAccessModifier(AccessModifier.PRIVATE);
+        fieldDecl2.setType(BaseType.INT);
+        classDecl.getFieldDeclList().add(fieldDecl2);
 
         return new Program(cl);
 
