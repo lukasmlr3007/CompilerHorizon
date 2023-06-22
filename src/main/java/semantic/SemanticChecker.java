@@ -442,7 +442,7 @@ public class SemanticChecker implements ISemanticVisitor {
                 ConstructorDecl newConstructorDecl = new ConstructorDecl();
                 TypeCheckResult result = newConstructorDecl.accept(this);
                 isValid = isValid && result.isValid();
-                classDecl.getConstructorDeclList().add(newConstructorDecl); // TODO setze ich constructors?!
+                classDecl.getConstructorDeclList().add(newConstructorDecl);
             }
             else for (ConstructorDecl constructorDecl : classDecl.getConstructorDeclList()) {
                 TypeCheckResult result = constructorDecl.accept(this);
@@ -493,8 +493,6 @@ public class SemanticChecker implements ISemanticVisitor {
     public TypeCheckResult check(FieldDecl fieldDecl) {
 
         boolean isValid = true;
-
-        // TODO implement check if field is already declared in class
 
         boolean doesExist = TypeHelper.doesTypeExist(fieldDecl.getType(), context);
         isValid = isValid && doesExist;

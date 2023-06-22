@@ -16,8 +16,4 @@ public class TestHelper {
 
         return out;
     }
-
-    public static Program getFileAsProgram(String fileName) {
-        return null; // TODO
-    }
 }
