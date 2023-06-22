@@ -120,12 +120,14 @@ public class CodeGenTests {
 
             assertEquals(o.getClass().getName(), "ConstructorWithThisAssign");
 
-        } catch (InvocationTargetException | InstantiationException | RuntimeException | NoSuchMethodException | NoSuchFieldException | IllegalAccessException e) {
+        } catch (InvocationTargetException | InstantiationException | RuntimeException
+                 | NoSuchMethodException | NoSuchFieldException | IllegalAccessException e) {
 
             fail(e.getMessage());
 
         }
 
     }
-
 }
+
+
