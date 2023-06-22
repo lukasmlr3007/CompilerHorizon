@@ -44,11 +44,8 @@ public class TastTests {
 
             assertNotNull(typeCheckResult);
 
-            if (typeCheckResult != null) {
-
-                assertFalse(typeCheckResult.isValid());
-                assertEquals(AlreadyDefinedException.class, semantikCheck.getErrors().get(0).getClass());
-            }
+            assertFalse(typeCheckResult.isValid());
+            assertEquals(AlreadyDefinedException.class, semantikCheck.getErrors().get(0).getClass());
 
         }
     }
@@ -75,11 +72,8 @@ public class TastTests {
 
             assertNotNull(typeCheckResult);
 
-            if (typeCheckResult != null) {
-
-                assertFalse(typeCheckResult.isValid());
-                assertEquals(AlreadyDefinedException.class,semantikCheck.getErrors().get(0).getClass());
-            }
+            assertFalse(typeCheckResult.isValid());
+            assertEquals(AlreadyDefinedException.class,semantikCheck.getErrors().get(0).getClass());
 
         }
     }
@@ -106,10 +100,8 @@ public class TastTests {
 
             assertNotNull(typeCheckResult);
 
-            if (typeCheckResult != null) {
-                assertFalse(typeCheckResult.isValid());
-                assertEquals(NotVisibleException.class, semantikCheck.getErrors().get(0).getClass());
-            }
+            assertFalse(typeCheckResult.isValid());
+            assertEquals(NotVisibleException.class, semantikCheck.getErrors().get(0).getClass());
 
         }
     }
@@ -150,10 +142,8 @@ public class TastTests {
 
             assertNotNull(typeCheckResult);
 
-            if (typeCheckResult != null) {
-                assertFalse(typeCheckResult.isValid());
-                assertEquals(NotVisibleException.class, semantikCheck.getErrors().get(0).getClass());
-            }
+            assertFalse(typeCheckResult.isValid());
+            assertEquals(NotVisibleException.class, semantikCheck.getErrors().get(0).getClass());
         }
     }
 
@@ -179,10 +169,8 @@ public class TastTests {
 
             assertNotNull(typeCheckResult);
 
-            if (typeCheckResult != null) {
-                assertFalse(typeCheckResult.isValid());
-                assertEquals(FieldNotFoundException.class, semantikCheck.getErrors().get(0).getClass());
-            }
+            assertFalse(typeCheckResult.isValid());
+            assertEquals(FieldNotFoundException.class, semantikCheck.getErrors().get(0).getClass());
         }
     }
 
@@ -208,10 +196,8 @@ public class TastTests {
 
             assertNotNull(typeCheckResult);
 
-            if (typeCheckResult != null) {
-                assertFalse(typeCheckResult.isValid());
-                assertEquals(TypeMismatchException.class, semantikCheck.getErrors().get(1).getClass());
-            }
+            assertFalse(typeCheckResult.isValid());
+            assertEquals(TypeMismatchException.class, semantikCheck.getErrors().get(1).getClass());
         }
     }
 
@@ -238,10 +224,8 @@ public class TastTests {
 
             assertNotNull(typeCheckResult);
 
-            if (typeCheckResult != null) {
-                assertFalse(typeCheckResult.isValid());
-                assertEquals(TypeUnknownException.class, semantikCheck.getErrors().get(1).getClass());
-            }
+            assertFalse(typeCheckResult.isValid());
+            assertEquals(TypeUnknownException.class, semantikCheck.getErrors().get(1).getClass());
         }
     }
 
